@@ -1,0 +1,156 @@
+- name: Check NVIDIA artifacts against the locked installation
+  vars:
+    kernel_release: "{{ package_lock.packages[package_lock.kernel_package].version | replace(package_lock.kernel_package + '-', '') }}"
+    nvidia_version: "{{ package_lock.packages['nvidia-open-dkms'].version | regex_replace('^nvidia-open-dkms-', '') | regex_replace('_[0-9]+$', '') }}"
+    nvidia_modules: [nvidia, nvidia_modeset, nvidia_uvm, nvidia_drm]
+    initramfs_path: "/boot/initramfs-{{ kernel_release }}.img"
+  block:
+    - name: Inspect the actual DKMS build and installation state
+      ansible.builtin.command: dkms status
+      register: dkms_state
+      changed_when: false
+
+    - name: Require a built module for the declared kernel
+      ansible.builtin.assert:
+        that:
+          - "('nvidia-open-dkms/' + nvidia_version + ', ' + kernel_release + ', ' + package_lock.architecture + ': installed') in dkms_state.stdout.splitlines()"
+
+    # Read the installed modules independently of DKMS's status database.
+    - name: Read metadata from each required NVIDIA module
+      ansible.builtin.command:
+        argv: [modinfo, -k, "{{ kernel_release }}", "{{ item }}"]
+      loop: "{{ nvidia_modules }}"
+      register: nvidia_metadata
+      changed_when: false
+
+    - name: Require the locked driver and kernel in every module
+      ansible.builtin.assert:
+        that:
+          - item.stdout | regex_findall('(?m)^version:\s+(\S+)') == [nvidia_version]
+          - item.stdout | regex_findall('(?m)^vermagic:\s+(\S+)') == [kernel_release]
+          - item.stdout | regex_findall('(?m)^name:\s+(\S+)') == [item.item]
+      loop: "{{ nvidia_metadata.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+
+    - name: Identify each installed module's ELF architecture
+      ansible.builtin.command:
+        argv:
+          - file
+          - --brief
+          - --uncompress
+          - >-
+            {{ item.stdout | regex_findall('(?m)^filename:\s+(\S+)') | first }}
+      loop: "{{ nvidia_metadata.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+      register: nvidia_elf
+      changed_when: false
+
+    - name: Require native x86_64 module artifacts
+      ansible.builtin.assert:
+        that:
+          - package_lock.architecture == 'x86_64'
+          - item.stdout.startswith('ELF 64-bit LSB relocatable, x86-64,')
+      loop: "{{ nvidia_elf.results }}"
+      loop_control:
+        label: "{{ item.item.item }}"
+
+    # depmod can report symbol errors while returning zero. Check its diagnostics
+    # as well as its exit status, and leave the installed dependency indexes intact.
+    - name: Validate kernel exports and available symbol versions
+      ansible.builtin.shell: >-
+        depmod --all --dry-run --errsyms
+        --symvers {{ ('/lib/modules/' + kernel_release + '/build/Module.symvers') | quote }}
+        {{ kernel_release | quote }} >/dev/null
+      register: module_symbols
+      changed_when: false
+      failed_when: module_symbols.rc != 0 or module_symbols.stderr | length > 0
+
+    - name: Resolve module dependencies without loading them
+      ansible.builtin.command:
+        argv: [modprobe, --set-version, "{{ kernel_release }}", --show-depends, "{{ item }}"]
+      loop: "{{ nvidia_modules }}"
+      register: nvidia_dependencies
+      changed_when: false
+
+    - name: Require each dependency plan to include the requested module
+      ansible.builtin.assert:
+        that:
+          - (item.0.stdout | regex_findall('(?m)^filename:\s+(\S+)') | first) in (item.1.stdout | regex_findall('(?m)^insmod (\S+)'))
+      loop: "{{ nvidia_metadata.results | zip(nvidia_dependencies.results) | list }}"
+      loop_control:
+        label: "{{ item.0.item }}"
+
+    - name: Inspect resolved modules and their declared firmware
+      ansible.builtin.stat:
+        path: "{{ item }}"
+        follow: true
+        checksum_algorithm: sha256
+      loop: >-
+        {{ (nvidia_dependencies.results | map(attribute='stdout') | join('\n') |
+            regex_findall('(?m)^insmod (\S+)') | unique | list) +
+           (nvidia_metadata.results | map(attribute='stdout') | join('\n') |
+            regex_findall('(?m)^firmware:\s+(\S+)') |
+            map('regex_replace', '^', '/lib/firmware/') | unique | list) }}
+      register: nvidia_artifacts
+      loop_control:
+        label: "{{ item }}"
+
+    - name: Require every resolved artifact to be installed
+      ansible.builtin.assert:
+        that: item.stat.isreg | default(false)
+      loop: "{{ nvidia_artifacts.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+
+    - name: Create a temporary directory for inspecting the boot archive
+      ansible.builtin.tempfile:
+        state: directory
+        prefix: wdc-initramfs-
+      register: initramfs_directory
+      changed_when: false
+
+    - name: Validate the generated initramfs
+      block:
+        - name: Unpack the actual boot archive with dracut's native reader
+          ansible.builtin.command:
+            argv: [lsinitrd, --unpack, "{{ initramfs_path }}"]
+            chdir: "{{ initramfs_directory.path }}"
+          changed_when: false
+
+        - name: Inspect the boot copies of resolved modules and firmware
+          ansible.builtin.stat:
+            path: "{{ initramfs_directory.path }}{{ item.item }}"
+            follow: true
+            checksum_algorithm: sha256
+          loop: "{{ nvidia_artifacts.results }}"
+          loop_control:
+            label: "{{ item.item }}"
+          register: boot_artifacts
+
+        - name: Require the boot archive to contain the installed artifacts
+          ansible.builtin.assert:
+            that:
+              - item.1.stat.isreg | default(false)
+              - item.1.stat.checksum | default('') == item.0.stat.checksum
+          loop: "{{ nvidia_artifacts.results | zip(boot_artifacts.results) | list }}"
+          loop_control:
+            label: "{{ item.0.item }}"
+
+        - name: Read the installed and archived NVIDIA boot policy
+          ansible.builtin.slurp:
+            src: "{{ item }}/etc/modprobe.d/wdc-nvidia.conf"
+          loop: ['', "{{ initramfs_directory.path }}"]
+          register: boot_policy
+
+        - name: Require the boot archive to retain the installed NVIDIA policy
+          ansible.builtin.assert:
+            that: boot_policy.results[0].content == boot_policy.results[1].content
+
+      always:
+        - name: Remove the temporary boot archive contents
+          ansible.builtin.file:
+            path: "{{ initramfs_directory.path }}"
+            state: absent
+          changed_when: false

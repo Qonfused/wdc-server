@@ -1,0 +1,86 @@
+- name: Prepare locked installation archives
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+    base_lock: "{{ lookup('file', 'locks/base.json') | from_json }}"
+    collection_lock: "{{ lookup('file', 'locks/collections.json') | from_json }}"
+    package_lock_file: "{{ playbook_dir }}/locks/packages.json"
+    package_output_directory: "{{ playbook_dir }}/.work/packages"
+    artifact_source: ''
+    package_cache_paths:
+      - "{{ playbook_dir }}/.work/updates"
+      - "{{ playbook_dir }}/.work/package-builds"
+      - /var/cache/xbps
+  tasks:
+    - name: Require a declared archive source
+      tags: always
+      ansible.builtin.assert:
+        that: artifact_source == '' or artifact_source is match('^(https?|file)://')
+        fail_msg: artifact_source must be an HTTP(S) or file URL for the verified input directory.
+
+    - name: Restore the locked input release
+      ansible.builtin.command:
+        argv:
+          - "{{ ansible_playbook_python }}"
+          - "{{ playbook_dir }}/scripts/inputs.py"
+          - restore
+          - "{{ playbook_dir }}/locks/input-release.json"
+          - "{{ playbook_dir }}/.work/inputs"
+          - --project
+          - "{{ playbook_dir }}"
+      changed_when: false
+      when: artifact_source == ''
+      tags: inputs
+
+    - name: Use the restored input release
+      ansible.builtin.set_fact:
+        artifact_source: "file://{{ playbook_dir }}/.work/inputs"
+      when: artifact_source == ''
+      tags: inputs
+
+    - name: Create artifact directories
+      tags: always
+      ansible.builtin.file:
+        path: "{{ playbook_dir }}/.work/{{ item }}"
+        state: directory
+        mode: "0755"
+      loop: [base, packages, collection-archives, collections]
+
+    - name: Obtain locked Ansible collections
+      tags: collections
+      ansible.builtin.get_url:
+        url: "{{ artifact_source.rstrip('/') + '/collection-archives/' + item.file if artifact_source else item.url }}"
+        dest: "{{ playbook_dir }}/.work/collection-archives/{{ item.file }}"
+        checksum: "sha256:{{ item.sha256 }}"
+        mode: "0644"
+      loop: "{{ collection_lock.archives }}"
+
+    - name: Install locked Ansible collections
+      tags: collections
+      ansible.builtin.command:
+        argv: "{{ ['ansible-galaxy', 'collection', 'install', '--force', '--no-deps', '--collections-path', playbook_dir + '/.work/collections'] + (collection_lock.archives | map(attribute='file') | map('regex_replace', '^', playbook_dir + '/.work/collection-archives/') | list) }}"
+        creates: "{{ playbook_dir }}/.work/collections/{{ lookup('file', 'locks/collections.json') | hash('sha256') }}.installed"
+      register: collection_install
+
+    - name: Mark the locked Ansible collections as installed
+      tags: collections
+      ansible.builtin.file:
+        path: "{{ playbook_dir }}/.work/collections/{{ lookup('file', 'locks/collections.json') | hash('sha256') }}.installed"
+        state: touch
+        mode: "0644"
+      when: collection_install.changed
+
+    - name: Obtain the pinned Void rootfs
+      ansible.builtin.get_url:
+        url: "{{ artifact_source.rstrip('/') + '/base/rootfs.tar.xz' if artifact_source else base_lock.url }}"
+        dest: "{{ playbook_dir }}/.work/base/rootfs.tar.xz"
+        checksum: "sha256:{{ base_lock.sha256 }}"
+        mode: "0644"
+
+    - name: Build the local XBPS repository
+      ansible.builtin.command:
+        argv: "{{ [ansible_playbook_python, playbook_dir + '/scripts/prepare-packages.py', package_lock_file, package_output_directory] + (package_cache_paths | map('regex_replace', '^', '--cache=') | list) + (['--repository-url', artifact_source.rstrip('/') + '/packages'] if artifact_source else []) }}"
+      register: package_repository
+      changed_when: (package_repository.stdout | from_json).changed

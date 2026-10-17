@@ -1,0 +1,118 @@
+#
+# Driver packages and the open kernel module
+#
+
+- name: Create the package substitution directory
+  tags: packages
+  ansible.builtin.file:
+    path: "{{ package_config_directory | default('/etc/xbps.d') }}"
+    state: directory
+    mode: "0755"
+
+# Select the open module when userspace depends on the generic DKMS package.
+- name: Select the open NVIDIA kernel module
+  tags: packages
+  ansible.builtin.copy:
+    dest: "{{ package_config_directory | default('/etc/xbps.d') }}/wdc-nvidia.conf"
+    mode: "0644"
+    content: |
+      virtualpkg=nvidia-dkms:nvidia-open-dkms
+
+- name: Install the locked NVIDIA driver, kernel and matching headers
+  ansible.builtin.include_tasks:
+    file: void/packages.yml
+    apply:
+      tags: packages
+  tags: packages
+  vars:
+    # Preserve the externally built GPU stack until a matching upgrade is selected.
+    package_update_keep: ['nvidia*']
+    requested_packages:
+      - "{{ package_lock.kernel_package }}"
+      - "{{ package_lock.kernel_package }}-headers"
+      - nvidia-open-dkms
+      - nvidia
+      - nvtop
+
+#
+# Modesetting and initramfs configuration
+#
+
+- name: Create native configuration directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop: [/etc/modprobe.d, /etc/dracut.conf.d]
+
+- name: Configure NVIDIA modesetting
+  ansible.builtin.copy:
+    dest: /etc/modprobe.d/wdc-nvidia.conf
+    mode: "0644"
+    content: |
+      blacklist nouveau
+      options nouveau modeset=0
+      install nouveau /bin/false
+      options nvidia_drm modeset=1
+  notify: Rebuild initramfs
+
+- name: Include NVIDIA modules in the initramfs
+  ansible.builtin.copy:
+    dest: /etc/dracut.conf.d/wdc-nvidia.conf
+    mode: "0644"
+    content: |
+      add_drivers+=" nvidia nvidia_modeset nvidia_uvm nvidia_drm "
+      # Generic images otherwise omit the policy under /etc/modprobe.d.
+      install_items+=" /etc/modprobe.d/wdc-nvidia.conf "
+  notify: Rebuild initramfs
+
+#
+# Power policy for selected Blackwell boards
+#
+
+- name: Install the model-specific NVIDIA power policy
+  ansible.builtin.copy:
+    dest: /usr/local/sbin/wdc-nvidia-power-limit
+    mode: "0755"
+    content: |
+      #!/bin/sh
+      # Limit the high-power SM120 boards affected by the GSP issue.
+      # The RTX PRO 6000 Max-Q has a 300 W ceiling and is intentionally excluded.
+      devices=$(nvidia-smi --query-gpu=uuid,name --format=csv,noheader 2>/dev/null) || exit 0
+      [ -n "$devices" ] || exit 0
+
+      printf '%s\n' "$devices" | while IFS=, read -r uuid model; do
+          case "$model" in
+              *"GeForce RTX 5090" | *"RTX PRO 6000 Blackwell Workstation Edition" | *"RTX PRO 6000 Blackwell Server Edition") ;;
+              *) continue ;;
+          esac
+
+          nvidia-smi -i "$uuid" -pm 1 || logger -t wdc-nvidia-power "Could not enable persistence mode for $uuid ($model)"
+          nvidia-smi -i "$uuid" -pl 550 || logger -t wdc-nvidia-power "Could not set 550 W for $uuid ($model)"
+      done
+
+- name: Preserve a boot entry point for the NVIDIA power policy
+  ansible.builtin.copy:
+    dest: /etc/rc.local
+    mode: "0755"
+    force: false
+    content: |
+      #!/bin/sh
+
+- name: Remove the host's unconditional NVIDIA startup commands
+  ansible.builtin.lineinfile:
+    path: /etc/rc.local
+    regexp: "^{{ item | regex_escape }}$"
+    state: absent
+  loop:
+    - '# Power limits for RTX 5090'
+    - 'nvidia-smi -pm 1'
+    - 'nvidia-smi -pl 550'
+
+- name: Run the NVIDIA power policy during Void startup
+  ansible.builtin.blockinfile:
+    path: /etc/rc.local
+    marker: '# {mark} WDC NVIDIA power policy'
+    insertbefore: '^exit 0$'
+    block: |
+      /usr/local/sbin/wdc-nvidia-power-limit

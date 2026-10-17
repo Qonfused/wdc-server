@@ -1,0 +1,104 @@
+- name: Install desktop packages
+  ansible.builtin.include_tasks:
+    file: ../void/packages.yml
+    apply:
+      tags: packages
+  tags: packages
+  vars:
+    requested_packages:
+      - cosmic
+      - upower
+      - bluez
+      - rtkit
+      - alsa-pipewire
+      - gnome-keyring
+      - xdg-desktop-portal-gtk
+
+#
+# PipeWire and PulseAudio configuration
+#
+
+- name: Create desktop configuration directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop: [/etc/pipewire/pipewire.conf.d, /etc/alsa/conf.d, /etc/xdg/autostart]
+
+- name: Install package-provided PipeWire configuration links
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - src: /usr/share/examples/wireplumber/10-wireplumber.conf
+      dest: /etc/pipewire/pipewire.conf.d/10-wireplumber.conf
+    - src: /usr/share/examples/pipewire/20-pipewire-pulse.conf
+      dest: /etc/pipewire/pipewire.conf.d/20-pipewire-pulse.conf
+    - src: /usr/share/applications/pipewire.desktop
+      dest: /etc/xdg/autostart/pipewire.desktop
+    - src: /usr/share/alsa/alsa.conf.d/50-pipewire.conf
+      dest: /etc/alsa/conf.d/50-pipewire.conf
+    - src: /usr/share/alsa/alsa.conf.d/99-pipewire-default.conf
+      dest: /etc/alsa/conf.d/99-pipewire-default.conf
+
+- name: Check for a system PulseAudio service
+  ansible.builtin.stat:
+    path: /etc/runit/runsvdir/default/pulseaudio
+  register: retired_audio_service
+  when: target_running
+
+- name: Stop system PulseAudio to use PipeWire's user-session server
+  community.general.runit:
+    name: pulseaudio
+    state: stopped
+    enabled: false
+  when: target_running and retired_audio_service.stat.islnk | default(false)
+
+- name: Disable system PulseAudio to use PipeWire's user-session server
+  ansible.builtin.file:
+    path: /etc/runit/runsvdir/default/pulseaudio
+    state: absent
+
+#
+# Elogind over D-Bus activation
+#
+# The package activates elogind through D-Bus when a login needs it. Running its
+# service as well can leave runit retrying after the activated daemon takes over.
+#
+
+- name: Check for a separately enabled elogind service
+  ansible.builtin.stat:
+    path: /etc/runit/runsvdir/default/elogind
+  register: elogind_service
+  when: target_running
+
+- name: Stop the separate elogind launcher on a running target
+  community.general.runit:
+    name: elogind
+    state: stopped
+    enabled: false
+  when: target_running and elogind_service.stat.islnk | default(false)
+
+- name: Leave elogind startup to native D-Bus activation
+  ansible.builtin.file:
+    path: /etc/runit/runsvdir/default/elogind
+    state: absent
+
+#
+# Enable desktop services
+#
+
+- name: Enable desktop services for the next boot
+  ansible.builtin.file:
+    src: "/etc/sv/{{ item }}"
+    dest: "/etc/runit/runsvdir/default/{{ item }}"
+    state: link
+  loop: [dbus, bluetoothd]
+
+- name: Start desktop services on a running target
+  community.general.runit:
+    name: "{{ item }}"
+    state: started
+  loop: [dbus, bluetoothd]
+  when: target_running

@@ -1,0 +1,55 @@
+- name: Install packages for the selected optional capabilities
+  ansible.builtin.include_tasks:
+    file: packages.yml
+    apply:
+      tags: packages
+  tags: packages
+  vars:
+    requested_packages: >-
+      {{ package_groups | dict2items
+         | selectattr('key', 'in', profiles)
+         | map(attribute='value') | flatten | unique | list }}
+    package_groups:
+      development:
+        #
+        # Build and debugging tools
+        #
+        # GCC brings binutils and libc headers through its package dependencies.
+        #
+        - gcc
+        - make
+        - cmake
+        - go
+        - gdb
+
+        #
+        # Monitoring and terminal sessions
+        #
+        - tmux
+        - glances
+
+        #
+        # Repository tooling
+        #
+        - git-lfs
+        - github-cli
+
+      storage-network:
+        #
+        # ExFAT repair, formatting and FUSE mounts
+        #
+        - exfat-utils
+        - fuse-exfat
+
+        #
+        # Cloud-storage mounts and network file sharing
+        #
+        - rclone
+        - samba
+
+        #
+        # Software RAID tools
+        #
+        # No array is configured here.
+        #
+        - mdadm

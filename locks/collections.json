@@ -1,0 +1,19 @@
+{
+  "archives": [
+    {
+      "file": "community-docker-5.3.0.tar.gz",
+      "url": "https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-docker-5.3.0.tar.gz",
+      "sha256": "fd721d1ec3dca67a5c665ab6a43cf137f4114de18cb31afe1370efc76f9f8dfa"
+    },
+    {
+      "file": "community-general-13.4.0.tar.gz",
+      "url": "https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-general-13.4.0.tar.gz",
+      "sha256": "efd1c0b5dc6f89b9667e4bd77f2426c30545861910dba188593871095ede1804"
+    },
+    {
+      "file": "community-library_inventory_filtering_v1-1.1.5.tar.gz",
+      "url": "https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-library_inventory_filtering_v1-1.1.5.tar.gz",
+      "sha256": "cbb9e86c5b1720df21e940cedcd2f3e1226c38262623e090a883712610733851"
+    }
+  ]
+}

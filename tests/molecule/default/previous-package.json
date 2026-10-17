@@ -1,0 +1,12 @@
+{
+  "docker-cli": {
+    "version": "docker-cli-29.3.0_1",
+    "architecture": "x86_64",
+    "sha256": "5ee3c5035326ef12d92e8fcf61ddbf639ecf4a02afd842ceabccce8fc4c264d0"
+  },
+  "tmux": {
+    "version": "tmux-3.5a_1",
+    "architecture": "x86_64",
+    "sha256": "3436aef4da410acc1660f9c89794a1063d72f91a00096af22c00b8ebbc0d5f19"
+  }
+}

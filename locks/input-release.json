@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "lock_sha256": {
+    "packages.json": "2e266cb742643e8ef3070140afb420e2a49b5915854b9faa2b19a51207e1c7a3",
+    "base.json": "f2e42eb80eef47f4a244b6084febd9d87892ec648643fc2bdde5f7ea5fa9048c",
+    "collections.json": "2ee87270b355e13d6cdccc99b4aef824906af047c5b562b6bda6b7fa860f4a79",
+    "builds.yml": "ad36f351e022e3d6c5928f1814d34ece871806d4232bf5becd73d6079598b983"
+  },
+  "source": "https://github.com/Qonfused/wdc-server/releases/download/inputs-211257240d58/",
+  "parts": [
+    {
+      "file": "inputs-001.tar",
+      "size": 1169848320,
+      "sha256": "64d956dceb55c558d84e85193ddaebd38535a10098eeb7ac1425eb37c43c5bcb"
+    },
+    {
+      "file": "inputs-002.tar",
+      "size": 1499688960,
+      "sha256": "4e60539ee445745a70f09d181ace7cbe5022695617f7bc1cd7bf50a58dbbf0be"
+    },
+    {
+      "file": "inputs-003.tar",
+      "size": 24197120,
+      "sha256": "7b2ad4196af93422bdc745ea0e6e17a0b981a651e7e008779c5fa84c0bd62b62"
+    }
+  ]
+}

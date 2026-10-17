@@ -1,0 +1,64 @@
+- name: Exercise drift correction and a real package update
+  hosts: wdc
+  gather_facts: false
+  vars:
+    previous_package: "{{ lookup('file', 'previous-package.json') | from_json }}"
+  tasks:
+    - name: Install the previous locked tmux version
+      ansible.builtin.command:
+        argv: [xbps-install, --ignore-conf-repos, --repository, /opt/wdc-packages-previous, -fy, "{{ previous_package.tmux.version }}"]
+
+    - name: Confirm that the previous version is actually installed
+      ansible.builtin.command: xbps-query -p pkgver tmux
+      register: previous_tmux
+      changed_when: false
+
+    - name: Require a real version transition for the update check
+      ansible.builtin.assert:
+        that: previous_tmux.stdout == previous_package.tmux.version
+
+    # Docker itself remains at its pinned version. Only its dependency changes.
+    - name: Install the previous Docker CLI dependency
+      ansible.builtin.command:
+        argv: [xbps-install, --ignore-conf-repos, --repository, /opt/wdc-packages-previous, -fy, "{{ previous_package['docker-cli'].version }}"]
+
+    - name: Keep the dependency in automatic installation mode
+      ansible.builtin.command: xbps-pkgdb -m auto docker-cli
+
+    - name: Confirm the dependency drift before reconciliation
+      ansible.builtin.command: xbps-query -p pkgver docker-cli
+      register: previous_docker_cli
+      changed_when: false
+
+    - name: Require the older dependency to be installed
+      ansible.builtin.assert:
+        that: previous_docker_cli.stdout == previous_package['docker-cli'].version
+
+    - name: Change the DNS policy and permissions
+      ansible.builtin.copy:
+        dest: /etc/resolvconf.conf
+        content: 'name_servers="9.9.9.9"'
+        mode: "0600"
+
+    - name: Change the NVIDIA modesetting policy
+      ansible.builtin.copy:
+        dest: /etc/modprobe.d/wdc-nvidia.conf
+        content: "options nvidia_drm modeset=0\n"
+        mode: "0644"
+
+    - name: Remove a managed desktop link
+      ansible.builtin.file:
+        path: /etc/pipewire/pipewire.conf.d/10-wireplumber.conf
+        state: absent
+
+    - name: Enable the retired PulseAudio service link
+      ansible.builtin.file:
+        src: /etc/sv/pulseaudio
+        dest: /etc/runit/runsvdir/default/pulseaudio
+        state: link
+        force: true
+
+    - name: Disable the Docker boot service
+      ansible.builtin.file:
+        path: /etc/runit/runsvdir/default/docker
+        state: absent

@@ -1,0 +1,12 @@
+- name: Install Intel graphics packages
+  ansible.builtin.include_tasks:
+    file: void/packages.yml
+    apply:
+      tags: packages
+  tags: packages
+  vars:
+    requested_packages:
+      # Mesa's shared DRI package supplies the Intel OpenGL drivers.
+      - mesa-dri
+      - mesa-vulkan-intel
+      - intel-media-driver

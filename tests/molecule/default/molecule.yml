@@ -1,0 +1,31 @@
+dependency:
+  enabled: false
+ansible:
+  env:
+    ANSIBLE_COLLECTIONS_PATH: "${MOLECULE_PROJECT_DIRECTORY}/.work/collections"
+  executor:
+    backend: ansible-playbook
+    args:
+      ansible_playbook:
+        - "--inventory=${MOLECULE_SCENARIO_DIRECTORY}/inventory.yml"
+  playbooks:
+    create: create.yml
+    converge: converge.yml
+    destroy: destroy.yml
+    side_effect: side_effect.yml
+    verify: verify.yml
+scenario:
+  create_sequence: [create]
+  converge_sequence: [converge]
+  test_sequence:
+    - destroy
+    - syntax
+    - create
+    - converge
+    - idempotence
+    - verify
+    - side_effect
+    - converge
+    - idempotence
+    - verify
+    - destroy

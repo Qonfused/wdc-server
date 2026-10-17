@@ -1,0 +1,159 @@
+- name: Configure the declared Void installation
+  hosts: "{{ deployment_hosts | default('wdc') }}"
+  gather_facts: false
+  become: true
+  force_handlers: true
+  vars:
+    package_lock_file: "{{ playbook_dir }}/locks/packages.json"
+    package_lock: "{{ lookup('file', package_lock_file) | from_json }}"
+  pre_tasks:
+    - name: Require an explicit deployment target
+      ansible.builtin.assert:
+        that: ansible_host | default(inventory_hostname) | length > 0
+        fail_msg: Set WDC_TARGET in .env and load it with uv run --env-file .env, or supply an explicit inventory.
+      delegate_to: localhost
+      become: false
+
+    - name: Select defaults for omitted deployment inputs
+      tags: always
+      ansible.builtin.set_fact:
+        profiles: "{{ profiles | default(default_profiles) }}"
+        package_repository: "{{ package_repository | default('/opt/wdc-packages') }}"
+        target_running: "{{ target_running | default(false) }}"
+        generate_boot_files: "{{ generate_boot_files | default(false) }}"
+        generate_initramfs: "{{ generate_initramfs | default(generate_boot_files | default(false)) }}"
+        host_user: "{{ host_user | default('csqua') }}"
+
+    - name: Validate selected concerns
+      tags: always
+      ansible.builtin.assert:
+        that:
+          - profiles | difference((configuration_profiles | list) + (application_profiles | list) + ['development', 'storage-network']) | length == 0
+        fail_msg: Select declared profiles.
+      delegate_to: localhost
+      become: false
+
+    - name: Require artifacts for the selected kernel
+      ansible.builtin.assert:
+        that:
+          - package_lock.kernel_package in package_lock.packages
+          - "'nvidia' not in profiles or (package_lock.kernel_package + '-headers') in package_lock.packages"
+        fail_msg: Lock the selected kernel and its matching headers before installation.
+      delegate_to: localhost
+      become: false
+
+    - name: Require NVIDIA's headers to match the selected kernel release
+      ansible.builtin.assert:
+        that:
+          - package_lock.packages[kernel_headers].version == kernel_headers + '-' + kernel_release
+        fail_msg: The selected kernel and headers must have the same release and package revision.
+      vars:
+        kernel_headers: "{{ package_lock.kernel_package }}-headers"
+        kernel_release: "{{ package_lock.packages[package_lock.kernel_package].version | replace(package_lock.kernel_package + '-', '') }}"
+      when: "'nvidia' in profiles"
+      delegate_to: localhost
+      become: false
+
+    - name: Require matching NVIDIA userspace and kernel-module releases
+      ansible.builtin.assert:
+        that:
+          - userspace_release == module_release
+        fail_msg: Select matching NVIDIA userspace and open-module releases in the package lock.
+      vars:
+        userspace_release: "{{ package_lock.packages.nvidia.version | regex_replace('^nvidia-', '') | regex_replace('_[0-9]+$', '') }}"
+        module_release: >-
+          {{ package_lock.packages['nvidia-open-dkms'].version
+             | regex_replace('^nvidia-open-dkms-', '') | regex_replace('_[0-9]+$', '') }}
+      when: "'nvidia' in profiles"
+      delegate_to: localhost
+      become: false
+
+    # The initial Void rootfs has no Python. Install it before running Ansible modules.
+    - name: Bootstrap the locked package manager and Python
+      ansible.builtin.raw: |
+        set -eu
+        grep -q '^ID="void"$' /etc/os-release
+        test "$(xbps-query -p architecture glibc)" = x86_64
+        test -f {{ (package_repository + '/lock.json') | quote }}
+        test "$(sha256sum {{ (package_repository + '/lock.json') | quote }} | cut -d ' ' -f 1)" = {{ lookup('file', package_lock_file, rstrip=false) | hash('sha256') | quote }}
+        if [ "$(xbps-query -p pkgver xbps)" != {{ package_lock.packages.xbps.version | quote }} ] || ! test -x /usr/bin/python3; then
+          xbps-install --ignore-conf-repos --repository {{ package_repository | quote }} -uy xbps
+          test "$(xbps-query -p pkgver xbps)" = {{ package_lock.packages.xbps.version | quote }}
+          xbps-install --ignore-conf-repos --repository {{ package_repository | quote }} -uy
+          xbps-install --ignore-conf-repos --repository {{ package_repository | quote }} -y {{ package_lock.packages.python3.version | quote }}
+          echo WDC_BOOTSTRAP_CHANGED
+        fi
+      register: python_bootstrap
+      changed_when: "'WDC_BOOTSTRAP_CHANGED' in python_bootstrap.stdout"
+      when: not ansible_check_mode
+
+    - name: Identify the target system
+      ansible.builtin.setup:
+        gather_subset: [min, virtual]
+
+    - name: Require Void x86_64 glibc
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.distribution == 'Void'
+          - ansible_facts.architecture == 'x86_64'
+
+    - name: Read the target repository manifest
+      ansible.builtin.slurp:
+        src: "{{ package_repository }}/lock.json"
+      register: repository_manifest
+
+    - name: Require the requested package lock
+      ansible.builtin.assert:
+        that:
+          - repository_manifest.content | b64decode | from_json == package_lock
+        fail_msg: Prepare and mount the package repository for this Git revision.
+
+  tasks:
+    - name: Apply each selected concern
+      tags: always
+      ansible.builtin.include_tasks: "config/{{ concern.value }}"
+      loop: "{{ configuration_profiles | dict2items | selectattr('key', 'in', profiles) | list }}"
+      loop_control:
+        loop_var: concern
+        label: "{{ concern.key }}"
+
+    - name: Install selected optional package groups
+      ansible.builtin.import_tasks: config/void/optional.yml
+      when: profiles | difference((configuration_profiles | list) + (application_profiles | list)) | length > 0
+
+    - name: Configure the user environment
+      ansible.builtin.import_tasks: config/void/user.yml
+      when: "'base' in profiles"
+
+    - name: Configure selected applications
+      tags: always
+      ansible.builtin.include_tasks: "config/{{ application.value }}"
+      loop: "{{ application_profiles | dict2items | selectattr('key', 'in', profiles) | list }}"
+      loop_control:
+        loop_var: application
+        label: "{{ application.key }}"
+
+  post_tasks:
+    - name: Record the selected package roots
+      tags: packages
+      ansible.builtin.copy:
+        dest: "{{ package_selection_file }}"
+        content: "{{ {'profiles': profiles, 'packages': selected_packages, 'keep': selected_package_keeps} | to_nice_json }}\n"
+        mode: "0644"
+      when: collect_packages | default(false)
+
+  handlers:
+    - name: Generate resolver configuration
+      ansible.builtin.command: resolvconf -u
+
+    - name: Rebuild initramfs
+      ansible.builtin.command:
+        argv: [xbps-reconfigure, -f, "{{ package_lock.kernel_package }}"]
+      when: generate_initramfs
+
+    - name: Update GRUB configuration
+      ansible.builtin.command: grub-mkconfig -o /boot/grub/grub.cfg
+      when: generate_boot_files
+
+    - name: Generate locales
+      ansible.builtin.command: xbps-reconfigure -f glibc-locales

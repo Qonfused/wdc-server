@@ -1,0 +1,3847 @@
+{
+  "baseline": "cosmic-void-pr-61599-161246e7",
+  "architecture": "x86_64",
+  "kernel_package": "linux6.12",
+  "packages": {
+    "AppStream": {
+      "version": "AppStream-1.1.2_1",
+      "architecture": "x86_64",
+      "sha256": "48e2e962dadae5a1372612f69325ef348e78efe870a57db73bca0d2afaa56edf"
+    },
+    "MesaLib-devel": {
+      "version": "MesaLib-devel-26.0.6_1",
+      "architecture": "x86_64",
+      "sha256": "90499503d2d2ae18bfd0b78317248abd3df7b56d3c2d9de3c0f69558621385b8"
+    },
+    "NetworkManager": {
+      "version": "NetworkManager-1.56.0_1",
+      "architecture": "x86_64",
+      "sha256": "bdade2e9a170426124577eb1f1abebe2149a0750d40a756123ca875809e5278e"
+    },
+    "SDL2": {
+      "version": "SDL2-2.32.10_1",
+      "architecture": "x86_64",
+      "sha256": "7318716e9921e2e9bdbf93660223d8e5c6a30795008e91044784ba55ffe4d805"
+    },
+    "SDL2_image": {
+      "version": "SDL2_image-2.8.10_1",
+      "architecture": "x86_64",
+      "sha256": "5ee09df30c2442679df05440c5f9b3f33439292477e92e16bb60c5af13157d73"
+    },
+    "SDL3": {
+      "version": "SDL3-3.4.18_1",
+      "architecture": "x86_64",
+      "sha256": "7a546021ed980a5b5eb13f6a52828d0a956c4cae3838621f325fadf5fe288aa9"
+    },
+    "SPIRV-LLVM-Translator21": {
+      "version": "SPIRV-LLVM-Translator21-21.1.7_1",
+      "architecture": "x86_64",
+      "sha256": "bec649f9ab232fcb42a6c92a11d1e74489570c77977160a054e4077530b68914"
+    },
+    "aalib": {
+      "version": "aalib-1.4rc5_3",
+      "architecture": "x86_64",
+      "sha256": "e34d0b042a4abd1fbf50e3a5c61799ec68abccc517ba3ad357f04d6495f94628"
+    },
+    "accountsservice": {
+      "version": "accountsservice-23.13.9_2",
+      "architecture": "x86_64",
+      "sha256": "31a41f47ec514b7734bc01b5cbb52a65e56472598c3c167e878625d51c3fa32b"
+    },
+    "acl": {
+      "version": "acl-2.4.0_1",
+      "architecture": "x86_64",
+      "sha256": "ba6be6b4997073b35f41db2f7fb559f96ff59bfe4ef8d7d82ed2fe3111f90740"
+    },
+    "acpid": {
+      "version": "acpid-2.0.34_4",
+      "architecture": "x86_64",
+      "sha256": "7a7335fd12b643ccf7dcdc5e9a5aa27119fdebfbe5b88ccc255f427bebce8cd5"
+    },
+    "adw-gtk3": {
+      "version": "adw-gtk3-6.4_1",
+      "architecture": "x86_64",
+      "sha256": "cb1a8cccc6e8240f89f5394c19af075b082ce6a12299a39164205978ce2c141d"
+    },
+    "adwaita-icon-theme": {
+      "version": "adwaita-icon-theme-49.0_1",
+      "architecture": "x86_64",
+      "sha256": "a6bf77a7a8501c7873a965bcc4b765f2c4a52799f5c4d01e553412e5f83af41f"
+    },
+    "alsa-lib": {
+      "version": "alsa-lib-1.2.16.1_1",
+      "architecture": "x86_64",
+      "sha256": "afc6bcabe5f8ddc6c2962ff7e8b61ef405c71432b494acc346c138aa46f99057"
+    },
+    "alsa-pipewire": {
+      "version": "alsa-pipewire-1.6.2_1",
+      "architecture": "x86_64",
+      "sha256": "519cec17e8a78203a09084e18dd84f8434eada3541ff2438aa74892680ee0f48"
+    },
+    "alsa-ucm-conf": {
+      "version": "alsa-ucm-conf-1.2.16.1_1",
+      "architecture": "x86_64",
+      "sha256": "f7988f600c29da45cb799af0f9259755cd58d088ab0c18ab45c33d2cab03177b"
+    },
+    "alsa-utils": {
+      "version": "alsa-utils-1.2.16_1",
+      "architecture": "x86_64",
+      "sha256": "eb142206c336ccc0e9bddf4efe8c75fe57b6c30cd0108a1a1d497760fdeb86d4"
+    },
+    "at-spi2-atk": {
+      "version": "at-spi2-atk-2.56.5_1",
+      "architecture": "x86_64",
+      "sha256": "291369e592280a3f6bac625af0a8bc369280e776978167c0574dbcfba5e741e5"
+    },
+    "at-spi2-core": {
+      "version": "at-spi2-core-2.56.5_1",
+      "architecture": "x86_64",
+      "sha256": "c515a98f78610f5d046760664f335247c860008fddfa41ee221ba45536676de1"
+    },
+    "atk": {
+      "version": "atk-2.56.5_1",
+      "architecture": "x86_64",
+      "sha256": "4d4d03e0ceebc05ed42cc73e814642c7407662683165aa7c0c8d577a3bd9556b"
+    },
+    "attr": {
+      "version": "attr-2.5.2_2",
+      "architecture": "x86_64",
+      "sha256": "68914042914500b4cad5a68fb5af256a42ef47abe51a2388876972a109b96e8e"
+    },
+    "attr-devel": {
+      "version": "attr-devel-2.5.2_2",
+      "architecture": "x86_64",
+      "sha256": "80ee6491b9f2d4dce61eb19cc47044221109e4930bf3bc4bfb2857f6d616e036"
+    },
+    "avahi-glib-libs": {
+      "version": "avahi-glib-libs-0.8_9",
+      "architecture": "x86_64",
+      "sha256": "67d1f0d40647565955418e656861b215f327550641fad7cc39e4ee6b4982e918"
+    },
+    "avahi-libs": {
+      "version": "avahi-libs-0.8_2",
+      "architecture": "x86_64",
+      "sha256": "2e29cf513c3fbd94898b92edac07d9a0d96efe22cf6a8f2914b9746011273c1c"
+    },
+    "ayatana-ido": {
+      "version": "ayatana-ido-0.9.3_1",
+      "architecture": "x86_64",
+      "sha256": "010d2f9cb8dd9c8ec4d4a3acb4bee612bafdfa320d4db335b12665e41f437ba5"
+    },
+    "base-files": {
+      "version": "base-files-0.146_1",
+      "architecture": "x86_64",
+      "sha256": "f05449e52ea242f2a817046e6f072525972a69152c962a3b5653b5dba0456328"
+    },
+    "base-system": {
+      "version": "base-system-0.114_2",
+      "architecture": "x86_64",
+      "sha256": "4e0e9894b76eb0a87ce55bf0c9a9f14082f85070e2bc1de092f8fc7d6d7e67d7"
+    },
+    "bash": {
+      "version": "bash-5.3_2",
+      "architecture": "x86_64",
+      "sha256": "183daa83e5d31b93796d3dcd56722ef6f28edd2bcc87b474f2c587e185500458"
+    },
+    "bc": {
+      "version": "bc-1.08.2_1",
+      "architecture": "x86_64",
+      "sha256": "68247b6c49bc062c9cee5d1158e7a23bf689a076204a99d99d2ab0be7c046640"
+    },
+    "binutils": {
+      "version": "binutils-2.44_2",
+      "architecture": "x86_64",
+      "sha256": "dedc3ab5b54769fd76e5c82c19b130ef0c7380a84dd5bdf46135b2e00898fee0"
+    },
+    "binutils-doc": {
+      "version": "binutils-doc-2.44_2",
+      "architecture": "x86_64",
+      "sha256": "db157d56077d0066af113191fd4cfd19499d9f9ea0056a39d6f1e5cde425044d"
+    },
+    "binutils-libs": {
+      "version": "binutils-libs-2.44_2",
+      "architecture": "x86_64",
+      "sha256": "31e83ac9defa77bff9f4a553ce7df0409dde05c0fce9782348162a300099490a"
+    },
+    "blocaled": {
+      "architecture": "x86_64",
+      "sha256": "84db62ee142cc88955c9316ab1219d4a3b04a659e434db54088c4369022968e4",
+      "version": "blocaled-0.7_1"
+    },
+    "bluez": {
+      "version": "bluez-5.78_1",
+      "architecture": "x86_64",
+      "sha256": "aa26479cfbfa6e634a0e7de64019b892e141f914f90c4f68987e8b55e04aaa4c"
+    },
+    "brotli": {
+      "version": "brotli-1.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "a08bab805c6d550a4a4ed822cbf0a81d95ff919007cfaad384dcde23e7317366"
+    },
+    "btrfs-progs": {
+      "version": "btrfs-progs-6.11_1",
+      "architecture": "x86_64",
+      "sha256": "289ee722392caf0cf1dc0cad99cee8a990be2ddefcfc181d9a8fc988f1841160"
+    },
+    "bubblewrap": {
+      "version": "bubblewrap-0.13.0_1",
+      "architecture": "x86_64",
+      "sha256": "85c7efcba02bfaf07b52b5ba22d75e9e35c860a95ceafdf7e46213c63513d588"
+    },
+    "bzip2": {
+      "version": "bzip2-1.0.8_2",
+      "architecture": "x86_64",
+      "sha256": "ba64d518ee9bc423c4a94e72ff797a467cac444e1d770b4dc0931f3904dd7035"
+    },
+    "bzip2-devel": {
+      "version": "bzip2-devel-1.0.8_2",
+      "architecture": "x86_64",
+      "sha256": "6b0e1a1c8ea36b7daa19e387dba0a9c05deadba13acb11257cd0f23521a987d4"
+    },
+    "c-ares": {
+      "version": "c-ares-1.34.8_1",
+      "architecture": "x86_64",
+      "sha256": "1db6e9d0679fb649a5b204a922127d53ddd47c3c1f509f7d574d690c2a156e67"
+    },
+    "ca-certificates": {
+      "version": "ca-certificates-20250419+3.127_1",
+      "architecture": "x86_64",
+      "sha256": "0bec0d34dc0ab8a2af93c431e18cd6213ee81cfed74e2c6b3d83f371da687c4a"
+    },
+    "cairo": {
+      "version": "cairo-1.18.4_2",
+      "architecture": "x86_64",
+      "sha256": "5af94ea03f5fff37472372ee2883a4885ceda401f06c05ce514a5fee1290fd8e"
+    },
+    "capstone": {
+      "version": "capstone-5.0.6_2",
+      "architecture": "x86_64",
+      "sha256": "7c196a5d6ee6e34ab60aceab112990bbb81ec71472dc28840e8a8fcbf864ab64"
+    },
+    "celt": {
+      "version": "celt-0.11.3_3",
+      "architecture": "x86_64",
+      "sha256": "f81fbbb06a3505b827b7577f92b608e0053ab9da8d84af4b20ba7cd54411ceda"
+    },
+    "chromaprint": {
+      "version": "chromaprint-1.5.1_2",
+      "architecture": "x86_64",
+      "sha256": "79e515993ec3eaee7b86af3d0438cfd567fe24c8974a8a74fdd062c4c1fcb5e4"
+    },
+    "clang21-headers": {
+      "version": "clang21-headers-21.1.7_1",
+      "architecture": "x86_64",
+      "sha256": "bcf589d91e861543100d19397cc4b8a0b411136608869be992f82536e3a8d788"
+    },
+    "cmake": {
+      "version": "cmake-4.2.2_1",
+      "architecture": "x86_64",
+      "sha256": "e10fb42b90e427ebfab53aa00be6d316f4a9fa5ed6a7141b968e4339c8b8a04b"
+    },
+    "containerd": {
+      "version": "containerd-2.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "11eeda2f4f462cbef02882ab6a44335947d3fabe3a82067bc909a500eea935cc"
+    },
+    "coreutils": {
+      "version": "coreutils-9.4_3",
+      "architecture": "x86_64",
+      "sha256": "db311bc29f8617a52370dd75f67c4916061bed85b925730a7d172db33b6b0663"
+    },
+    "cosmic": {
+      "architecture": "x86_64",
+      "sha256": "49ca713c956b86dcbf5f73cf088e3f918403f7acfbd5ed06529f5325e6a6c21c",
+      "version": "cosmic-1.6.0_1"
+    },
+    "cosmic-applets": {
+      "architecture": "x86_64",
+      "sha256": "23cf19a321988a667b4dd2ef16cd3c2e34dba2cc9b1fd986b5aa2be5bdc30d9e",
+      "version": "cosmic-applets-1.6.0_1"
+    },
+    "cosmic-applibrary": {
+      "architecture": "x86_64",
+      "sha256": "c5734ea9b2ae7a18729e4768a7c6dc772a78c05205c77d01c03449b0722e1b38",
+      "version": "cosmic-applibrary-1.6.0_1"
+    },
+    "cosmic-bg": {
+      "architecture": "x86_64",
+      "sha256": "ed2b5d53792ee013ef6ba85fa643d82686ec313b19c5990677664936bb69c40e",
+      "version": "cosmic-bg-1.6.0_1"
+    },
+    "cosmic-comp": {
+      "architecture": "x86_64",
+      "sha256": "eed6b8e90d05a150c9e686da347df17a59a1e6ec5b843076334ea337056a8a06",
+      "version": "cosmic-comp-1.6.0_1"
+    },
+    "cosmic-edit": {
+      "architecture": "x86_64",
+      "sha256": "298e1341be3ab3ab12bda4291bda4e83d0c81021986e4522030def79f8667f0e",
+      "version": "cosmic-edit-1.6.0_1"
+    },
+    "cosmic-files": {
+      "architecture": "x86_64",
+      "sha256": "a18270eb0ea671d23ab456e3bab02691b5f86482ecfc147bb659167d41c5fdef",
+      "version": "cosmic-files-1.6.0_1"
+    },
+    "cosmic-greeter": {
+      "architecture": "x86_64",
+      "sha256": "dc2a50b417113f6bd1b3ba9b01a6fa3bb1ab5641ca4006c3e0f1aed575ac1335",
+      "version": "cosmic-greeter-1.6.0_1"
+    },
+    "cosmic-icons": {
+      "architecture": "x86_64",
+      "sha256": "faab317c0c276608517d632dcbb4eb0c1ee529f1373a18c7d3ea89137d66f052",
+      "version": "cosmic-icons-1.6.0_1"
+    },
+    "cosmic-idle": {
+      "architecture": "x86_64",
+      "sha256": "9336a04076c9795592ab7e4f9d1185fb2bab469810c7e366f5464a6c9c09a910",
+      "version": "cosmic-idle-1.6.0_1"
+    },
+    "cosmic-initial-setup": {
+      "architecture": "x86_64",
+      "sha256": "6d6803cc50367d1ed02ccd48392b75822ef99c5b88702ef3cde5aa89c623d6e3",
+      "version": "cosmic-initial-setup-1.6.0_1"
+    },
+    "cosmic-launcher": {
+      "architecture": "x86_64",
+      "sha256": "728920cb92a9710ac73c0dc73d7eec8b454e1e5dd0236f8f312c8b53bb84f588",
+      "version": "cosmic-launcher-1.6.0_1"
+    },
+    "cosmic-monitor": {
+      "architecture": "x86_64",
+      "sha256": "5f17a95d30f0c386dee24d142a142a7b19cbaaa7ae5fc35ddd60ab237c5881d3",
+      "version": "cosmic-monitor-1.6.0_1"
+    },
+    "cosmic-notifications": {
+      "architecture": "x86_64",
+      "sha256": "57907ae6cd7cc4a9dc206748f9e292ca122482bd75aa83143a633131d4078cdc",
+      "version": "cosmic-notifications-1.6.0_1"
+    },
+    "cosmic-osd": {
+      "architecture": "x86_64",
+      "sha256": "be410ca4876daa024cba970c844339332fd3ea8cdba1b715c4d8b1edf6b53b8b",
+      "version": "cosmic-osd-1.6.0_1"
+    },
+    "cosmic-panel": {
+      "architecture": "x86_64",
+      "sha256": "218cb51c73a07f3554ccb11ef4915987d84a9a3cdd45ae7e709d08d39a73c309",
+      "version": "cosmic-panel-1.6.0_1"
+    },
+    "cosmic-player": {
+      "architecture": "x86_64",
+      "sha256": "6fcca4c1e43f46ca23952025b0a70a9d5248dc02090fbe6c5b9ce6bcad81049a",
+      "version": "cosmic-player-1.6.0_1"
+    },
+    "cosmic-randr": {
+      "architecture": "x86_64",
+      "sha256": "750f82ef80a29b8d7d70911bcdf780d6d98a1362aab15120bb6aaaa57999e3cf",
+      "version": "cosmic-randr-1.6.0_1"
+    },
+    "cosmic-screenshot": {
+      "architecture": "x86_64",
+      "sha256": "b21480d0bb521565e117b2ab3ef5a54a2150da5a3454be6883825785a9460b5b",
+      "version": "cosmic-screenshot-1.6.0_1"
+    },
+    "cosmic-session": {
+      "architecture": "x86_64",
+      "sha256": "63859a5996e07a7f02540fe245c7d6fef3846fedf26f1d17f599b65725e1b25b",
+      "version": "cosmic-session-1.6.0_1"
+    },
+    "cosmic-settings": {
+      "architecture": "x86_64",
+      "sha256": "fcd53249a80af898ac6f431a940aebaa25d179f367ca471d1635fc9ba3235e16",
+      "version": "cosmic-settings-1.6.0_1"
+    },
+    "cosmic-settings-daemon": {
+      "architecture": "x86_64",
+      "sha256": "08856ba4fd630c2f4b2c2db590e2897cd7799cb7219953a01f54fa6460761c24",
+      "version": "cosmic-settings-daemon-1.6.0_1"
+    },
+    "cosmic-sound-theme": {
+      "architecture": "x86_64",
+      "sha256": "a434dddccdfe10a38eb1d8fd4ee13d600fe6245e61849579ccd6022c0536d41a",
+      "version": "cosmic-sound-theme-1.6.0_1"
+    },
+    "cosmic-store": {
+      "architecture": "x86_64",
+      "sha256": "969ace5dd4ab9fa43786ecfe315921ed0a21afb8bb9796914c783c2ea4416f6b",
+      "version": "cosmic-store-1.6.0_1"
+    },
+    "cosmic-term": {
+      "architecture": "x86_64",
+      "sha256": "856e566cb8d476bc3dda8a098a8cdc973b4ae3b28d0862c1392c16717743ed5c",
+      "version": "cosmic-term-1.6.0_1"
+    },
+    "cosmic-wallpapers": {
+      "architecture": "x86_64",
+      "sha256": "fc377fedbfc9e2fe17427800f4e5c0eeb3df6c6a1a7d54f973d7788ba95dedd2",
+      "version": "cosmic-wallpapers-1.6.0_1"
+    },
+    "cosmic-workspaces-epoch": {
+      "architecture": "x86_64",
+      "sha256": "34bf88c79c73a2b3d59a35c66e30494189f79205485abf4c1f8cc51597548aff",
+      "version": "cosmic-workspaces-epoch-1.6.0_1"
+    },
+    "cpio": {
+      "version": "cpio-2.15_1",
+      "architecture": "x86_64",
+      "sha256": "b59f7ebcb19bddcdc3fbf82af5500060881cdb3febebc2d797c812743e1bca28"
+    },
+    "cppdap": {
+      "version": "cppdap-1.58.0+a_1",
+      "architecture": "x86_64",
+      "sha256": "8847a6e5e59bbcf42286976e4b3ce0058026246f5e3cf6f8e1f3724bb5636a33"
+    },
+    "curl": {
+      "version": "curl-8.19.0_1",
+      "architecture": "x86_64",
+      "sha256": "251284c0e4c72871f62e4236c00df9ff541607867584296207edda494eafb9d0"
+    },
+    "dash": {
+      "version": "dash-0.5.12_3",
+      "architecture": "x86_64",
+      "sha256": "b1ac846e67dd4d762468fd8cb12d6cb7e36b89a3a6a6d0dbac76ec09beb496aa"
+    },
+    "dbus": {
+      "version": "dbus-1.16.2_2",
+      "architecture": "x86_64",
+      "sha256": "2f12b936b5f6dd745f637fe3ee9a216e5ef964a4d5bc9ef2f5cc68c1a60c7bd4"
+    },
+    "dbus-libs": {
+      "version": "dbus-libs-1.16.2_2",
+      "architecture": "x86_64",
+      "sha256": "0d3e2571159164514ed25ff1a6555abb52823fdee7c8cfc5768ea5386ef8d378"
+    },
+    "dbus-x11": {
+      "version": "dbus-x11-1.16.2_2",
+      "architecture": "x86_64",
+      "sha256": "93a6e88864852959434bb9cada37c7ddb8a5dc434ac7d2d2639d96499b93c84d"
+    },
+    "dconf": {
+      "version": "dconf-0.40.0_1",
+      "architecture": "x86_64",
+      "sha256": "8efdf2e93e102c8a511009a624e71c4d14475ba58e2a55615f6363c2c3423283"
+    },
+    "default-cursors": {
+      "architecture": "x86_64",
+      "sha256": "4643d9e920a134a28789e53e6bec233226572119bfc779cc076a35870e1ecb54",
+      "version": "default-cursors-1_1"
+    },
+    "dejavu-fonts-ttf": {
+      "version": "dejavu-fonts-ttf-2.37_3",
+      "architecture": "x86_64",
+      "sha256": "52fd872940383e61566776c25a98373bc9554badf10c7195320ac63af716dd7c"
+    },
+    "desktop-file-utils": {
+      "version": "desktop-file-utils-0.28_1",
+      "architecture": "x86_64",
+      "sha256": "63f3460596265c5094217b66f022eab55bbd2e2a070cdb012c9ee8dbba486244"
+    },
+    "device-mapper": {
+      "version": "device-mapper-2.03.29_1",
+      "architecture": "x86_64",
+      "sha256": "af8ca514efc1931201e2cc395d29cb884cc6eb0e5997792220871eeb4369b28c"
+    },
+    "dhcpcd": {
+      "version": "dhcpcd-10.3.0_1",
+      "architecture": "x86_64",
+      "sha256": "f8828508d6babd391968f6b936d790c185846e03197a4f909344b5478a83f58e"
+    },
+    "diffutils": {
+      "version": "diffutils-3.12_1",
+      "architecture": "x86_64",
+      "sha256": "9ae4c248cff2771238b6105eb8196e78ca3665a17cda12d74c39e0d3552ec69c"
+    },
+    "dkms": {
+      "version": "dkms-3.2.1_1",
+      "architecture": "x86_64",
+      "sha256": "8fb038dd6cb995e9415b4ec5640164a60cb964e668845769708f5bea82c62275"
+    },
+    "dmg2img": {
+      "version": "dmg2img-1.6.7_6",
+      "architecture": "x86_64",
+      "sha256": "2fb8963a6ca93d1fbe8ab8242b9598fb4f4796ea6e891acfba85d1c403ccf4da"
+    },
+    "dnssec-anchors": {
+      "version": "dnssec-anchors-20230213_1",
+      "architecture": "x86_64",
+      "sha256": "66f46855a640198b5bb166b21626a9ac7b276788a94b2dfe595feb2c907bfa4a"
+    },
+    "docker": {
+      "version": "docker-29.3.0_1",
+      "architecture": "x86_64",
+      "sha256": "e2a919b05ebb00adf9b79803f49b9787012dbf93f19fd05e54fd9badc0b177b6"
+    },
+    "docker-buildx": {
+      "version": "docker-buildx-0.32.1_1",
+      "architecture": "x86_64",
+      "sha256": "51dde5903560ab9cee7c175bc2c96bf69680f8fa21808e257cdef2daa649869c"
+    },
+    "docker-cli": {
+      "version": "docker-cli-29.4.0_1",
+      "architecture": "x86_64",
+      "sha256": "c7b0d6e8f2e8331c106f1326041cda6ff819178c8b6709dad5f0889ba2a31cb7"
+    },
+    "docker-compose": {
+      "version": "docker-compose-5.1.0_1",
+      "architecture": "x86_64",
+      "sha256": "ccbc0bd21b78b4b92d41e47d58ed208f096419faf86ed34eb588ce7d63294a81"
+    },
+    "dosfstools": {
+      "version": "dosfstools-4.2_1",
+      "architecture": "x86_64",
+      "sha256": "66a31ea9aa75025c4b90cc8d2c83cfc327a780ced75c0eded141d8d2dfef1fe8"
+    },
+    "dracut": {
+      "version": "dracut-107_1",
+      "architecture": "x86_64",
+      "sha256": "38aabf4e8261002ec75c6922e26525faab5a004e647b9d64f0429bf946c64f68"
+    },
+    "dtc": {
+      "version": "dtc-1.7.2_1",
+      "architecture": "x86_64",
+      "sha256": "744272e076a067bb0a1fad1cb49a68cf49cf5931fab0279cd59630e4159c6fba"
+    },
+    "duktape": {
+      "version": "duktape-2.7.0_2",
+      "architecture": "x86_64",
+      "sha256": "0661593b0dad42e5fc12a8569050c3f03f33e95939cc2ec7202d3d3c3d12d187"
+    },
+    "e2fsprogs": {
+      "version": "e2fsprogs-1.47.2_1",
+      "architecture": "x86_64",
+      "sha256": "d8f578fa14758c8a18fe50734a3a5438436d0836a37e060c6153f6ddaeb90334"
+    },
+    "e2fsprogs-libs": {
+      "version": "e2fsprogs-libs-1.47.2_1",
+      "architecture": "x86_64",
+      "sha256": "4a9f4a7a9031e25e3ca09c59664e9424e26a98fdc1f704c7f366f6562a254e8f"
+    },
+    "edk2-ovmf": {
+      "version": "edk2-ovmf-202511_1",
+      "architecture": "x86_64",
+      "sha256": "25d80f4001f8a20b90ec01488705764ce2b9f97a05182b18047729e04917872e"
+    },
+    "efibootmgr": {
+      "version": "efibootmgr-18_1",
+      "architecture": "x86_64",
+      "sha256": "d35dbb7671141252d4888680de28e8724b3dbcbb5eee10879bdfa330d5729dca"
+    },
+    "elogind": {
+      "version": "elogind-252.39_1",
+      "architecture": "x86_64",
+      "sha256": "96017c867168893ca04f65de7a77dfa201c43affdb87f5373885535ebbc61769"
+    },
+    "ethtool": {
+      "version": "ethtool-6.15_1",
+      "architecture": "x86_64",
+      "sha256": "0b7863ed5eec94faa44978bb81da97d43dda0a3cb92c6fb0fad3255f4ff6127f"
+    },
+    "eudev": {
+      "version": "eudev-3.2.14_2",
+      "architecture": "x86_64",
+      "sha256": "399c2ca9ca9235301473eaf532d10f58da5cf8119433620af7b5d0c9a873edec"
+    },
+    "eudev-libudev": {
+      "version": "eudev-libudev-3.2.14_2",
+      "architecture": "x86_64",
+      "sha256": "74bd6a08a76fa68cfa97f809aa3cc31f2d888c906906f0aef8d1c489fc25dad8"
+    },
+    "eudev-libudev-devel": {
+      "version": "eudev-libudev-devel-3.2.14_2",
+      "architecture": "x86_64",
+      "sha256": "32da0ced8866eb5bc5c2d212d90471ecdcf97ba4686751430491b0deff3ec5ff"
+    },
+    "exfat-utils": {
+      "version": "exfat-utils-1.4.0_1",
+      "architecture": "x86_64",
+      "sha256": "efed57b6ca21830dd52370ea6b83e1c317d3fa3bc6ac0e00ba3f41fcf9954047"
+    },
+    "expat": {
+      "version": "expat-2.9.0_1",
+      "architecture": "x86_64",
+      "sha256": "1a15eb3541e31b67cee11a6eeb685b7fb021c62acb058cc7c9d244b6834dcb76"
+    },
+    "f2fs-tools": {
+      "version": "f2fs-tools-1.16.0_2",
+      "architecture": "x86_64",
+      "sha256": "df3d14140adde56ee3f28462af0ddff3e02f3dff66345ca2ad2b7817493262e1"
+    },
+    "faac": {
+      "version": "faac-1.30_1",
+      "architecture": "x86_64",
+      "sha256": "6f8b8cb488ba371c626cf70d1019076d66e1e0bcc803ebe4f5409f6f2a3a5aab"
+    },
+    "faad2": {
+      "version": "faad2-2.11.2_1",
+      "architecture": "x86_64",
+      "sha256": "988b9c9eb3bf60c3c9bc8bb1ab6493ea33b3d04803683b1b6250544c132ff95f"
+    },
+    "fd": {
+      "version": "fd-10.5.0_1",
+      "architecture": "x86_64",
+      "sha256": "b475694c7c3fb7617a6446d395d920e1b3916ae94010fa498129593def90e81f"
+    },
+    "fdk-aac": {
+      "version": "fdk-aac-2.0.3_1",
+      "architecture": "x86_64",
+      "sha256": "0924809a2b88dfd4f681932e15215567519d3ccc0ecef11295a7ac7df7d6611a"
+    },
+    "ffmpeg6": {
+      "version": "ffmpeg6-6.1.6_2",
+      "architecture": "x86_64",
+      "sha256": "eb35d04c3e11447888c6c6c31b89fc99f6abccea280b6ea6f26aa62ca3f45a9b"
+    },
+    "ffplay6": {
+      "version": "ffplay6-6.1.6_2",
+      "architecture": "x86_64",
+      "sha256": "6279b8b71d1e7c09351325973c4b504866eeb30676cbad6cfc3e02e1e25bb9ce"
+    },
+    "file": {
+      "version": "file-5.46_2",
+      "architecture": "x86_64",
+      "sha256": "4652ccaf7359a0df533059adb532fcca265b17bc9e2a729130089fcb5c39e345"
+    },
+    "findutils": {
+      "version": "findutils-4.10.0_1",
+      "architecture": "x86_64",
+      "sha256": "110f7074f53bcec6db20b698a29718fe1e339f5406afdbb43cd0e01b47fe12b5"
+    },
+    "flatpak": {
+      "version": "flatpak-1.18.4_1",
+      "architecture": "x86_64",
+      "sha256": "c06c21d2abec2bd254e614fe303ba44ae965e9fc2a707d61876db56eac0602b9"
+    },
+    "flite": {
+      "version": "flite-2.2_1",
+      "architecture": "x86_64",
+      "sha256": "ab0c4bc870383eac1b127afe79b4e0209b493d419efe1d9ae9e2f3eb91ff24ab"
+    },
+    "font-alias": {
+      "version": "font-alias-1.0.6_1",
+      "architecture": "x86_64",
+      "sha256": "3a04d16d8196ab7eb2760777cb42b188019d0e9c5e6b15a1ae548fab55eae37b"
+    },
+    "font-util": {
+      "version": "font-util-1.4.2_1",
+      "architecture": "x86_64",
+      "sha256": "a2df4bbbfa385b341c441cc63067ba9a43d845c4cd81869e201e5818a6d99fee"
+    },
+    "fontconfig": {
+      "version": "fontconfig-2.17.1_1",
+      "architecture": "x86_64",
+      "sha256": "c39e5860bd747418229eab5f4d1784563eed8f15f6c036e3819fae80eddbb621"
+    },
+    "freetype": {
+      "version": "freetype-2.14.3_1",
+      "architecture": "x86_64",
+      "sha256": "2eb2bc258b2bb34c8d3b334ef185bd3433bd82d4a9a26ca17e650aa623cfa2da"
+    },
+    "fribidi": {
+      "version": "fribidi-1.0.16_1",
+      "architecture": "x86_64",
+      "sha256": "faf5faa491afdb484741b1f052726f2e111992d7fea11f666df5cc0e9c0e8d41"
+    },
+    "fuse": {
+      "version": "fuse-2.9.9_1",
+      "architecture": "x86_64",
+      "sha256": "70083d1657cf32e413dbc303006cb128d0543e868fff6981986279e499470d26"
+    },
+    "fuse-devel": {
+      "version": "fuse-devel-2.9.9_1",
+      "architecture": "x86_64",
+      "sha256": "260ba9b25107165394b7b03b26b5e0d76daeec1f2ee4c72ad725e409cf4fd7c1"
+    },
+    "fuse-exfat": {
+      "version": "fuse-exfat-1.4.0_1",
+      "architecture": "x86_64",
+      "sha256": "fbeb85c9d624d88f3e2e97a5b856cacb2223009e37aba5cdad27ad869de539ae"
+    },
+    "fuse3": {
+      "version": "fuse3-3.18.3_1",
+      "architecture": "x86_64",
+      "sha256": "9092d124cf17cada88bea97691f5238083757f2636fa4c4235ffaaf0745f442d"
+    },
+    "fuse3-devel": {
+      "version": "fuse3-devel-3.18.1_1",
+      "architecture": "x86_64",
+      "sha256": "7df82fe01bb68f62b6544e394341a2a6547f6fa619884a2904c3daabc732834e"
+    },
+    "gawk": {
+      "version": "gawk-5.3.2_1",
+      "architecture": "x86_64",
+      "sha256": "da2aaad2e749aa6baef5280c0d42fc4a7cf562ec4a0349675c8d35b978ef9a24"
+    },
+    "gcc": {
+      "version": "gcc-14.2.1+20250405_4",
+      "architecture": "x86_64",
+      "sha256": "f9551a1e81dde6a7ccfc438e2cb236c5b9236e5ca11319c19eaf2b4852717971"
+    },
+    "gcr": {
+      "version": "gcr-3.41.2_1",
+      "architecture": "x86_64",
+      "sha256": "4eb5cd14cc8c437ab8b9fa2036e80c603f1f4197876e6f03160aaea249c4d8be"
+    },
+    "gcr4": {
+      "version": "gcr4-4.4.0.1_2",
+      "architecture": "x86_64",
+      "sha256": "5ac069b0d7d9fd2453f8ba7b4a05bc380e0c6f9730a40670287fa72377234739"
+    },
+    "gdb": {
+      "version": "gdb-17.2_1",
+      "architecture": "x86_64",
+      "sha256": "15355ddd6897e7624d8f28c8379dbdda940a148bccfbc6af5dac0d58d2628693"
+    },
+    "gdb-common": {
+      "version": "gdb-common-17.2_1",
+      "architecture": "x86_64",
+      "sha256": "bd6712f27a51b18e1ee378df89845e9f8c4904947723ed169621cd3f4738df12"
+    },
+    "gdbm": {
+      "version": "gdbm-1.26_1",
+      "architecture": "x86_64",
+      "sha256": "f311c011bd632830a8d5bc4402fc242fbcbb6fe51c6290985f41bc402dd6be5f"
+    },
+    "gdk-pixbuf": {
+      "version": "gdk-pixbuf-2.42.12_2",
+      "architecture": "x86_64",
+      "sha256": "b1c0cd3e199d2f1f93b24a7168c54e78956a9bb0da2c85a77faf40efe3f44a51"
+    },
+    "geoclue2": {
+      "version": "geoclue2-2.8.1_1",
+      "architecture": "x86_64",
+      "sha256": "48f290b56afbcc1ca2506cfbd310e1ccb922e5de45adfbd28b0f4162cf58ef54"
+    },
+    "gettext": {
+      "version": "gettext-0.22.5_1",
+      "architecture": "x86_64",
+      "sha256": "6d7cdd1ddaee5d988936eb1a4d9cc12d1f3e39e837a597254b8dd0bd55150b2e"
+    },
+    "giflib": {
+      "version": "giflib-5.2.2_1",
+      "architecture": "x86_64",
+      "sha256": "63f6e9a0fa059a13308f8169ed0fc6343d87d7d8740fbf56b0c5a63f52079167"
+    },
+    "gir-freedesktop": {
+      "version": "gir-freedesktop-1.86.0_2",
+      "architecture": "x86_64",
+      "sha256": "16ecf8c5818ea8aa2122cf2033b20296d0531d99b372cb881981aa28d4479934"
+    },
+    "git": {
+      "version": "git-2.53.0_1",
+      "architecture": "x86_64",
+      "sha256": "190151218f61a9d20dfb4bf29022cbd9b3e504d9a649dbbd61f039cee8557709"
+    },
+    "git-lfs": {
+      "version": "git-lfs-3.6.1_1",
+      "architecture": "x86_64",
+      "sha256": "dfec1563306b3a05b7c2900407a8ab738749b61de9fc9fe49cc9fce08735306d"
+    },
+    "github-cli": {
+      "version": "github-cli-2.88.1_1",
+      "architecture": "x86_64",
+      "sha256": "1c3fae65cdd3815561dc6988564132a76b78d2bdcb8a229c1f361032e341d977"
+    },
+    "glances": {
+      "version": "glances-4.3.3_2",
+      "architecture": "x86_64",
+      "sha256": "49de6872f7e9be01d07fd9161ab9f4aef9ac2de61ea75c2e1d0c4c3b35560d38"
+    },
+    "glib": {
+      "version": "glib-2.88.3_1",
+      "architecture": "x86_64",
+      "sha256": "cbdc6148efd7d12ab775dcd48758884bc403e2c5443fce6de1388daca697943a"
+    },
+    "glib-networking": {
+      "version": "glib-networking-2.80.1_1",
+      "architecture": "x86_64",
+      "sha256": "b98d1e0ee94acfb34fb19076736df886fb6a05aa861937cd291af51bcee35174"
+    },
+    "glibc": {
+      "version": "glibc-2.41_1",
+      "architecture": "x86_64",
+      "sha256": "c3b7599f11edf98708ff7cbe7520aef8c1948606b467622b267c71a60034d5c5"
+    },
+    "glibc-devel": {
+      "version": "glibc-devel-2.41_1",
+      "architecture": "x86_64",
+      "sha256": "57d4b42811bacfbe72ef7c5f8044dbbe61fd5255f90efa0ff7173e961c7f0a6f"
+    },
+    "glibc-locales": {
+      "version": "glibc-locales-2.41_1",
+      "architecture": "x86_64",
+      "sha256": "5953c3fee52ece3167cf6e86c35b6b0007b358170bf0bc6d51f2f46fc3b85d59"
+    },
+    "glu": {
+      "version": "glu-9.0.3_1",
+      "architecture": "x86_64",
+      "sha256": "7f4365669e3e385ec122c4469bc35fe569bad4c3e7bdf95f5db17edc01c9f2e6"
+    },
+    "glu-devel": {
+      "version": "glu-devel-9.0.3_1",
+      "architecture": "x86_64",
+      "sha256": "b4fe5abdcab6f671b18027122daecc365a9add65f9afac9915d1964ee65ccdac"
+    },
+    "gmp": {
+      "version": "gmp-6.3.0_1",
+      "architecture": "x86_64",
+      "sha256": "7662998f6e4b1fc09f686153eac4c507c61688a6808e9e47088078bb53d97887"
+    },
+    "gnome-desktop": {
+      "version": "gnome-desktop-44.3_1",
+      "architecture": "x86_64",
+      "sha256": "d275796266e0bf813b1094453e668cf8f7da7583d7421caef79d6727f2693459"
+    },
+    "gnome-keyring": {
+      "version": "gnome-keyring-48.0_1",
+      "architecture": "x86_64",
+      "sha256": "8017d353f42a9f08280d1ef0cfb2cace838723b7c881da914d4b0df841fd0d6f"
+    },
+    "gnupg": {
+      "version": "gnupg-2.5.24_1",
+      "architecture": "x86_64",
+      "sha256": "58d6de07f2ec81f890e7ebdfedb3f41e94cf1e2454dbe364f1356e63b6fdbd36"
+    },
+    "gnutls": {
+      "version": "gnutls-3.8.13_1",
+      "architecture": "x86_64",
+      "sha256": "2f8a136de50acd5b730148633fc9d19870d9d1215616425e342d2e06a958796c"
+    },
+    "go": {
+      "version": "go-1.26.1_1",
+      "architecture": "x86_64",
+      "sha256": "8b9f331bdc6018710c1747c1054a8d6200750eedac54f5cd7adcc6ed784f15c0"
+    },
+    "google-chrome": {
+      "version": "google-chrome-143.0.7499.169_1",
+      "architecture": "x86_64",
+      "sha256": "b2f9c739af9fd4fcf3e196f1b791177e6ce0204a5c2f1b7de428fa0bd26e2326"
+    },
+    "graphene": {
+      "version": "graphene-1.10.8_1",
+      "architecture": "x86_64",
+      "sha256": "7fdff6b84a6bea00fff543224ac00249db1d749169f0e451dae8aca3d4a2a7b2"
+    },
+    "graphite": {
+      "version": "graphite-1.3.14_1",
+      "architecture": "x86_64",
+      "sha256": "6bf19edf652ce2fe1ecae580def7190e0aa742293b89c2b30e1218c9824fe766"
+    },
+    "greetd": {
+      "version": "greetd-0.10.3_2",
+      "architecture": "x86_64",
+      "sha256": "d2ce70a3f8f386283eaccd9b088a0f3f1900f971fd7af9d182171e6c8964f346"
+    },
+    "grep": {
+      "version": "grep-3.12_1",
+      "architecture": "x86_64",
+      "sha256": "b30dbb6fa08f768a7dad1218a3ba2b3cb6b9f20a3a85a97df7f19336b807bd84"
+    },
+    "grub": {
+      "version": "grub-2.12_2",
+      "architecture": "x86_64",
+      "sha256": "5ed1f47b75fbf12c2cf279a7b2511584fae4db359ff4dba3ab84b7e4988858e9"
+    },
+    "grub-x86_64-efi": {
+      "version": "grub-x86_64-efi-2.12_2",
+      "architecture": "x86_64",
+      "sha256": "b598676b8e92906600bff42d04df912b4dfc898039b1450a1bd8523d3911aec9"
+    },
+    "gsettings-desktop-schemas": {
+      "version": "gsettings-desktop-schemas-48.0_1",
+      "architecture": "x86_64",
+      "sha256": "55858db7f7708ea62e1652cc53cbf34a3895a087ecce939ff10e77fbbce4747f"
+    },
+    "gst-plugins-bad1": {
+      "version": "gst-plugins-bad1-1.28.6_1",
+      "architecture": "x86_64",
+      "sha256": "addaf95e9366f71e670276ad20597cd709875903864fb4673b5e70004382174d"
+    },
+    "gst-plugins-base1": {
+      "version": "gst-plugins-base1-1.28.6_1",
+      "architecture": "x86_64",
+      "sha256": "64c6ed0a4f51e8c2dc5439bec53e31150e8e6b273b7badac8130f6758d51a32a"
+    },
+    "gst-plugins-good1": {
+      "version": "gst-plugins-good1-1.26.5_4",
+      "architecture": "x86_64",
+      "sha256": "3618faaa0c9a55801ba8d1291364694066802eff78597be647bfd6a70cf12a6f"
+    },
+    "gstreamer1": {
+      "version": "gstreamer1-1.28.6_1",
+      "architecture": "x86_64",
+      "sha256": "42e30509d90994ad444660dc563bf5e84b32003b2f8de16e0cf234f1a121b4a6"
+    },
+    "gstreamer1-pipewire": {
+      "version": "gstreamer1-pipewire-1.6.2_1",
+      "architecture": "x86_64",
+      "sha256": "c3bac2ad29c71daeee720b3957decba5e9ae98a78adbb08d710b694a8b03f2b3"
+    },
+    "gtk+": {
+      "version": "gtk+-2.24.33_3",
+      "architecture": "x86_64",
+      "sha256": "6bef78d4db5115301938c80fea1f71aebc43ac11dd34bd82773674bd024733d2"
+    },
+    "gtk+3": {
+      "version": "gtk+3-3.24.52_1",
+      "architecture": "x86_64",
+      "sha256": "72e41445be8483bd44439f0c195c7806fc21efaae84c468803d9909e0222d719"
+    },
+    "gtk-update-icon-cache": {
+      "version": "gtk-update-icon-cache-3.24.52_1",
+      "architecture": "x86_64",
+      "sha256": "7b4c04e90ccf3ad9e1cbcf4462b7af1a2e00f05051d3131494f44565dae134cb"
+    },
+    "gtk4": {
+      "version": "gtk4-4.22.4_1",
+      "architecture": "x86_64",
+      "sha256": "5183ae5a92290b94d7a21b472767e73f5d9b6f2e834bf739566c4ef1733002df"
+    },
+    "gvfs": {
+      "version": "gvfs-1.56.1_3",
+      "architecture": "x86_64",
+      "sha256": "5670d1409e7e6771f68a0988b1f32a43ec925b52e136cf805f6803f04a6dc1bc"
+    },
+    "gzip": {
+      "version": "gzip-1.14_1",
+      "architecture": "x86_64",
+      "sha256": "c85276239b4395b6ba7c080b12c9854c0cce98daa0a2cd008d1c97ad3620b0e6"
+    },
+    "hicolor-icon-theme": {
+      "version": "hicolor-icon-theme-0.18_1",
+      "architecture": "x86_64",
+      "sha256": "80440e93eae355b31122e28f47c082e9ec92243790e68fefb9d698c0dc48c2da"
+    },
+    "highway": {
+      "version": "highway-1.3.0_1",
+      "architecture": "x86_64",
+      "sha256": "da0956139e14a4b52a07e74326131d74a73bc4a13d05302203598dc53e3606f3"
+    },
+    "htop": {
+      "version": "htop-3.4.1_1",
+      "architecture": "x86_64",
+      "sha256": "15ff4747c27b5db6da9023e0194bfada62865a7bf98c0639d689992ee7b48dd3"
+    },
+    "hwids": {
+      "version": "hwids-0.403_1",
+      "architecture": "x86_64",
+      "sha256": "956474f50e398dc3af155dd69615af6d3f6b2baeb27ae1ccceae962384b35051"
+    },
+    "iana-etc": {
+      "version": "iana-etc-20251030_1",
+      "architecture": "x86_64",
+      "sha256": "4a8857d4588117e017f1f02cd8eb3c37d2ad6a8444a3d4092598c8abd1f3096f"
+    },
+    "imlib2": {
+      "version": "imlib2-1.12.6_2",
+      "architecture": "x86_64",
+      "sha256": "538312cc9bcd18be783a2116f83c5493c32ad683e699bda34a0e249e7b4136fa"
+    },
+    "inih": {
+      "version": "inih-62_1",
+      "architecture": "x86_64",
+      "sha256": "472222fd89e2198254cc684d64d3ab677337592a262eaf341f0a164d9110f689"
+    },
+    "intel-gmmlib": {
+      "version": "intel-gmmlib-22.10.0_1",
+      "architecture": "x86_64",
+      "sha256": "a6bdc1367babf5f92aea06e21c6d48c35f7e893e2841d282adbe28cf7485038c"
+    },
+    "intel-media-driver": {
+      "version": "intel-media-driver-26.3.0_1",
+      "architecture": "x86_64",
+      "sha256": "6a66d8dd690d861bcbb86b36a812e4a3289fae39a915892d78fb58405e7d5d98"
+    },
+    "iproute2": {
+      "version": "iproute2-7.1.0_1",
+      "architecture": "x86_64",
+      "sha256": "3720ac2241465bd78391bfa6c1a97dd7faf532f6e1082aedc08bbfffe72c32d1"
+    },
+    "iptables": {
+      "version": "iptables-1.8.11_3",
+      "architecture": "x86_64",
+      "sha256": "aad41b313ed126b59cbc43ac2ec747ebf42f586a01fd11e3707e29751031a616"
+    },
+    "iputils": {
+      "version": "iputils-20250605_1",
+      "architecture": "x86_64",
+      "sha256": "3f4c1f07479e3785e3ce89696e92ccc4c83f2b04b5c94b5c2d56179912995b3f"
+    },
+    "ipw2100-firmware": {
+      "version": "ipw2100-firmware-1.3_6",
+      "architecture": "x86_64",
+      "sha256": "7dcd4e65f376d8306202391216eb3babb019a4ed06836e544037307560ef9f02"
+    },
+    "ipw2200-firmware": {
+      "version": "ipw2200-firmware-3.1_6",
+      "architecture": "x86_64",
+      "sha256": "99857d0e3deccd81501203181d7cf20ec7a9bb046543f9d970394de291f1308e"
+    },
+    "iso-codes": {
+      "version": "iso-codes-4.20.1_1",
+      "architecture": "x86_64",
+      "sha256": "2b08f3d732516c6f3e2f57cd5821ecf7dbee253432a6263744e8135798673b77"
+    },
+    "iw": {
+      "version": "iw-6.17_1",
+      "architecture": "x86_64",
+      "sha256": "ee559f414714d9056baa06db0c5825c64e4eff53a5bc36d3fb28d0ed506c0374"
+    },
+    "jansson": {
+      "version": "jansson-2.15.0_1",
+      "architecture": "x86_64",
+      "sha256": "7dd6bc5c73a29ea6d1dd9a762057df4d210973618c5e4a46c16329b09251efbc"
+    },
+    "jbigkit-libs": {
+      "version": "jbigkit-libs-2.2_2",
+      "architecture": "x86_64",
+      "sha256": "7c12bfee524cb57da08ea218f068488ceda74c2aabf90053bf0602e1cd870bc6"
+    },
+    "json-c": {
+      "version": "json-c-0.18_1",
+      "architecture": "x86_64",
+      "sha256": "bc13173ab7e170b0b08dd0cb536030422803fe21749451929dac75dcef01afb5"
+    },
+    "json-glib": {
+      "version": "json-glib-1.10.8_1",
+      "architecture": "x86_64",
+      "sha256": "bad8a1367a9f6b3b6766912bdae68fd0564409e38cb1d02a027f328c80671d98"
+    },
+    "jsoncpp": {
+      "version": "jsoncpp-1.9.5_1",
+      "architecture": "x86_64",
+      "sha256": "92bdf947cf48e2115b2dee77c3bc810eb878b322f270f61dc855af83ae2741df"
+    },
+    "kbd": {
+      "version": "kbd-2.9.0_1",
+      "architecture": "x86_64",
+      "sha256": "6eb29534b2328bfdf39b441546059a1c6b79752fd14759ae1dee4581a33f7104"
+    },
+    "kernel-libc-headers": {
+      "version": "kernel-libc-headers-6.14_1",
+      "architecture": "x86_64",
+      "sha256": "875a1e91a21ec60ec4a6906bb20b3433909b75c89e831dd86279c90ab4f244b0"
+    },
+    "kmod": {
+      "version": "kmod-34.2_1",
+      "architecture": "x86_64",
+      "sha256": "10babace2916d765d1fb00627bb1912b5ba81f1cbac91c90f2f7bd9083f43a08"
+    },
+    "kpartx": {
+      "version": "kpartx-0.9.6_1",
+      "architecture": "x86_64",
+      "sha256": "bc216880ef36d17e3bf1f2e8a0310af6f1602352034658342916970f9f6ec189"
+    },
+    "lame": {
+      "version": "lame-4.0_1",
+      "architecture": "x86_64",
+      "sha256": "8ec9ea767f581462fde8b2df48abf8bfb9fee37d8b1bde316ab379bb70c14884"
+    },
+    "lcms2": {
+      "version": "lcms2-2.19.1_1",
+      "architecture": "x86_64",
+      "sha256": "0d0408fc99b9fd22901d2efddd85037ca4c885b2182ff1e4e009cfc927688c65"
+    },
+    "ldacBT": {
+      "version": "ldacBT-2.0.2.3_1",
+      "architecture": "x86_64",
+      "sha256": "e9b36ef6fdb711d28320ed9f2e3683a8d4d7b9654bbed60e69250eb6ea891024"
+    },
+    "ldb": {
+      "version": "ldb-2.9.0_3",
+      "architecture": "x86_64",
+      "sha256": "1d4a43fdb41f82f64b3ca8024cda8dc97bd29495099f07c23f493286cf728901"
+    },
+    "less": {
+      "version": "less-691_1",
+      "architecture": "x86_64",
+      "sha256": "a6e923428143e342756ed11993ed276287d16525ca6d320530067696cfa425ec"
+    },
+    "libICE": {
+      "version": "libICE-1.1.2_1",
+      "architecture": "x86_64",
+      "sha256": "5045f471251f72c48a5fa8765eb2447a6ae30fd70fb7fa82cbd6a36264087e01"
+    },
+    "libSM": {
+      "version": "libSM-1.2.6_1",
+      "architecture": "x86_64",
+      "sha256": "9eb873edf9ffaef3d5a2dcb8a3be0be5c3bc50dae8653b636da43dc960b1ce47"
+    },
+    "libX11": {
+      "version": "libX11-1.8.13_1",
+      "architecture": "x86_64",
+      "sha256": "7856812bc8b5388869d91635f2ca17c290bfabbeff2cd069fd198e81407e7962"
+    },
+    "libX11-devel": {
+      "version": "libX11-devel-1.8.13_1",
+      "architecture": "x86_64",
+      "sha256": "a01c7eadb31f1a19f0d393a89621ad65151f0349a71e3d709178e7bc29b2fbac"
+    },
+    "libXScrnSaver": {
+      "version": "libXScrnSaver-1.2.5_1",
+      "architecture": "x86_64",
+      "sha256": "9fa504bbb73e70992ac5e674661cf4046d70bac0ccd012da1dbb1f20038590a9"
+    },
+    "libXau": {
+      "version": "libXau-1.0.12_2",
+      "architecture": "x86_64",
+      "sha256": "102589e3c3babbf0fbe8f0fbc908ce5dcb5888a0837d05a390110a5ec21bdde2"
+    },
+    "libXau-devel": {
+      "version": "libXau-devel-1.0.12_2",
+      "architecture": "x86_64",
+      "sha256": "c65a95aeb4a3ec30474cbaa3cb4a7ca1daa6a395fd576e4d1f4b08c923967aad"
+    },
+    "libXcomposite": {
+      "version": "libXcomposite-0.4.7_2",
+      "architecture": "x86_64",
+      "sha256": "a8a3c7b6ac6b1d8a77662e0c695247e8009c205e64036ecee8193e08b078ff60"
+    },
+    "libXcursor": {
+      "version": "libXcursor-1.2.3_2",
+      "architecture": "x86_64",
+      "sha256": "9ce053b3b38bc0c225330224d2f840e5bd94801fad7f6891b8d54f08d5cf1ba3"
+    },
+    "libXcursor-devel": {
+      "version": "libXcursor-devel-1.2.3_2",
+      "architecture": "x86_64",
+      "sha256": "e61b283e8ba9119a9e22339b599e7f4687a0a778f63901d6f33f6b93e6b5ad57"
+    },
+    "libXdamage": {
+      "version": "libXdamage-1.1.7_1",
+      "architecture": "x86_64",
+      "sha256": "f6ddebfeaa4284dd7688094db7c86b6a722053f93a0994e90a266e08a79b8d5a"
+    },
+    "libXdmcp": {
+      "version": "libXdmcp-1.1.5_1",
+      "architecture": "x86_64",
+      "sha256": "ce9b172e116ac5e1ce366f12fd05929be816c1dc122d30c255a52c8a9cd5fc9d"
+    },
+    "libXdmcp-devel": {
+      "version": "libXdmcp-devel-1.1.5_1",
+      "architecture": "x86_64",
+      "sha256": "641193890eae758ea14783161990837c0ca4a6e0ee95254d457b576adc72feb9"
+    },
+    "libXext": {
+      "version": "libXext-1.3.7_1",
+      "architecture": "x86_64",
+      "sha256": "53111f83d7524e9310380173859027eff5e38dbea484d2c163537be228ed128a"
+    },
+    "libXext-devel": {
+      "version": "libXext-devel-1.3.7_1",
+      "architecture": "x86_64",
+      "sha256": "f4d8c0e6f9aa2a2c7c2b108cbe37c4da2f28240c82924cba5604258b9ee048ab"
+    },
+    "libXfixes": {
+      "version": "libXfixes-6.0.2_1",
+      "architecture": "x86_64",
+      "sha256": "6d14e65ca744939e7bbed95f102a8be83ce38dcf38a65c890ae16653face9e76"
+    },
+    "libXfixes-devel": {
+      "version": "libXfixes-devel-6.0.2_1",
+      "architecture": "x86_64",
+      "sha256": "5bbf4231b20868ad9c00d369da5cc8cd48932d4c61d3a4abf48fe2ab90b22cd5"
+    },
+    "libXfont2": {
+      "version": "libXfont2-2.0.7_2",
+      "architecture": "x86_64",
+      "sha256": "36ecf011e31bb2edd4da0ef2c77dab50dea39345d0deff3aaff6b66d3d7a6fa0"
+    },
+    "libXi": {
+      "version": "libXi-1.8.3_1",
+      "architecture": "x86_64",
+      "sha256": "652b6f8999554c11364bfe3d529f68087d00d54df9c964406358d869aa83b643"
+    },
+    "libXi-devel": {
+      "version": "libXi-devel-1.8.2_2",
+      "architecture": "x86_64",
+      "sha256": "811d8a41d8159e51b748b736d3aed30e2dfd7c90f86245e79100bbc88cda5510"
+    },
+    "libXinerama": {
+      "version": "libXinerama-1.1.6_1",
+      "architecture": "x86_64",
+      "sha256": "8c05fcda1b8afb20fbb69e07a30ba72dba92ff8cd59da4d15b0c5059650659cd"
+    },
+    "libXinerama-devel": {
+      "version": "libXinerama-devel-1.1.5_1",
+      "architecture": "x86_64",
+      "sha256": "4c3181e59c048fa2a8279b5b737d503cf1c75ac4c769f44ed6bd31c0b8b3660a"
+    },
+    "libXmu": {
+      "version": "libXmu-1.3.1_1",
+      "architecture": "x86_64",
+      "sha256": "f103ec970c7fd2c90c69c46999ac7d862fb82c09c90d3fc9a37623909d0d272c"
+    },
+    "libXrandr": {
+      "version": "libXrandr-1.5.5_1",
+      "architecture": "x86_64",
+      "sha256": "289704ef5815a59113d784bbddaeb0d5b1f2c8fddf146dbde713f9b539587246"
+    },
+    "libXrandr-devel": {
+      "version": "libXrandr-devel-1.5.4_1",
+      "architecture": "x86_64",
+      "sha256": "c2ce03f4e749f77fcaedc5207c29cebc988935f99492c3420a77b52d2b42de78"
+    },
+    "libXrender": {
+      "version": "libXrender-0.9.12_1",
+      "architecture": "x86_64",
+      "sha256": "85bcdcaac463b46e1195193a53cc1daac9ae688129af3fcebf46610847de0245"
+    },
+    "libXrender-devel": {
+      "version": "libXrender-devel-0.9.12_1",
+      "architecture": "x86_64",
+      "sha256": "1db6d71f11b98e9ffda4295a7fa819000a66d8e23c0d2e93ac62f8767bedd064"
+    },
+    "libXt": {
+      "version": "libXt-1.3.1_2",
+      "architecture": "x86_64",
+      "sha256": "6b9135b688921e6e3effb1ff784c87c772ff53f6da26c317b0864dc421eef80d"
+    },
+    "libXtst": {
+      "version": "libXtst-1.2.5_2",
+      "architecture": "x86_64",
+      "sha256": "9c2ba7f5218b42240d0fef6ecb91f82725573fecd7bf25934d7fa6f5d5e4953d"
+    },
+    "libXv": {
+      "version": "libXv-1.0.13_2",
+      "architecture": "x86_64",
+      "sha256": "46bb14512d67bdd41167077a2004e7c24d1b30986ce81c55509ce0dab9f7452e"
+    },
+    "libXxf86vm": {
+      "version": "libXxf86vm-1.1.6_2",
+      "architecture": "x86_64",
+      "sha256": "c8ab554b93d471c7a7d204df6f73f576950c9455657cb8cb5a05caf9e3a430e0"
+    },
+    "libXxf86vm-devel": {
+      "version": "libXxf86vm-devel-1.1.6_2",
+      "architecture": "x86_64",
+      "sha256": "5485cf61abf3636832b2ae7115133857263b6a070190f45f47363df1b2a5a24a"
+    },
+    "libaio": {
+      "version": "libaio-0.3.113_1",
+      "architecture": "x86_64",
+      "sha256": "a29d0bf5354c59f941addb8a8adc8f4485cd30560d1e0f2fd7ff4b257e1886eb"
+    },
+    "libaom": {
+      "version": "libaom-3.13.3_2",
+      "architecture": "x86_64",
+      "sha256": "cddde8cbdcdd08db1e3e9e923859c72b9ba55390cb541d70b70b20ce0454eb45"
+    },
+    "libarchive": {
+      "version": "libarchive-3.8.9_1",
+      "architecture": "x86_64",
+      "sha256": "7e1a39ac40a5ad04f1afb95ac61f2633ff5d490dbe3e64599f11822f99792664"
+    },
+    "libass": {
+      "version": "libass-0.17.5_1",
+      "architecture": "x86_64",
+      "sha256": "7000e1e7e5ea4bfca3e2d79c5dfadcf1f14910aaea6a11bb26ced77b8ba79245"
+    },
+    "libassuan": {
+      "version": "libassuan-3.0.2_1",
+      "architecture": "x86_64",
+      "sha256": "8bfe9893cd047c3835285c7d70e211c52bfda4d8927ee35bf41c5e14c89d1d88"
+    },
+    "libasyncns": {
+      "version": "libasyncns-0.8_9",
+      "architecture": "x86_64",
+      "sha256": "cf512bcce91946f2a2cc603bbd9eb154abdb65561f697b72885cc10791e9168a"
+    },
+    "libatasmart": {
+      "version": "libatasmart-0.19_5",
+      "architecture": "x86_64",
+      "sha256": "8f2154833930f0afc769ebb313808eebf2adc0c2588631d15855a5eae7e9e89f"
+    },
+    "libatomic": {
+      "version": "libatomic-14.2.1+20250405_4",
+      "architecture": "x86_64",
+      "sha256": "6f0b7c704732bbc9e04e7a2488e71550c710bae9d9d8db4ce6c01571e0d60e7f"
+    },
+    "libatomic-devel": {
+      "version": "libatomic-devel-14.2.1+20250405_4",
+      "architecture": "x86_64",
+      "sha256": "0f92a585e451280fcf8e8ba49d22f63a874c8d555841081b5e2e8d58f6dfd886"
+    },
+    "libavcodec6": {
+      "version": "libavcodec6-6.1.6_3",
+      "architecture": "x86_64",
+      "sha256": "e0581ddf225c351620494aa332083cd6013ba51f368ca275933928e6c2fcc0bf"
+    },
+    "libavdevice6": {
+      "version": "libavdevice6-6.1.6_2",
+      "architecture": "x86_64",
+      "sha256": "2bd633cac279a999591a4ca7073a807ee8d9653579d91a7478106ad9f8027bdd"
+    },
+    "libavfilter6": {
+      "version": "libavfilter6-6.1.6_2",
+      "architecture": "x86_64",
+      "sha256": "86966b6a0ee5cd485b21be787f86335d809a8700e725395bed89d610355e951a"
+    },
+    "libavformat6": {
+      "version": "libavformat6-6.1.6_3",
+      "architecture": "x86_64",
+      "sha256": "277015aeb3c86b703323c3253439dc51491c0d908fd3cb9955891af3d6cdcfc7"
+    },
+    "libavutil6": {
+      "version": "libavutil6-6.1.6_3",
+      "architecture": "x86_64",
+      "sha256": "7bbbda667890cef6504a0999d889d11a2296eba3627fe0b5aa8693c785da6194"
+    },
+    "libayatana-appindicator": {
+      "version": "libayatana-appindicator-0.5.94_1",
+      "architecture": "x86_64",
+      "sha256": "ad72d02e95d0a5dff3b7e5e6b9ff21e5626f35d2b2f48a94e12e064c31642f53"
+    },
+    "libayatana-indicator": {
+      "version": "libayatana-indicator-0.9.4_1",
+      "architecture": "x86_64",
+      "sha256": "c5ac29e89a048e032182e363bf77c79b5baf90aa07aec9f8183ce2ab495ca839"
+    },
+    "libblkid": {
+      "version": "libblkid-2.41.4_1",
+      "architecture": "x86_64",
+      "sha256": "59136798b9b73ee428f0286fec86fa4c80a58c5a9be25cac5c3d47e402ec1db3"
+    },
+    "libblockdev": {
+      "version": "libblockdev-3.3.1_2",
+      "architecture": "x86_64",
+      "sha256": "86f2d6e2195906a33cd4d6a72fe374ab1351a365bc765bb49b04a8bdccdd5d95"
+    },
+    "libbluetooth": {
+      "version": "libbluetooth-5.78_1",
+      "architecture": "x86_64",
+      "sha256": "bfc023194fb24bbe8f8c8c9f1c0d4a3112d71235071dc0b123090bb293eceb6e"
+    },
+    "libbluray": {
+      "version": "libbluray-1.3.4_1",
+      "architecture": "x86_64",
+      "sha256": "bf41308c81e06fc3712d21118533b9516f089820704af0df2a4d55c5c54116e4"
+    },
+    "libbpf": {
+      "version": "libbpf-1.8.0_1",
+      "architecture": "x86_64",
+      "sha256": "976aae450aafffa760d063474eb84c877b3da566f54ad80dc1fdbc27814f4f4f"
+    },
+    "libbs2b": {
+      "version": "libbs2b-3.1.0_3",
+      "architecture": "x86_64",
+      "sha256": "db62ca6abcc4c08c104ae8311d353a59c612ecbbf8cc3fc51b209b9fa5a0985a"
+    },
+    "libbytesize": {
+      "version": "libbytesize-2.12_1",
+      "architecture": "x86_64",
+      "sha256": "d3127370c63500893449bcce51b3b1267f4f1cdc7e19b9e6be9aa48a258591ec"
+    },
+    "libcaca": {
+      "version": "libcaca-0.99.beta20_1",
+      "architecture": "x86_64",
+      "sha256": "01466e1b8c43cfc94e902fda03929123ad56da6ed803fd832f91f8110c3543b4"
+    },
+    "libcacard": {
+      "version": "libcacard-2.8.1_1",
+      "architecture": "x86_64",
+      "sha256": "3ce3206d4a1792344f0d78fd7203161ee3b09b77115db146b9adba28f877a82a"
+    },
+    "libcamera": {
+      "version": "libcamera-0.7.1_2",
+      "architecture": "x86_64",
+      "sha256": "0a27ce9dc73125ca087ba363b1a0bb3f978830f19e8d8f55bd88650e449e8fe1"
+    },
+    "libcanberra": {
+      "version": "libcanberra-0.30_15",
+      "architecture": "x86_64",
+      "sha256": "c8ea08a6fd6b223a28ef4ca3390a6f2be34b97e59adfef3c6999d3a8ff60ab9c"
+    },
+    "libcap": {
+      "version": "libcap-2.78_1",
+      "architecture": "x86_64",
+      "sha256": "551a8d26c2d617d8ce493ad665af3db7bcbb265f3fcc5273ca62f454f1056c21"
+    },
+    "libcap-ng": {
+      "version": "libcap-ng-0.9.3_1",
+      "architecture": "x86_64",
+      "sha256": "466b339570534c5787e02877a401f5ee5654e986bd47a1a0a3690402c117498c"
+    },
+    "libcap-progs": {
+      "version": "libcap-progs-2.77_1",
+      "architecture": "x86_64",
+      "sha256": "6610d34aa54ec637a028dd40717bacfd155682f99feaf1ce221c6a1d69d4d9db"
+    },
+    "libcbor": {
+      "version": "libcbor-0.14.0_1",
+      "architecture": "x86_64",
+      "sha256": "f46560ea998149a470b5d8e10bfd3243a7d5e982a3631c379bd459b657e0ce69"
+    },
+    "libcddb": {
+      "version": "libcddb-1.3.2_9",
+      "architecture": "x86_64",
+      "sha256": "64732647058cbcf75d6a8327ce891e6ae020441c6cc39c998155ee7400ff0786"
+    },
+    "libcdio": {
+      "version": "libcdio-2.3.0_1",
+      "architecture": "x86_64",
+      "sha256": "8053b6c25457611f854a9b57bb2db192958a3917d3c21b50578c5024cc63d1db"
+    },
+    "libcdio-paranoia": {
+      "version": "libcdio-paranoia-10.2+2.0.1_1",
+      "architecture": "x86_64",
+      "sha256": "aec3f044169f885dc1f041f5db6ce6d1a26b3a3c2989ae70b11767d27453b271"
+    },
+    "libcdparanoia": {
+      "version": "libcdparanoia-10.2_15",
+      "architecture": "x86_64",
+      "sha256": "a244f22c0f2982d7ea8d3f0417142d338760d35a97b291bd857365e095e4d8f4"
+    },
+    "libclang-cpp21": {
+      "version": "libclang-cpp21-21.1.7_1",
+      "architecture": "x86_64",
+      "sha256": "fda713bc87e7da5beed4bf5a7072eb0c5bc02792a58b5058f333d83d3c38b624"
+    },
+    "libclc21": {
+      "version": "libclc21-21.1.7_1",
+      "architecture": "x86_64",
+      "sha256": "02243cc66640e2f54062a0b9f4b910b2176a970bc28fd62e27904c327f5541b5"
+    },
+    "libcloudproviders": {
+      "version": "libcloudproviders-0.4.0_1",
+      "architecture": "x86_64",
+      "sha256": "2be72cb90f9b5bfe39bd31cabbc742b61bae62e5ded04937cb4ed720be4ef48b"
+    },
+    "libcolord": {
+      "version": "libcolord-1.4.7_1",
+      "architecture": "x86_64",
+      "sha256": "3d596d9da80c78cc650fd8e1cc68a58b58beb620fd4d9450fb4030b1a77dfb7d"
+    },
+    "libcrypto3": {
+      "version": "libcrypto3-3.6.5_1",
+      "architecture": "x86_64",
+      "sha256": "44bc1b56df9228cc08b3702993ce019b62c32e70f84d79340add083ee80c116e"
+    },
+    "libcryptsetup": {
+      "version": "libcryptsetup-2.8.8_1",
+      "architecture": "x86_64",
+      "sha256": "bbae8b1a19daa157b91e9ed75cfb0052df47d8bd263d3977f5d03c1ea1c67778"
+    },
+    "libcups": {
+      "version": "libcups-2.4.19_1",
+      "architecture": "x86_64",
+      "sha256": "6f2a0e2da5fe26531845bb43a1578067d14cfd1aa96ae8589101d027c89ead67"
+    },
+    "libcurl": {
+      "version": "libcurl-8.22.0_1",
+      "architecture": "x86_64",
+      "sha256": "d1f46aed31dcd24a6147d5aaa21632e095ae82670caafe267d61b457c21aae0b"
+    },
+    "libdaemon": {
+      "architecture": "x86_64",
+      "sha256": "1a624ba39d9aa11658aa4b92754829d9227622389c3c97d21232a4dcc82c87a6",
+      "version": "libdaemon-0.14_9"
+    },
+    "libdatrie": {
+      "version": "libdatrie-0.2.14_1",
+      "architecture": "x86_64",
+      "sha256": "d5f5f630e7d0529aed7dfe756e0c9bef3c83eb34fa4c739802fc905da951b640"
+    },
+    "libdav1d": {
+      "version": "libdav1d-1.5.3_1",
+      "architecture": "x86_64",
+      "sha256": "49b0b8a0c7ad48d62d47458732d1afc739f0eb315fb1f10f3e645a5d083c03f0"
+    },
+    "libdaxctl": {
+      "version": "libdaxctl-70.1_1",
+      "architecture": "x86_64",
+      "sha256": "33903cc9faf1ac84ec3a5533fc33f2513f35565dcf5355ee58325fd30013dfe3"
+    },
+    "libdb": {
+      "version": "libdb-5.3.28_8",
+      "architecture": "x86_64",
+      "sha256": "4017b3f199c08e375885ff79f60099afcca17bfb098a728104a6b12f12963057"
+    },
+    "libdbusmenu-glib": {
+      "version": "libdbusmenu-glib-16.04.0_6",
+      "architecture": "x86_64",
+      "sha256": "c21a90695c47db3b60dc7302603de557b0576362c3de9299866f3ef2b947737b"
+    },
+    "libdbusmenu-gtk3": {
+      "version": "libdbusmenu-gtk3-16.04.0_6",
+      "architecture": "x86_64",
+      "sha256": "67351285a13f71b61dfdab026464e27f7d80e1ad9c5f2642ac32416e795c36cc"
+    },
+    "libdca": {
+      "version": "libdca-0.0.7_2",
+      "architecture": "x86_64",
+      "sha256": "dc10d4beb46d4cb778c3b240e0b9dfc49674fbe13bf9886cbdc017d289fa52fb"
+    },
+    "libde265": {
+      "version": "libde265-1.0.16_2",
+      "architecture": "x86_64",
+      "sha256": "d8ca0964549f4f094ce4bea4b590f5d5c9435d643eb72beae23bac3be289e7be"
+    },
+    "libdebuginfod": {
+      "version": "libdebuginfod-0.194_1",
+      "architecture": "x86_64",
+      "sha256": "6c93d9471e4286e963d3771212d7f44715f9a15c0f6da325f749817aec61c8c9"
+    },
+    "libdecor": {
+      "version": "libdecor-0.2.5_1",
+      "architecture": "x86_64",
+      "sha256": "72260b450e5027aed754ec6964d1a32eaa3876fece3087ce537a874947066d64"
+    },
+    "libdisplay-info": {
+      "version": "libdisplay-info-0.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "877021df6637daf54907579d9dcbbf802684469b4ba684df4cf7ea5af6bd2a6e"
+    },
+    "libdrm": {
+      "version": "libdrm-2.4.134_1",
+      "architecture": "x86_64",
+      "sha256": "da6998d6f3ba7f136ac7ab429735da4b256b8687973a745e5994049184d38ff4"
+    },
+    "libdrm-devel": {
+      "version": "libdrm-devel-2.4.131_1",
+      "architecture": "x86_64",
+      "sha256": "aefe4d3bd510af6c23e03397f24ac5540173c56821d8b0abd0bf55a3fad07835"
+    },
+    "libdvdcss": {
+      "version": "libdvdcss-1.5.0_1",
+      "architecture": "x86_64",
+      "sha256": "21d57051aea95dd34ec9c24649896df79033676c71a1bfcfd55c9d26d494d55b"
+    },
+    "libdvdnav": {
+      "version": "libdvdnav-6.1.1_1",
+      "architecture": "x86_64",
+      "sha256": "fa37cf00c5f1989cabbf716cb8200ffe5132297a8c8be703b988b77df8426fe6"
+    },
+    "libdvdread": {
+      "version": "libdvdread-7.0.1_1",
+      "architecture": "x86_64",
+      "sha256": "cb47143ce2fb1ada999cec76e4afebb9d14768b42af138075f86d6acf31d2a70"
+    },
+    "libebur128": {
+      "version": "libebur128-1.2.6_1",
+      "architecture": "x86_64",
+      "sha256": "743ff44cd6ed5788e48bac0be357c26f0de25fa318cc55efac6efc10b7c96b55"
+    },
+    "libedit": {
+      "version": "libedit-20260512.3.1_1",
+      "architecture": "x86_64",
+      "sha256": "497b7c9c28ec63fbfa2a07df7377550c77a03219c5c482c784182a984f78be84"
+    },
+    "libefivar": {
+      "version": "libefivar-39_1",
+      "architecture": "x86_64",
+      "sha256": "53041457d7f8b9320438529d0ac4f408145ae185c0dfe9fc5c2e123480dd211e"
+    },
+    "libei": {
+      "version": "libei-1.6.0_1",
+      "architecture": "x86_64",
+      "sha256": "907a01ff1fb2ea85bc156cd63b35f6675e3ec88d506919c52212008dfb693e03"
+    },
+    "libelf": {
+      "version": "libelf-0.195_1",
+      "architecture": "x86_64",
+      "sha256": "52f36b3381cc9839e4f8db334039a06f86307ab39181cc6d5755d022f981926a"
+    },
+    "libelogind": {
+      "version": "libelogind-252.39_1",
+      "architecture": "x86_64",
+      "sha256": "1604e55819be32df1e9c33551c272a50fc0193f2cb57fe95cd0e754e08a7fcb4"
+    },
+    "libepoxy": {
+      "version": "libepoxy-1.5.10_1",
+      "architecture": "x86_64",
+      "sha256": "d8bbc706dd825a0e6eb30596e65e3cf776b5584ef6525e9fb2b2649c6732f706"
+    },
+    "liberation-fonts-ttf": {
+      "version": "liberation-fonts-ttf-2.1.5_3",
+      "architecture": "x86_64",
+      "sha256": "dd8b756dfc516dcb4d07164c08701920178557dcefbbd49083eff7518466927f"
+    },
+    "libev": {
+      "version": "libev-4.33_1",
+      "architecture": "x86_64",
+      "sha256": "e55cd97304ee4c26575c2216da770b57e64d067ccc147658769f678008aa4127"
+    },
+    "libevdev": {
+      "version": "libevdev-1.13.4_1",
+      "architecture": "x86_64",
+      "sha256": "74044dd9f280cd841632c617b825c57df78dc7f526acc81bf5e81c966507e8fb"
+    },
+    "libevent": {
+      "version": "libevent-2.1.13_1",
+      "architecture": "x86_64",
+      "sha256": "94aecd57e48b0b2f2028c16fc0a4817480b9a9f4dc5e12b4a6ca758280613f02"
+    },
+    "libfdisk": {
+      "version": "libfdisk-2.41.4_1",
+      "architecture": "x86_64",
+      "sha256": "a294f31486af6bd071b207f325a297d08b729f7787fae5e0369682c35daf9b7d"
+    },
+    "libffi": {
+      "version": "libffi-3.3_2",
+      "architecture": "x86_64",
+      "sha256": "1be771b6d5acfc73cdbfa85007006263ceaaa203a8b348418489fef38939cb17"
+    },
+    "libfftw": {
+      "version": "libfftw-3.3.11_1",
+      "architecture": "x86_64",
+      "sha256": "9e497ef21379245a52708c454714470a83df95a715dbc4d7b7b636be8b6dabf7"
+    },
+    "libflac": {
+      "version": "libflac-1.5.0_1",
+      "architecture": "x86_64",
+      "sha256": "7efc5ff1c21c76c06b52c061f60b25987f11df1b2217cf84f4cfed8ef0caa869"
+    },
+    "libfluidsynth": {
+      "version": "libfluidsynth-2.5.4_1",
+      "architecture": "x86_64",
+      "sha256": "2ea0ff1fa477d8693ac0407ebfff8ead480ababb36eac5f14ad38a7a5a639c04"
+    },
+    "libfontenc": {
+      "version": "libfontenc-1.1.9_1",
+      "architecture": "x86_64",
+      "sha256": "35b6f0da9167ccd2ec8de82e744ab0ee3abbbf37bd33b43a2c102ba18f8b2443"
+    },
+    "libfreeaptx": {
+      "version": "libfreeaptx-0.1.1_1",
+      "architecture": "x86_64",
+      "sha256": "69be7efc3d9407241cc02c7a219dafedb865657f83cc05c9e9d1b8c9fc13ccf3"
+    },
+    "libfyaml": {
+      "version": "libfyaml-0.9.6_1",
+      "architecture": "x86_64",
+      "sha256": "00332d3765156b496ee118aed351635ec62e75eda06b63474ed75b123583ff8a"
+    },
+    "libgbm": {
+      "version": "libgbm-26.2.4_1",
+      "architecture": "x86_64",
+      "sha256": "60b608f574699c4ed446f3bc84b807b964f229da38a051d61090176dfb137fc1"
+    },
+    "libgbm-devel": {
+      "version": "libgbm-devel-26.0.6_1",
+      "architecture": "x86_64",
+      "sha256": "46dfc91d43cf593eb90ef61b9f336671389d7f3c9f5184d1b8d6336850630cc6"
+    },
+    "libgcc": {
+      "version": "libgcc-14.2.1+20250405_4",
+      "architecture": "x86_64",
+      "sha256": "85c9cf04a70336f88e0bb5396b4315c7c7aad1d425bee88e72ab2b806540d02f"
+    },
+    "libgcc-devel": {
+      "version": "libgcc-devel-14.2.1+20250405_4",
+      "architecture": "x86_64",
+      "sha256": "2c8266f22b732d022bb1870e6ef761f1250d6c699fb8575527e85f958e128863"
+    },
+    "libgcrypt": {
+      "version": "libgcrypt-1.12.2_1",
+      "architecture": "x86_64",
+      "sha256": "dad2ee6a6b1476be94f2fa563e23482e6fd1ac1a75005b1e126017ee258f6912"
+    },
+    "libgirepository": {
+      "version": "libgirepository-1.86.0_2",
+      "architecture": "x86_64",
+      "sha256": "a6ee44ea30a33213e4af9d8b0c7cbabf17b29611ffb7c32b0bfc2440abd23ee0"
+    },
+    "libglvnd": {
+      "version": "libglvnd-1.7.0_1",
+      "architecture": "x86_64",
+      "sha256": "cdd44ea326456703557ceafbc991f05e7e2a921eb95e1ca2688043c78bb63504"
+    },
+    "libglvnd-devel": {
+      "version": "libglvnd-devel-1.7.0_1",
+      "architecture": "x86_64",
+      "sha256": "fa1442e6ab321fc041cdddd025bcff4eae5ecef32fdf4578ecfc844d54f93953"
+    },
+    "libgme": {
+      "version": "libgme-0.6.3_3",
+      "architecture": "x86_64",
+      "sha256": "7d6252fd1582d8e488e224cbc5b70eac50057ed66541ea8f7eb58fa6ec8eae93"
+    },
+    "libgomp": {
+      "version": "libgomp-14.2.1+20250405_4",
+      "architecture": "x86_64",
+      "sha256": "47d76e868bb26faf686f02d8565460b967909cee017fda8adb6df2dc773de187"
+    },
+    "libgpg-error": {
+      "version": "libgpg-error-1.61_1",
+      "architecture": "x86_64",
+      "sha256": "bfb0b9f2a2c238deda16e6fa0b5bed1aaaf140132619e6890d0a7ea0eb4f8b39"
+    },
+    "libgpgme": {
+      "version": "libgpgme-2.1.2_2",
+      "architecture": "x86_64",
+      "sha256": "e2ea2d3356de9efcc324abf460c0c3803d45c15356956bd1781ff038440b1049"
+    },
+    "libgs": {
+      "version": "libgs-10.06.0_1",
+      "architecture": "x86_64",
+      "sha256": "8b1b2504732f1025db209b1db489c6c7a230c57d8d470ab629970d16ad31aab6"
+    },
+    "libgsm": {
+      "version": "libgsm-1.0.24_1",
+      "architecture": "x86_64",
+      "sha256": "7dea917dd4f05b7e436c6e5a62300dd2238ae0b58f9f60aef55f37d35624285f"
+    },
+    "libgudev": {
+      "version": "libgudev-238_1",
+      "architecture": "x86_64",
+      "sha256": "6dd93f287a67c6fd2722e714acb969f929ebbd4e70b5087f192cbfb8bc77f17b"
+    },
+    "libgusb": {
+      "version": "libgusb-0.4.9_1",
+      "architecture": "x86_64",
+      "sha256": "b296d5f8f06cdecab1f89d6fce024bb0be884d5af496819bf741eb45dc9093d9"
+    },
+    "libharfbuzz": {
+      "version": "libharfbuzz-14.4.0_1",
+      "architecture": "x86_64",
+      "sha256": "00c0cfb8f1c28c635fa88061e73b772f2b7e841f110f2d02ee71f6c2d7a1383b"
+    },
+    "libheif": {
+      "version": "libheif-1.20.2_1",
+      "architecture": "x86_64",
+      "sha256": "22195456620644e7a54ec1c0f9058fa83287bfba838270ac21a984af23ffd8f6"
+    },
+    "libicu77": {
+      "version": "libicu77-77.1_2",
+      "architecture": "x86_64",
+      "sha256": "80170f106521f2a0f9a83a760f213d102885255b662484a2ba22e5f60dfcf68e"
+    },
+    "libicu78": {
+      "version": "libicu78-78.3_1",
+      "architecture": "x86_64",
+      "sha256": "b290e22d81d0c89a99472c1920757f3214e8d5eb53176645d78710a9c0078e7b"
+    },
+    "libid3tag": {
+      "version": "libid3tag-0.16.4_1",
+      "architecture": "x86_64",
+      "sha256": "590c818840783426645ea3d97b99289a01cb3a744f00c8c065f0fc3d7ae1fbd4"
+    },
+    "libidn2": {
+      "version": "libidn2-2.3.8_1",
+      "architecture": "x86_64",
+      "sha256": "9fc5c6754988284895a26195d1d7ca78ee32fe3fcaadb4bfef2032b98bf83912"
+    },
+    "libimobiledevice": {
+      "version": "libimobiledevice-1.3.0_8",
+      "architecture": "x86_64",
+      "sha256": "584ab208be20da7a0c29ac53025d193373c3525c01c2452e1a912cf62c6c0c36"
+    },
+    "libinput": {
+      "version": "libinput-1.31.0_1",
+      "architecture": "x86_64",
+      "sha256": "7db243525e6ef1fc7e4853c5bdb71e83e1e2bad561f218ee2ec197404823e532"
+    },
+    "libinstpatch": {
+      "version": "libinstpatch-1.1.6_1",
+      "architecture": "x86_64",
+      "sha256": "134c96edfde846305031032af6a849db4dcfb96af9330f24efde6819253ec66c"
+    },
+    "libiscsi": {
+      "version": "libiscsi-1.19.0_1",
+      "architecture": "x86_64",
+      "sha256": "75a83d1bb46d108d46a9a00f9a1e3770f7c3d165d1ccb66f8a2a326b5b87b63f"
+    },
+    "libjack": {
+      "version": "libjack-1.9.22_1",
+      "architecture": "x86_64",
+      "sha256": "b5adb0fee32162c90e6be5f8216630a09d9b576f0ffab4d9809ea1367ae353f8"
+    },
+    "libjbig2dec": {
+      "version": "libjbig2dec-0.20_1",
+      "architecture": "x86_64",
+      "sha256": "f2838d06c02bb15cc352128a20c8d71ff17bed46d34368d5141bb382a63cfb90"
+    },
+    "libjpeg-turbo": {
+      "version": "libjpeg-turbo-3.1.4.1_1",
+      "architecture": "x86_64",
+      "sha256": "855bff7471ff8933d479aead6d5858eb55ff790bb63db6f445ab8659c8059ce9"
+    },
+    "libjxl": {
+      "version": "libjxl-0.12.0_1",
+      "architecture": "x86_64",
+      "sha256": "2e2cbb4264d2392ac22a84f7d63c95910c38df9e9171bcdd31ac1d353739e76d"
+    },
+    "libkeyutils": {
+      "version": "libkeyutils-1.6.3_3",
+      "architecture": "x86_64",
+      "sha256": "ab4db87b115535e3767b5827382ecd40140f7b9fccc116583f39aff463b6a53b"
+    },
+    "libkmod": {
+      "version": "libkmod-34.2_1",
+      "architecture": "x86_64",
+      "sha256": "1b902da1fb6dd6478630249738f2c9dc1262165fdb5a65f200e9356b78171427"
+    },
+    "libksba": {
+      "version": "libksba-1.8.0_1",
+      "architecture": "x86_64",
+      "sha256": "b7fe6050554f02c0273e5b0860e0da2f07eeb9f1aedb7fc2764a6aea39aa3a80"
+    },
+    "liblastlog2": {
+      "version": "liblastlog2-2.41.4_1",
+      "architecture": "x86_64",
+      "sha256": "33ea0312f064de0406378a488bba462e058ba47147a665c0fcc4bcf4d1d19063"
+    },
+    "liblc3": {
+      "version": "liblc3-1.1.3_1",
+      "architecture": "x86_64",
+      "sha256": "13e07e4107913d1717f80ac2af618f59f54c3088cdcf28ad3dcbfc394ec3cf64"
+    },
+    "libldap": {
+      "version": "libldap-2.6.10_1",
+      "architecture": "x86_64",
+      "sha256": "e71036962917b51890076c3867f339e86ded4452227ff981bf14c550235e167d"
+    },
+    "libldns": {
+      "version": "libldns-1.9.0_1",
+      "architecture": "x86_64",
+      "sha256": "dd668d937a2413d8bdf224681c144e2c76b6db0e734870cdb1e93ec666bc3b00"
+    },
+    "liblilv": {
+      "version": "liblilv-0.28.0_1",
+      "architecture": "x86_64",
+      "sha256": "c3efb9735cf5f36ed5a9498ed8d6d5d9e450ca45b11f6359b98eb758eea92f1f"
+    },
+    "libllvm21": {
+      "version": "libllvm21-21.1.7_1",
+      "architecture": "x86_64",
+      "sha256": "134ba9f92e168d15122abad44838543b1e2b9c64e6319d5921928126a13373d6"
+    },
+    "libllvm22": {
+      "version": "libllvm22-22.1.8_1",
+      "architecture": "x86_64",
+      "sha256": "799ddfe1e4919343fa8240c93b53b948c18b4e0bb638a27d08c34baafe17756c"
+    },
+    "liblrdf": {
+      "version": "liblrdf-0.6.1_2",
+      "architecture": "x86_64",
+      "sha256": "1e9eaf53420ce2595500f357b80d47b61899db833f37dc168f9fb8fba5fdf212"
+    },
+    "libltdl": {
+      "version": "libltdl-2.4.7_8",
+      "architecture": "x86_64",
+      "sha256": "b7f7d3a9657e6ab29fa60a5f3a611ff659210f02f684e3e93447b9b0b5724255"
+    },
+    "liblz4": {
+      "version": "liblz4-1.10.0_1",
+      "architecture": "x86_64",
+      "sha256": "eb2c77ac7c8197eef9c2b7c6c1e650fcad537b932a52971b23a17de7b9c87df5"
+    },
+    "liblzma": {
+      "version": "liblzma-5.8.3_1",
+      "architecture": "x86_64",
+      "sha256": "45ae2f27298daa4a7abab1e9b47a8d1c75cca2a90d9b3508a9b3b5dcaf55f70b"
+    },
+    "libmagic": {
+      "version": "libmagic-5.46_2",
+      "architecture": "x86_64",
+      "sha256": "b9937dd8df01a5d1a2042c86d56eca44616c015865fc6a059cf8ba82a8e6b1d3"
+    },
+    "libmm-glib": {
+      "version": "libmm-glib-1.24.2_1",
+      "architecture": "x86_64",
+      "sha256": "b1ea4e01073f2c69287912bff02d52bf1f32034640e8df5b78b651bbf2dd811c"
+    },
+    "libmnl": {
+      "version": "libmnl-1.0.5_1",
+      "architecture": "x86_64",
+      "sha256": "6200c9fc7793b3a5146324f2ffdf6ac4b9f48dcba17879a51eeaea9b2571f1a5"
+    },
+    "libmodplug": {
+      "version": "libmodplug-0.8.9.0_1",
+      "architecture": "x86_64",
+      "sha256": "8c9e3a464ee8165e0e1e83c96bc50d6bd3572f51852d5b6efdcd50cc8d199436"
+    },
+    "libmount": {
+      "version": "libmount-2.41.4_1",
+      "architecture": "x86_64",
+      "sha256": "6b237a7321588c1c5c4616385eb0c5adda16355f19d9026d3d190efd72ee167b"
+    },
+    "libmpg123": {
+      "version": "libmpg123-1.33.7_1",
+      "architecture": "x86_64",
+      "sha256": "ae05405c30f15ffabc894f9e4b7a65530f558bfa5e16cd1e9f69cfd459084935"
+    },
+    "libmysofa": {
+      "version": "libmysofa-1.3.2_1",
+      "architecture": "x86_64",
+      "sha256": "67579b54fbdbf81186f834e963cb291376565285d867fed4ba3f109b3753421c"
+    },
+    "libndctl": {
+      "version": "libndctl-70.1_1",
+      "architecture": "x86_64",
+      "sha256": "95e8a176d3657d3b3078bb5772fad6db15501c6510d11f6b382df5bf3459c7d8"
+    },
+    "libndp": {
+      "version": "libndp-1.9_1",
+      "architecture": "x86_64",
+      "sha256": "9905b55f235debf352c8b44e044419a57326d4c4ddea96d49083c9a3f993bdce"
+    },
+    "libnetfilter_conntrack": {
+      "version": "libnetfilter_conntrack-1.1.0_1",
+      "architecture": "x86_64",
+      "sha256": "c6a3ccfd2e9c3907ff0e97283c23450f2480bf77b285210c65966d668d728a61"
+    },
+    "libnfnetlink": {
+      "version": "libnfnetlink-1.0.2_1",
+      "architecture": "x86_64",
+      "sha256": "7fefe7c9f5c3f8a4c409f3b905b5fbe61380458ff4f9b4cb4b010fef1f82af05"
+    },
+    "libnfs": {
+      "version": "libnfs-5.0.3_1",
+      "architecture": "x86_64",
+      "sha256": "69e58a2f38fc33d704f8937a544b8a3bc236f77c1b6676a50b233c8f7c99824f"
+    },
+    "libnftables": {
+      "version": "libnftables-1.1.5_2",
+      "architecture": "x86_64",
+      "sha256": "211ccd68d00449417b799b2278565d23830df185c3a954658c56c4f854d64751"
+    },
+    "libnftnl": {
+      "version": "libnftnl-1.3.1_1",
+      "architecture": "x86_64",
+      "sha256": "21bc0a379509264722e7a3297fe7bb99bbcd940c44c279cc79b209b23bd5e3a0"
+    },
+    "libnice": {
+      "version": "libnice-0.1.22_1",
+      "architecture": "x86_64",
+      "sha256": "3472484722b8a3ba619565c6ac62bda882f02275dc6e9e5f95217c4cdd77770b"
+    },
+    "libnl3": {
+      "version": "libnl3-3.12.0_1",
+      "architecture": "x86_64",
+      "sha256": "17adfe1e01a5359f7400d0e436183468335d489618922c8507edef7f4e0c445c"
+    },
+    "libnm": {
+      "version": "libnm-1.56.0_1",
+      "architecture": "x86_64",
+      "sha256": "be422c4774532a29bd274082a73bd37ec65b40bb6d1c26a1c3b193f11006db73"
+    },
+    "libnotify": {
+      "version": "libnotify-0.8.8_1",
+      "architecture": "x86_64",
+      "sha256": "d43fe2aa26eaaa78dd47e34e7f419d2224ab2c0e1885e1174855598d1efac60b"
+    },
+    "libnuma": {
+      "version": "libnuma-2.0.18_1",
+      "architecture": "x86_64",
+      "sha256": "3a1ad34c166de5a1d8d35fb85df3859465dbfe9cf4e435b0d5367ae9b8ddb1c6"
+    },
+    "libnvidia-container": {
+      "version": "libnvidia-container-1.18.2_1",
+      "architecture": "x86_64",
+      "sha256": "5ad5018f03e75ec5c744f94d4579a05f920a62e4b206c27722cb03083a32b79d"
+    },
+    "libnvme": {
+      "version": "libnvme-1.16.2_1",
+      "architecture": "x86_64",
+      "sha256": "75ec95a26b81a3f4cd84d074d7e1836e07a6c931cd5c85aba69bca680e697e3f"
+    },
+    "libogg": {
+      "version": "libogg-1.3.6_1",
+      "architecture": "x86_64",
+      "sha256": "88b9559ae7c84c4eaf64124a12635a48e20ec2cd3f2a54a8415feff68c81b61c"
+    },
+    "libopenal": {
+      "version": "libopenal-1.25.2_1",
+      "architecture": "x86_64",
+      "sha256": "ebec7b4852e49d4d57ba772731dd38f2c5b1adc7cf632a1f6723d55ff3588dd6"
+    },
+    "libopenjpeg2": {
+      "version": "libopenjpeg2-2.5.4_1",
+      "architecture": "x86_64",
+      "sha256": "5791e74464f4853ac82db459a28e9c81daa9a42a6922e21790566fa17ec0e488"
+    },
+    "libopenmpt": {
+      "version": "libopenmpt-0.8.6_1",
+      "architecture": "x86_64",
+      "sha256": "d6b817622a4ffda573e77557bf37e5cb0e509703eb826f87d111a61cdecc3af1"
+    },
+    "libpaper": {
+      "version": "libpaper-1.1.29_1",
+      "architecture": "x86_64",
+      "sha256": "f2d5eeea41cb47007e8c1d376abbe64b6625e8d01391281ff5a6d9c1c40df0db"
+    },
+    "libparted": {
+      "version": "libparted-3.7_1",
+      "architecture": "x86_64",
+      "sha256": "6eb924429db6ee6d17b0c096a8ae0349bccab8ad166a31716a66dfa17b6e7780"
+    },
+    "libpcap": {
+      "version": "libpcap-1.11.0_1",
+      "architecture": "x86_64",
+      "sha256": "44a884b45c0149c3bc7ecbda4e16e2e28e26a193c5efa13de8e8bd953f72f03f"
+    },
+    "libpciaccess": {
+      "version": "libpciaccess-0.19_1",
+      "architecture": "x86_64",
+      "sha256": "1f9a1e16d138800ae1fddb877677fafaf7ae8b5c31f18a72b3ce417fba61fecd"
+    },
+    "libpciaccess-devel": {
+      "version": "libpciaccess-devel-0.18.1_1",
+      "architecture": "x86_64",
+      "sha256": "3774dcd6be3d7f8fdcd737a859fd60d510b07d3b34ac6c869cda2ddb611eda59"
+    },
+    "libpcre": {
+      "version": "libpcre-8.45_3",
+      "architecture": "x86_64",
+      "sha256": "13fcdca9c6b4793dc99d2195957dcc801469e8214d9c8b743344779fa4026489"
+    },
+    "libpcre2": {
+      "version": "libpcre2-10.49_1",
+      "architecture": "x86_64",
+      "sha256": "60bfd085e2e1c9c321f5a92fbf43328df92b9f3950aaffe89fea36d3fd7a26f2"
+    },
+    "libpcsclite": {
+      "version": "libpcsclite-2.4.1_1",
+      "architecture": "x86_64",
+      "sha256": "120cb508787ae943876e4dca0275c95dc5a596c1b5b902ccaf7d8d0a095d31e7"
+    },
+    "libpipewire": {
+      "version": "libpipewire-1.6.9_1",
+      "architecture": "x86_64",
+      "sha256": "b8918bc43504e097f7378f31821eddf863bde574784145f28d65d5cbac375dbc"
+    },
+    "libplist": {
+      "version": "libplist-2.2.0_7",
+      "architecture": "x86_64",
+      "sha256": "bf8cd217f4ff731d18cc998323f20f1a6cdb6061d0ea049cf670870be263a951"
+    },
+    "libpng": {
+      "version": "libpng-1.6.59_1",
+      "architecture": "x86_64",
+      "sha256": "4585e9cd3a482fda5d99cf1bfcaa5fe0f7018cd9bd0265dc655ed88d0d359dd2"
+    },
+    "libpostproc6": {
+      "version": "libpostproc6-6.1.6_2",
+      "architecture": "x86_64",
+      "sha256": "a8a2f890f2443d4b9c4a15c07981410f011f4299606733a8e48f03708768d53c"
+    },
+    "libproxy": {
+      "version": "libproxy-0.5.12_1",
+      "architecture": "x86_64",
+      "sha256": "b3c5a4d16afed9b70abbe70cd9544503f0a49c10086532c0db92f6c5387c00f8"
+    },
+    "libpsl": {
+      "version": "libpsl-0.21.5_1",
+      "architecture": "x86_64",
+      "sha256": "82e08c35eb21bef0ff9c792de7421c752bd70a4ec54b2be662381af170058e73"
+    },
+    "libpulseaudio": {
+      "version": "libpulseaudio-16.1_2",
+      "architecture": "x86_64",
+      "sha256": "46f18662e7516be82ff8dbd99df323042e8bcb4d88799bcab7de3a230fcbe2a2"
+    },
+    "libpyldb-util": {
+      "version": "libpyldb-util-2.9.0_3",
+      "architecture": "x86_64",
+      "sha256": "9494160af9a3b5d65106b3ec7e5f98c4fc090f2fdeb84e965346f33138fe85a8"
+    },
+    "libpytalloc-util": {
+      "version": "libpytalloc-util-2.4.3_3",
+      "architecture": "x86_64",
+      "sha256": "3fd6c051f3ced41e7d1a4f68c7bb1c8bcf02de0db8d6ac060f7c64af1b6b5b29"
+    },
+    "libraptor": {
+      "version": "libraptor-2.0.16_2",
+      "architecture": "x86_64",
+      "sha256": "9630f1560a6a988f6b7968a37791d5988658c3ae66937f035270415b99027806"
+    },
+    "libreadline8": {
+      "version": "libreadline8-8.2.010_1",
+      "architecture": "x86_64",
+      "sha256": "11273d06d2dd7b7ec6fd7ab0f88599de2ad490807bc056e6d96fb972cdd78e06"
+    },
+    "librist": {
+      "version": "librist-0.2.20_1",
+      "architecture": "x86_64",
+      "sha256": "86ded00fc4b3fcd97a408183b99fbc935ac71dfe86f5efe584c0bdf9a6df61db"
+    },
+    "librsvg": {
+      "version": "librsvg-2.59.2_2",
+      "architecture": "x86_64",
+      "sha256": "bc0aeefca9a06abb66fa2777dfd94457c55960c0c874966163fc3360a62b6978"
+    },
+    "librtmp": {
+      "version": "librtmp-2.6_1",
+      "architecture": "x86_64",
+      "sha256": "08b0d421d580e9605a98f4c32dbe8129c89077361e8722723157e5b419f08297"
+    },
+    "libsamplerate": {
+      "version": "libsamplerate-0.2.2_1",
+      "architecture": "x86_64",
+      "sha256": "ef0542e75348e7a723cb30fe93ef85707bbfb460c66bdf8f3c562e75de1a77da"
+    },
+    "libsasl": {
+      "version": "libsasl-2.1.28_2",
+      "architecture": "x86_64",
+      "sha256": "5baf0b0edbe7ef4eb30a88ff9a888c73db55f4018766d71976b59a9b1103b298"
+    },
+    "libseat": {
+      "version": "libseat-0.9.3_1",
+      "architecture": "x86_64",
+      "sha256": "3f3f31e5c6822f13aa6dfd6188cadb9d1bd40e3945729555c54428f45fa71b8b"
+    },
+    "libseccomp": {
+      "version": "libseccomp-2.6.1_1",
+      "architecture": "x86_64",
+      "sha256": "780b44747795b557e4d05fb6415b2609c748a33e6c753a2f9122955b987305cd"
+    },
+    "libsecret": {
+      "version": "libsecret-0.21.7_1",
+      "architecture": "x86_64",
+      "sha256": "f6f2480d2e60dd4c04f2a82de41c8e55b5e4b91d8cdc5a26517703af52e5be12"
+    },
+    "libsensors": {
+      "version": "libsensors-3.6.0_2",
+      "architecture": "x86_64",
+      "sha256": "b8959d2029b812c516727e1fcfa673b5d244dcc387390ef329ba35a8ca64c4d3"
+    },
+    "libserd": {
+      "version": "libserd-0.32.8_1",
+      "architecture": "x86_64",
+      "sha256": "4009c3a42a8c391cff18c6847ec7f7c6c5138c30f515ba1b18efe70cddf4b54d"
+    },
+    "libsharpyuv": {
+      "version": "libsharpyuv-1.6.0_3",
+      "architecture": "x86_64",
+      "sha256": "603af795c5cf6a52bfd47c334e983dc6ac1ef9992d687b20da6b226caa47691c"
+    },
+    "libslirp": {
+      "version": "libslirp-4.8.0_1",
+      "architecture": "x86_64",
+      "sha256": "881831fa5192b9b67b2c1f47b45b491412b4bf773c5343a8956b1a421b578b9f"
+    },
+    "libsmartcols": {
+      "version": "libsmartcols-2.41.4_1",
+      "architecture": "x86_64",
+      "sha256": "547d5a2604662f465089fc697ccea2275094249e5399aebd7e59c27dfe2d66b7"
+    },
+    "libsndfile": {
+      "version": "libsndfile-1.2.2_2",
+      "architecture": "x86_64",
+      "sha256": "2838bae0a573ec33a76ad0e8ad700073746e474df4d31a6ced4b24aee80eec60"
+    },
+    "libsndio": {
+      "version": "libsndio-1.10.0_1",
+      "architecture": "x86_64",
+      "sha256": "7345415a4648ceb6670c5762292a0b28d21b83706c7dd820260c09e9672f539c"
+    },
+    "libsodium": {
+      "version": "libsodium-1.0.22_1",
+      "architecture": "x86_64",
+      "sha256": "f12e9e9b31a142fb602e029f746fd943b7ff346834b10605dc94ced18943e7a5"
+    },
+    "libsord": {
+      "version": "libsord-0.16.22_1",
+      "architecture": "x86_64",
+      "sha256": "cb4cc6826efc7f502e58b79dc195b371024aee9b6ab87691f360d11328389fe9"
+    },
+    "libsoup3": {
+      "version": "libsoup3-3.6.6_1",
+      "architecture": "x86_64",
+      "sha256": "0ebb695811f85aee99448580908a0f2c9eb8edb99646cfb3e3f3c45eb69acbde"
+    },
+    "libsoxr": {
+      "version": "libsoxr-0.1.3_2",
+      "architecture": "x86_64",
+      "sha256": "b959d8efce920ee6ac21a90367e588e8b5151db5e277a348dbab2dfb1ffaba0d"
+    },
+    "libspa-alsa": {
+      "version": "libspa-alsa-1.6.9_1",
+      "architecture": "x86_64",
+      "sha256": "bae44b6c316c12951f96eae81201454cf14ba896ace435c91e73b6b4ddccf664"
+    },
+    "libspa-audioconvert": {
+      "version": "libspa-audioconvert-1.6.9_1",
+      "architecture": "x86_64",
+      "sha256": "44217be0e990846b6240955cf2d151dc10973af655c175057ce241d76b845389"
+    },
+    "libspa-audiomixer": {
+      "version": "libspa-audiomixer-1.6.9_1",
+      "architecture": "x86_64",
+      "sha256": "708a66c3a58738a4aa30ade5b6f13188be18a64534acb75f70d77a47bc1f20d0"
+    },
+    "libspa-bluetooth": {
+      "version": "libspa-bluetooth-1.6.2_1",
+      "architecture": "x86_64",
+      "sha256": "b5511868160a1007fa6eabf8cc787d696c0def6eaa8ed95575d9930c7e4254ad"
+    },
+    "libspa-control": {
+      "version": "libspa-control-1.6.9_1",
+      "architecture": "x86_64",
+      "sha256": "bbe17d428aa2d22fc5294d092c944c5adf29ee1196333cb51b5da2887d9006a4"
+    },
+    "libspa-v4l2": {
+      "version": "libspa-v4l2-1.6.9_1",
+      "architecture": "x86_64",
+      "sha256": "beac41994688e5d62755681cd9f5163f93adf418a6e11d09d82e2eb4b80b6721"
+    },
+    "libspa-videoconvert": {
+      "version": "libspa-videoconvert-1.6.9_1",
+      "architecture": "x86_64",
+      "sha256": "62561a5388a6945a40b5493738e2f68bd6864a4c2335d56126662cc0fd020045"
+    },
+    "libspectre": {
+      "version": "libspectre-0.2.12_1",
+      "architecture": "x86_64",
+      "sha256": "95040945064f6c96259743e0df50b9f8d3b3e3beff2e436144e473cb696f810d"
+    },
+    "libspeex": {
+      "version": "libspeex-1.2.1_1",
+      "architecture": "x86_64",
+      "sha256": "abf0a370a4c7fb132f50a2eae1506e4eddd97928db9799d71e802eb4b8059dd9"
+    },
+    "libsrt": {
+      "version": "libsrt-1.5.7_1",
+      "architecture": "x86_64",
+      "sha256": "aff153ecaa8252f9f2ad50251962a733c375d88b1c75281201343d1406378b07"
+    },
+    "libsrtp": {
+      "version": "libsrtp-2.8.1_1",
+      "architecture": "x86_64",
+      "sha256": "dfeb0e58dc7c2315ce9378f9d06dab3d0eeb8ed47c2dbef9940fe88f9c24369c"
+    },
+    "libssh2": {
+      "version": "libssh2-1.11.1_2",
+      "architecture": "x86_64",
+      "sha256": "70a836e7c9f39ec67f77f7db2dc2a36e410406ad6a744e2c15cc53ff91263492"
+    },
+    "libssl3": {
+      "version": "libssl3-3.6.5_1",
+      "architecture": "x86_64",
+      "sha256": "12a00690cd93d168e4f7554adf3e4e874119660fda4783418f229e560060d87b"
+    },
+    "libstdc++": {
+      "version": "libstdc++-14.2.1+20250405_4",
+      "architecture": "x86_64",
+      "sha256": "df4d6dc251c35022fcfa4e0da7a2ad71c2e34523b81dd2c039d25ad93627a8c6"
+    },
+    "libstdc++-devel": {
+      "version": "libstdc++-devel-14.2.1+20250405_4",
+      "architecture": "x86_64",
+      "sha256": "651455e4863624d885fae926f7162c0e36c32f9d8a98d46ef06081cfd493a910"
+    },
+    "libsvt-av1": {
+      "version": "libsvt-av1-4.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "820d0add8fa7b1f10d2656872c780bf3d8442cdb94caadf5939fdb4a219ca24d"
+    },
+    "libswresample6": {
+      "version": "libswresample6-6.1.6_3",
+      "architecture": "x86_64",
+      "sha256": "f2db229a9bfd2775d3eacb8ed9d899b61c21fbdafb01bd360ced185143a174a1"
+    },
+    "libswscale6": {
+      "version": "libswscale6-6.1.6_2",
+      "architecture": "x86_64",
+      "sha256": "21ef923096fc64ecccfb6d2dd355717497ef6f05d3a7434823cd6cac897aeec0"
+    },
+    "libtasn1": {
+      "version": "libtasn1-4.21.0_2",
+      "architecture": "x86_64",
+      "sha256": "7ba168a96ecda0f84a4119bffdf8e56ba4a3a51c4c747c22a9001464a739a1f2"
+    },
+    "libtdb": {
+      "version": "libtdb-1.4.15_1",
+      "architecture": "x86_64",
+      "sha256": "a0d56d875952e17c96c2c00ddfdd34f5d14346fb4e17bac6bcdb565028b29b25"
+    },
+    "libthai": {
+      "version": "libthai-0.1.30_1",
+      "architecture": "x86_64",
+      "sha256": "8ea8df3e066a9563f43ff8d8a6cd47e1ebcb32d92296d7c54f7807191da33aab"
+    },
+    "libtheora": {
+      "version": "libtheora-1.1.1_8",
+      "architecture": "x86_64",
+      "sha256": "9dee3e986b591e64fb55bc68c400d8093c685d80b53df5aaf420c75d0433398d"
+    },
+    "libtinysparql": {
+      "version": "libtinysparql-3.11.0_1",
+      "architecture": "x86_64",
+      "sha256": "fce1c239bb1d883b896ace6dfe3d6464f5cec5f8a684455bca036867392c79ae"
+    },
+    "libtirpc": {
+      "version": "libtirpc-1.3.8_2",
+      "architecture": "x86_64",
+      "sha256": "49fbabc4b48e5800c90adfd3289d0f80da474f1961b6a85f773011d467e5c757"
+    },
+    "libtls": {
+      "version": "libtls-4.3.2_1",
+      "architecture": "x86_64",
+      "sha256": "2f04f746a5457498fb318a161de20614efc12a8a71629858b6d206eaebd87535"
+    },
+    "libunbound": {
+      "version": "libunbound-1.26.1_1",
+      "architecture": "x86_64",
+      "sha256": "157ba7471a117bd28761ac2b1fea86c49068165551f4c629f7c6059f9ce7fa76"
+    },
+    "libunistring": {
+      "version": "libunistring-1.0_1",
+      "architecture": "x86_64",
+      "sha256": "e7e6b40780a057cd2ce26378e11305ad40004f654fbd6b7e2f5a9b26fb8c9897"
+    },
+    "libunwind": {
+      "version": "libunwind-1.8.2_1",
+      "architecture": "x86_64",
+      "sha256": "c69978685ac404e3e565774f3e2eb387df193f365e15cb07b4d08307fb3f106f"
+    },
+    "libupower-glib3": {
+      "version": "libupower-glib3-1.91.3_2",
+      "architecture": "x86_64",
+      "sha256": "df094e82119a583ea921db629f0300a5f5a7929c51c49e10be0f5e45875201b6"
+    },
+    "liburcu": {
+      "version": "liburcu-0.15.3_1",
+      "architecture": "x86_64",
+      "sha256": "fa0cace3e60853cd462844ab4d4e02649d0f5cef55c8397a3a4fa56d09c68218"
+    },
+    "liburing": {
+      "version": "liburing-2.5_1",
+      "architecture": "x86_64",
+      "sha256": "1b9ddb2e1edeaf305ffdb8a8cf05ee3f0a8e74a015a7aa01f3111da0124b00e3"
+    },
+    "libusb": {
+      "version": "libusb-1.0.29_1",
+      "architecture": "x86_64",
+      "sha256": "b552cc8954279db25d63f47ea4bdfb1ed5e3f1598d2ede23c495ddc3aa90612c"
+    },
+    "libusbmuxd": {
+      "version": "libusbmuxd-2.0.2_1",
+      "architecture": "x86_64",
+      "sha256": "e5a71676baad0d913d206800addc5eb7b5b5f76ee461d94f8a3dea8d149c8813"
+    },
+    "libutempter": {
+      "version": "libutempter-1.2.1_2",
+      "architecture": "x86_64",
+      "sha256": "8bb407ae886aa7c9880ee3988941ecc3f2a35f85ce95f30fc982d54312c9d320"
+    },
+    "libuuid": {
+      "version": "libuuid-2.41.4_1",
+      "architecture": "x86_64",
+      "sha256": "f233c9e92dcf6e47950da15546243efdb82dcf42a8b5124d19f7049914b06941"
+    },
+    "libuv": {
+      "version": "libuv-1.51.0_1",
+      "architecture": "x86_64",
+      "sha256": "7928e52baec69e4c3bd185a2ae9967c33c7a01d3628280fd48f8fba266814135"
+    },
+    "libva": {
+      "version": "libva-2.24.1_1",
+      "architecture": "x86_64",
+      "sha256": "40341030571e3cdecda36d81666f3294f67faf572339b20a9812c2d690cb5776"
+    },
+    "libva-intel-driver": {
+      "version": "libva-intel-driver-2.4.1_1",
+      "architecture": "x86_64",
+      "sha256": "c63e11fba436ed94e9fcbbf7a40b293d0ebe96148ce7ed1bfb1ba10e91526abd"
+    },
+    "libvde2": {
+      "version": "libvde2-2.3.3_1",
+      "architecture": "x86_64",
+      "sha256": "c2f171af3638a4dc20b888a0836bead73ef5da0ba380d8cf6c2708dbd5201939"
+    },
+    "libvdpau": {
+      "version": "libvdpau-1.5_1",
+      "architecture": "x86_64",
+      "sha256": "8142abca51b90321fad3b30e232dada2dc30f3b8666c4437992441c6a36b0bfd"
+    },
+    "libvidstab": {
+      "version": "libvidstab-1.1.0_2",
+      "architecture": "x86_64",
+      "sha256": "ec363b3bc3ced7056cf29672780ffb2344b9464ae2e4f8517e9a475cf83acfd9"
+    },
+    "libvorbis": {
+      "version": "libvorbis-1.3.7_1",
+      "architecture": "x86_64",
+      "sha256": "e535211816b08c942ea6cb7f5b68d12c44fecc08469d2529a2289123a3b7d2be"
+    },
+    "libvpl": {
+      "version": "libvpl-2.17.0_1",
+      "architecture": "x86_64",
+      "sha256": "c93481f05018e376df62fa6e1a3447dc6b41877099e4bb70bcb06b7a8ef02ead"
+    },
+    "libvpx": {
+      "version": "libvpx-1.16.0_1",
+      "architecture": "x86_64",
+      "sha256": "c7aecfe5107b8f0a89d815610046471000d338b4b529a20ffef19d87835cd1ec"
+    },
+    "libwacom": {
+      "version": "libwacom-2.18.0_1",
+      "architecture": "x86_64",
+      "sha256": "f952784dff24e3bee63b300988aff321615b785f13f2dcba8551451f12e451eb"
+    },
+    "libwavpack": {
+      "version": "libwavpack-5.7.0_1",
+      "architecture": "x86_64",
+      "sha256": "13671106c2e0283a6c9400a6c5b72032d2215fa9d89086f8634bc0b0caf6e516"
+    },
+    "libwebp": {
+      "version": "libwebp-1.6.0_3",
+      "architecture": "x86_64",
+      "sha256": "ae64427883da019e15f286921ef798363e995752b96f9cfc98fd0e1ff3533218"
+    },
+    "libxbps": {
+      "version": "libxbps-0.60.7_1",
+      "architecture": "x86_64",
+      "sha256": "2e264a6daf96ed0fd15b4cd321d9d513aa6dde67f893b2a3dd9d4368383987dd"
+    },
+    "libxcb": {
+      "version": "libxcb-1.17.0_1",
+      "architecture": "x86_64",
+      "sha256": "0d03b16b67810b0330a3a6cba499f6506126a46604d3995b152fafc0491b22d1"
+    },
+    "libxcb-devel": {
+      "version": "libxcb-devel-1.17.0_1",
+      "architecture": "x86_64",
+      "sha256": "112d28cca697b982b18f771c27c57fc85384086733cb9230379e019af93c0a46"
+    },
+    "libxcrypt": {
+      "version": "libxcrypt-4.4.38_1",
+      "architecture": "x86_64",
+      "sha256": "598cf5256b00325aab7d6e6cc98ccdfbe9bd16d34f19449880931db3d86a9c4a"
+    },
+    "libxcrypt-compat": {
+      "version": "libxcrypt-compat-4.4.38_1",
+      "architecture": "x86_64",
+      "sha256": "45aa79ee9cd2945b90743119748bd65ebf25746e0254ba107b59eac37d2fb69d"
+    },
+    "libxcrypt-devel": {
+      "version": "libxcrypt-devel-4.4.38_1",
+      "architecture": "x86_64",
+      "sha256": "51711765b657b2c20d066a7b9a387290fea19613bcf7c795680171c7db2b68d0"
+    },
+    "libxcvt": {
+      "version": "libxcvt-0.1.3_1",
+      "architecture": "x86_64",
+      "sha256": "092d7833bf2e97c891baaf13ca0c340041d425ae41600c44a44cd196049d1e06"
+    },
+    "libxkbcommon": {
+      "version": "libxkbcommon-1.13.2_1",
+      "architecture": "x86_64",
+      "sha256": "91ec9b225d761308abd6837a024a5c98b659e7703fce95989bb6fd0469f0f320"
+    },
+    "libxkbcommon-x11": {
+      "version": "libxkbcommon-x11-1.13.2_1",
+      "architecture": "x86_64",
+      "sha256": "84818f039f8e1aafeee53e37e7a7d0fd5f1e049315ada6608c7e5e855610d4a9"
+    },
+    "libxkbfile": {
+      "version": "libxkbfile-1.1.3_1",
+      "architecture": "x86_64",
+      "sha256": "ebb1237a1ad2bacb6b46bb9b88854b85addcecb2a5303baeb35568384560d8f6"
+    },
+    "libxkbregistry": {
+      "version": "libxkbregistry-1.13.1_2",
+      "architecture": "x86_64",
+      "sha256": "de023f2cda6c390d93354842c1b7a5d85e7650052d9d0eec6f933fab20c0d1bb"
+    },
+    "libxml2": {
+      "version": "libxml2-2.13.8_3",
+      "architecture": "x86_64",
+      "sha256": "7cb4fce5d17e2d17898776432e7df4b9824f803a79db138cbf4ee573831f7e99"
+    },
+    "libxmlb": {
+      "version": "libxmlb-0.3.24_1",
+      "architecture": "x86_64",
+      "sha256": "87ab100cd1cb2cca60163b692d78ca4e8161bd39e0be404b8c12d61a82251ef8"
+    },
+    "libxshmfence": {
+      "version": "libxshmfence-1.3.3_2",
+      "architecture": "x86_64",
+      "sha256": "887b52aef2a5c71d5ed445550a4e8ea0431ee3fa65a74627edea59749ab9ea3b"
+    },
+    "libxslt": {
+      "version": "libxslt-1.1.43_3",
+      "architecture": "x86_64",
+      "sha256": "611977c1e23e5a47e11bbaef510d446ce84cc82248286728f796e310b39bedb8"
+    },
+    "libyaml": {
+      "version": "libyaml-0.2.5_1",
+      "architecture": "x86_64",
+      "sha256": "495695297237641741323f79bb5f40f8c7814153e29b466b053a5e621238d6c8"
+    },
+    "libz3": {
+      "version": "libz3-5.1.0_1",
+      "architecture": "x86_64",
+      "sha256": "4c9ebf5ffef6a40f583a6633cfd598892c1b9fde6168e0178e3b31c5d2e5d869"
+    },
+    "libzbar": {
+      "version": "libzbar-0.23.1_9",
+      "architecture": "x86_64",
+      "sha256": "04821ae31a0f00ee82f5e441a2c2429d37c6c3b44be48a7e02d574d4bb9718dd"
+    },
+    "libzstd": {
+      "version": "libzstd-1.5.7_1",
+      "architecture": "x86_64",
+      "sha256": "17e5c9e5f1d64362e314e0a7654c94fecb1b7d696ad848f94ceb7ac2ea00740b"
+    },
+    "linux": {
+      "version": "linux-6.12_1",
+      "architecture": "x86_64",
+      "sha256": "1d08ac111cf983fbe0aee3c0c3b0c50f74641812c39deb17db916bb7f33ab599"
+    },
+    "linux-base": {
+      "version": "linux-base-2023.05.29_1",
+      "architecture": "x86_64",
+      "sha256": "559f1f5fee78f3d6c8c9b3a3bbf853119815a4aef7dcd635f8633d91263891b7"
+    },
+    "linux-firmware-amd": {
+      "version": "linux-firmware-amd-20260309_1",
+      "architecture": "x86_64",
+      "sha256": "df0e8183cafd411adae68f7c3c07520f9e674ad006e0791985b34a9d7cda93d5"
+    },
+    "linux-firmware-broadcom": {
+      "version": "linux-firmware-broadcom-20260309_1",
+      "architecture": "x86_64",
+      "sha256": "17bdc0548f32681c21b703c49ea6db9918515ec651e3ce6b5790879f00bf6864"
+    },
+    "linux-firmware-intel": {
+      "version": "linux-firmware-intel-20260309_1",
+      "architecture": "x86_64",
+      "sha256": "5cc3e3215f1caefd8301f0380cab3e7b803c33d2a7d0fbe1a1ac2d0d89f56fd4"
+    },
+    "linux-firmware-network": {
+      "version": "linux-firmware-network-20260309_1",
+      "architecture": "x86_64",
+      "sha256": "14274f35243bdef9fc7be68ffa0b5b434bbe894628e3779e4aef316bbe0e4191"
+    },
+    "linux-firmware-nvidia": {
+      "version": "linux-firmware-nvidia-20260309_1",
+      "architecture": "x86_64",
+      "sha256": "1f348aa9e18b4118a1f4e9c43e814576b10d832ff048f30609e7d14d1eefdfae"
+    },
+    "linux-headers": {
+      "version": "linux-headers-6.12_1",
+      "architecture": "x86_64",
+      "sha256": "5d248845e47f8c0cfbcaac1acf7977b309d0f6c68fba19058fc058637ee05572"
+    },
+    "linux6.12": {
+      "version": "linux6.12-6.12.77_1",
+      "architecture": "x86_64",
+      "sha256": "fc7cd0ef3bd3c214028c243a3374af0fc78e5a4590f490ecbf1a2ff40ca881c2"
+    },
+    "linux6.12-headers": {
+      "version": "linux6.12-headers-6.12.77_1",
+      "architecture": "x86_64",
+      "sha256": "033f95c2747e444edea21a355149eb6e3d53992043f467c98f8c3ab1b5b6a486"
+    },
+    "lmdb": {
+      "version": "lmdb-0.9.35_1",
+      "architecture": "x86_64",
+      "sha256": "aadab2b68d761ee2e654f2b9b6492ad30dfe3778fb9dd0a2b88f5a6beaeb4984"
+    },
+    "lua54": {
+      "version": "lua54-5.4.8_1",
+      "architecture": "x86_64",
+      "sha256": "54af7f84a3b7a69271dbd3c24c48f277601435d5701e940cc3640e89590e1e32"
+    },
+    "lzo": {
+      "version": "lzo-2.10_3",
+      "architecture": "x86_64",
+      "sha256": "b690b1281ba1d51d7aeb040bfa0fbab06f829d839c592fb34ef709b19b5a6066"
+    },
+    "make": {
+      "version": "make-4.4.1_1",
+      "architecture": "x86_64",
+      "sha256": "932aa687b35b15e0798e7713a3ec148da010e8548a3b2bf75c3685c544f2526a"
+    },
+    "man-pages": {
+      "version": "man-pages-6.17_1",
+      "architecture": "x86_64",
+      "sha256": "6f843cca8db1016954b5967eabda78325f148f62af762b31e985e88418b40cfd"
+    },
+    "mbedtls": {
+      "version": "mbedtls-3.6.6_1",
+      "architecture": "x86_64",
+      "sha256": "3be39f5187a40fe62c708c7328d62b2f16757f9816229b6e4e100692aed887d1"
+    },
+    "mbedtls2": {
+      "version": "mbedtls2-2.28.10_1",
+      "architecture": "x86_64",
+      "sha256": "9673190bc88f33ada18eb25344f7df82365ef681a84de3745d892ab43e908197"
+    },
+    "mdadm": {
+      "version": "mdadm-4.4_1",
+      "architecture": "x86_64",
+      "sha256": "cefce1e95ab9a36cc621504b9f78aa5fc6f453f7f1088a06d2a372dfd323e432"
+    },
+    "mdocml": {
+      "version": "mdocml-1.14.6_8",
+      "architecture": "x86_64",
+      "sha256": "f562102ed4a6bfb7b913149c474f04acb762f574a8262b9580e52a208e9b7783"
+    },
+    "mesa": {
+      "version": "mesa-26.2.4_1",
+      "architecture": "x86_64",
+      "sha256": "7aac1b393a47509b8343cf9bfa873ef5a96b92d634d4c2398240d51566588251"
+    },
+    "mesa-dri": {
+      "version": "mesa-dri-26.2.4_1",
+      "architecture": "x86_64",
+      "sha256": "391871a15f421a1325e56cae4cf522142fdf76088bec5ead0d5e4338dc55c8e8"
+    },
+    "mesa-libgallium": {
+      "version": "mesa-libgallium-26.2.4_1",
+      "architecture": "x86_64",
+      "sha256": "e1154ffa17afffb335eb6185df6c54d2f76de59fa6773c498bb4b138e072e73a"
+    },
+    "mesa-opencl": {
+      "version": "mesa-opencl-26.0.6_1",
+      "architecture": "x86_64",
+      "sha256": "6569e312810c01f67d145ec0150d6cc9e4db61263530bf11648a0bb0428524fc"
+    },
+    "mesa-vulkan-intel": {
+      "version": "mesa-vulkan-intel-26.2.4_1",
+      "architecture": "x86_64",
+      "sha256": "2d9c0672fdbe69b07e6e451cb0f11e164f9c0fe75f1d95cac5de95b6923d3b38"
+    },
+    "mime-types": {
+      "version": "mime-types-2.1.54_1",
+      "architecture": "x86_64",
+      "sha256": "7ee882336cd39ddd20ecf019f3cffdb9ade48f1d7a31ce03d2dfd3590b6c8404"
+    },
+    "mit-krb5-libs": {
+      "version": "mit-krb5-libs-1.21.3_1",
+      "architecture": "x86_64",
+      "sha256": "9da879cd74296c92729b76c703f1550a4aa56f201e52904ab7a3d5df2a729695"
+    },
+    "mkfontscale": {
+      "version": "mkfontscale-1.2.4_1",
+      "architecture": "x86_64",
+      "sha256": "9f23ef014b123888ae8c36173e2a292b1cd00d7640821a8f56cc21b94580a815"
+    },
+    "mobile-broadband-provider-info": {
+      "version": "mobile-broadband-provider-info-20250613_1",
+      "architecture": "x86_64",
+      "sha256": "2a526a9f76b3a09f0ac13d041ea7c8d67bb1fa00cf736b65105c0b14931af984"
+    },
+    "moby": {
+      "version": "moby-29.3.0_1",
+      "architecture": "x86_64",
+      "sha256": "4fead0ce4a78d9f4924b6567ee666c55cf7bfc88b6004562b8abac4ba5864fd3"
+    },
+    "mpfr": {
+      "version": "mpfr-4.2.2_1",
+      "architecture": "x86_64",
+      "sha256": "36d990cdbab363a2cd78993e4d5e00f79fad8d8e0cabdba912dfa10ebd3f7aa9"
+    },
+    "mtdev": {
+      "version": "mtdev-1.1.7_1",
+      "architecture": "x86_64",
+      "sha256": "bcd64a8cc4e685737cae4bcf03febdf51e5046f9f02b0d3e9dc6268c7e6ca5d5"
+    },
+    "mtools": {
+      "version": "mtools-4.0.43_1",
+      "architecture": "x86_64",
+      "sha256": "ae734ef1879bfba3812afd8f9baf3f53f903a11f0e72f5a398335d5f12f3881c"
+    },
+    "nano": {
+      "version": "nano-8.7_1",
+      "architecture": "x86_64",
+      "sha256": "fec5077727986c464a7b600b8fc5f49839fe3640b352e4dac9aa8d8cf1411b97"
+    },
+    "ncurses": {
+      "version": "ncurses-6.6_1",
+      "architecture": "x86_64",
+      "sha256": "20fc10f8cf78aeba00bbcce4987f65a0d5660f8e0e9d2c1778008ef965068dd3"
+    },
+    "ncurses-base": {
+      "version": "ncurses-base-6.6_1",
+      "architecture": "x86_64",
+      "sha256": "d2f6395c22514873799adc87f339dc9d5ef46554e535f3349042fccc78ce1924"
+    },
+    "ncurses-libs": {
+      "version": "ncurses-libs-6.6_1",
+      "architecture": "x86_64",
+      "sha256": "833124524de892c2738bde7c610002a0991e4064843315892b2b9ac01ca1ca67"
+    },
+    "nettle": {
+      "version": "nettle-3.10.2_1",
+      "architecture": "x86_64",
+      "sha256": "45862fa3096291ab8015e9677519e13aacf2414ec7db78a76c841e6bd8078aaf"
+    },
+    "newt": {
+      "version": "newt-0.52.24_3",
+      "architecture": "x86_64",
+      "sha256": "1478b7223b47cb62bb97caa91b1dec41876fe5012e5659cc986b34fc865895b2"
+    },
+    "nghttp2": {
+      "version": "nghttp2-1.70.0_1",
+      "architecture": "x86_64",
+      "sha256": "a48ff9d245f664dddd79808e0ea2b6c40d77f6f080d0ec672c4dfdd9e4eeda1f"
+    },
+    "nghttp3": {
+      "version": "nghttp3-1.18.0_1",
+      "architecture": "x86_64",
+      "sha256": "5b01460eb74b7f76390f987a96dcfdbb9f2788868e46dc0e1c0d7906df67e19a"
+    },
+    "ngtcp2": {
+      "version": "ngtcp2-1.25.0_1",
+      "architecture": "x86_64",
+      "sha256": "7431fdc573fd3fb52d8536fc1928fb6d8613c42c4b84ffdd210de3c19d5f3cfc"
+    },
+    "noto-fonts-emoji": {
+      "version": "noto-fonts-emoji-2.051_2",
+      "architecture": "x86_64",
+      "sha256": "463c53700e23c548192aef1bdf3a6b93b26919e6cfbd5436cf7fa98f4619d1d9"
+    },
+    "noto-fonts-ttf": {
+      "version": "noto-fonts-ttf-2026.09.01_1",
+      "architecture": "x86_64",
+      "sha256": "f768d9c155a90c44480f17e83a6942d503ca4615c9550c39c664de55cc255255"
+    },
+    "npth": {
+      "version": "npth-1.8_1",
+      "architecture": "x86_64",
+      "sha256": "9612fc7216a1ffa0e05f81f24f4606321becb91c813422a65f96c8b64ae744af"
+    },
+    "nspr": {
+      "version": "nspr-4.40_1",
+      "architecture": "x86_64",
+      "sha256": "8abd2442953b852cef2eb8cdacd80042d44ae871e23b0e4d8c9188c6fce41ca7"
+    },
+    "nss": {
+      "version": "nss-3.130_1",
+      "architecture": "x86_64",
+      "sha256": "2120c456266fd9a140ece0456b826069d03b550456a52511dcdb5cf54da03520"
+    },
+    "nvi": {
+      "version": "nvi-1.81.6_19",
+      "architecture": "x86_64",
+      "sha256": "ea6ccef608a9108be173d590988e6964c87d3ab0e3d5832f3e700b6b6c63cb63"
+    },
+    "nvidia": {
+      "version": "nvidia-580.126.18_1",
+      "architecture": "x86_64",
+      "sha256": "630002bc5a212903d1feb4c731eb0a6fc9f5aa5d33c8405b37aecf77df905ebe"
+    },
+    "nvidia-container-toolkit": {
+      "version": "nvidia-container-toolkit-1.18.2_1",
+      "architecture": "x86_64",
+      "sha256": "cdde7d8677440ee26feee3bc5dfef6cef82d630c099a2570ab2316c3e878d47f"
+    },
+    "nvidia-firmware": {
+      "version": "nvidia-firmware-580.126.18_1",
+      "architecture": "x86_64",
+      "sha256": "1b90a0e7649f1ce49837870f83b8cd0d815ccd71d07528f1154b0312ad27a5a9"
+    },
+    "nvidia-gtklibs": {
+      "version": "nvidia-gtklibs-580.126.18_1",
+      "architecture": "x86_64",
+      "sha256": "e0b7b4c2f5a0e7d1512e879412747fade53deb04dd1176d0124be1a161801085"
+    },
+    "nvidia-libs": {
+      "version": "nvidia-libs-580.126.18_1",
+      "architecture": "x86_64",
+      "sha256": "b058c33e75cb04e595b6225a41f180b9dabcdb3a7bf31117ae5cd7d76a293503"
+    },
+    "nvidia-open-dkms": {
+      "version": "nvidia-open-dkms-580.126.18_2",
+      "architecture": "x86_64",
+      "sha256": "592a9410c634f4263be7bef063c7626cac7e6264e5dfdb6bdaa5231ba965d10a"
+    },
+    "nvtop": {
+      "version": "nvtop-3.3.2_1",
+      "architecture": "x86_64",
+      "sha256": "fedea28368681b457b4be2a854395030596e911f8fa5205b16537298551ca9c0"
+    },
+    "ocl-icd": {
+      "version": "ocl-icd-2.3.5_1",
+      "architecture": "x86_64",
+      "sha256": "3599e706cb4fa4ee6249dd21c2de19fea5b49e749759d870d651f1a98dac6a50"
+    },
+    "oniguruma": {
+      "version": "oniguruma-6.9.10_1",
+      "architecture": "x86_64",
+      "sha256": "eb607c96e4e02ee6b34890422e923b58d290e8f6b19c1d51c2b253f059a2e04b"
+    },
+    "openh264": {
+      "version": "openh264-2.6.0_2",
+      "architecture": "x86_64",
+      "sha256": "074f4c3ffb467fa0dd703c631ca49cca6aa51c0aa40f851ad5de84618bbcf268"
+    },
+    "openntpd": {
+      "version": "openntpd-6.8p1_10",
+      "architecture": "x86_64",
+      "sha256": "ef2a6ff695870d5e0d8eaa5f04ad91db2aad09b4b4da394c4e65a4d285a7cf61"
+    },
+    "openresolv": {
+      "version": "openresolv-3.17.4_1",
+      "architecture": "x86_64",
+      "sha256": "e7bc7a0281c06408307f133040bb6a79c14ad204149a8245db8dedc329ac8932"
+    },
+    "openssh": {
+      "version": "openssh-10.2p1_1",
+      "architecture": "x86_64",
+      "sha256": "3c3fdce690051a664d12200b38eb4696959ae170a9e2f1d72a275b7423257ceb"
+    },
+    "openssl": {
+      "version": "openssl-3.6.5_1",
+      "architecture": "x86_64",
+      "sha256": "c0b1a2735976f1407dc4e34df642d582e64717d1cc3d0b8d6022c2192fb12cc7"
+    },
+    "openssl-devel": {
+      "version": "openssl-devel-3.5.5_1",
+      "architecture": "x86_64",
+      "sha256": "8a8e67b71e477523d5f611445edbaed9a35a48035747b34f58cd8842b393a778"
+    },
+    "opus": {
+      "version": "opus-1.6.1_1",
+      "architecture": "x86_64",
+      "sha256": "c384f0d1e47423a3bd5492bcc293e9dd3c3a2de794fed754be698d3866680f4e"
+    },
+    "orc": {
+      "version": "orc-0.4.42_1",
+      "architecture": "x86_64",
+      "sha256": "967fbeb33cc16d8ce88d08c7b21edd43d716698b7f1dd9dfca4e1d6ad7fbf3b4"
+    },
+    "os-prober": {
+      "version": "os-prober-1.84_1",
+      "architecture": "x86_64",
+      "sha256": "dcc238def0359727052bf45645cba864dc2a8a8b624d3ee41d5da00bb50030b2"
+    },
+    "ostree": {
+      "version": "ostree-2026.4_1",
+      "architecture": "x86_64",
+      "sha256": "863972d5ec9cd151c580d6af4538c3fe3783a520244f80b2b9d903e3ad2dc8b0"
+    },
+    "p11-kit": {
+      "version": "p11-kit-0.26.4_1",
+      "architecture": "x86_64",
+      "sha256": "ae3aebb3d3144012963cf9fa2d50fef54a27c48760ae9554bf5917a9ca787338"
+    },
+    "pahole": {
+      "version": "pahole-1.31_1",
+      "architecture": "x86_64",
+      "sha256": "9f6eb02addde4eefa9d1bf2a3a0172ba93fdc44dc9e736410ca8ada88db4e0c5"
+    },
+    "pam": {
+      "version": "pam-1.5.3_4",
+      "architecture": "x86_64",
+      "sha256": "edf8a7ce0160c2c180a954c88d26bc7e93c22f3b9e046a3c4fca55c491a9f63f"
+    },
+    "pam-base": {
+      "version": "pam-base-0.4_3",
+      "architecture": "x86_64",
+      "sha256": "addd40ebe0c0ed83ce6afaa232f9908411d8c8cf5d47f32b396916676f72b766"
+    },
+    "pam-libs": {
+      "version": "pam-libs-1.5.3_4",
+      "architecture": "x86_64",
+      "sha256": "ded6c9f302848b4b85eda1e21c6d2cd672f360c94a0bfabaa061f398221dfba0"
+    },
+    "pango": {
+      "version": "pango-1.56.3_2",
+      "architecture": "x86_64",
+      "sha256": "f0e1f2cc388fedb1eb987a70174420d0d85190b7a96df33439c45c7994d07fac"
+    },
+    "pciutils": {
+      "version": "pciutils-3.14.0_1",
+      "architecture": "x86_64",
+      "sha256": "df59d95e31ced391e579ef96376603ea62056a94086fc73e94ae94dce6e223e8"
+    },
+    "perl": {
+      "version": "perl-5.42.0_1",
+      "architecture": "x86_64",
+      "sha256": "753df6d2e04ba110f8fabca47303f50ec800e11a2b1fe2614547a4af9b61b115"
+    },
+    "perl-Authen-SASL": {
+      "version": "perl-Authen-SASL-2.1900_2",
+      "architecture": "x86_64",
+      "sha256": "d4c54c739734491c40d5c18aea74c0b643fbc205cd6e97d233f489926177b37b"
+    },
+    "perl-Convert-BinHex": {
+      "version": "perl-Convert-BinHex-1.125_3",
+      "architecture": "x86_64",
+      "sha256": "aa39ae11b13d2e9ed9474564787721afc6db8dda30dba4c86f9cbcb54b08ce16"
+    },
+    "perl-Crypt-URandom": {
+      "version": "perl-Crypt-URandom-0.54_1",
+      "architecture": "x86_64",
+      "sha256": "443a9215c83918784fd3812e72c130aef1ee2b279fb8404df84a174494cde198"
+    },
+    "perl-Digest-HMAC": {
+      "version": "perl-Digest-HMAC-1.04_1",
+      "architecture": "x86_64",
+      "sha256": "100982800b368bfa751288e2d3f80f145887e215c6506e32591cc36f81a521e5"
+    },
+    "perl-IO-Socket-SSL": {
+      "version": "perl-IO-Socket-SSL-2.095_1",
+      "architecture": "x86_64",
+      "sha256": "df46bf10fd840b077022ad1c2f02cc024fdcd0d9e09d97a30863bc90d0ab5d87"
+    },
+    "perl-IO-stringy": {
+      "version": "perl-IO-stringy-2.113_2",
+      "architecture": "x86_64",
+      "sha256": "1c21c20c76136167fc163228f4e51b432467d22cd7cb13520184819762c93eaa"
+    },
+    "perl-MIME-tools": {
+      "version": "perl-MIME-tools-5.515_1",
+      "architecture": "x86_64",
+      "sha256": "d0cabc13367135d5a65fc577499a71f83513012d6584c80c39b7e1b229e76f67"
+    },
+    "perl-MailTools": {
+      "version": "perl-MailTools-2.21_3",
+      "architecture": "x86_64",
+      "sha256": "b5c17964d6c241e2583ce029d4050a0a552ce2e7ec60acdad3b67497270a29dc"
+    },
+    "perl-Net-SMTP-SSL": {
+      "version": "perl-Net-SMTP-SSL-1.04_3",
+      "architecture": "x86_64",
+      "sha256": "e9ebcc3fc181b206957a5d36cde5af13e8c1221f9e84a586dab1468a30b385ea"
+    },
+    "perl-Net-SSLeay": {
+      "version": "perl-Net-SSLeay-1.94_3",
+      "architecture": "x86_64",
+      "sha256": "2a1253de9a4d29055094b64eed7a54d11dc06734183c10dd84f0a4361ba4f542"
+    },
+    "perl-TimeDate": {
+      "version": "perl-TimeDate-2.33_2",
+      "architecture": "x86_64",
+      "sha256": "3804c0043f9ee8c4d6019cd588822f984de08eda1b85fe98f53b20e065f0e93f"
+    },
+    "perl-URI": {
+      "version": "perl-URI-5.21_1",
+      "architecture": "x86_64",
+      "sha256": "19b1a8f50f05c3cc8b78f2cbc361e6024b502c527a3e7f1efa64f29fea3c8570"
+    },
+    "pinentry": {
+      "version": "pinentry-1.3.3_2",
+      "architecture": "x86_64",
+      "sha256": "291f1cf3a61d2ca6f17f997d9e658919324f75065451808ad58c0dcc503458af"
+    },
+    "pipewire": {
+      "version": "pipewire-1.6.9_1",
+      "architecture": "x86_64",
+      "sha256": "44ea46774aca849585b46b8151f2620aa40e62fc6ec8583c48159bd87a872e69"
+    },
+    "pixman": {
+      "version": "pixman-0.46.4_1",
+      "architecture": "x86_64",
+      "sha256": "c993bba2713bf0fe3818c16b1ecc68514fc8db368a14659675d16f8ac4f13b0a"
+    },
+    "playerctl": {
+      "version": "playerctl-2.4.1_1",
+      "architecture": "x86_64",
+      "sha256": "40c7d1c166dd2730ef2c87657b06d5f854d1c7cefd509f33e4efe3edc619dffc"
+    },
+    "polkit": {
+      "version": "polkit-127_1",
+      "architecture": "x86_64",
+      "sha256": "12dcf7fa6a7bbf4730a1aa517b0e9eb217a13ae8604b8ba7767361b70435b3b8"
+    },
+    "pop-launcher": {
+      "architecture": "x86_64",
+      "sha256": "aaf23344b7b066e139118798cd60dbef8a5ec6b044857d660dc8e9e5365bef65",
+      "version": "pop-launcher-1.6.0_1"
+    },
+    "popt": {
+      "version": "popt-1.19_1",
+      "architecture": "x86_64",
+      "sha256": "ee33fae9a52b9c41e20b8a514467d6b982b3dbd7d64061048415ed3bb4209348"
+    },
+    "portaudio": {
+      "version": "portaudio-190600.20161030_6",
+      "architecture": "x86_64",
+      "sha256": "590758b6b8ab544def789adab0cd5e97733472cf8f5f408eb1ba4688722271ac"
+    },
+    "power-profiles-daemon": {
+      "version": "power-profiles-daemon-0.30_1",
+      "architecture": "x86_64",
+      "sha256": "6003540cf1bdae60c52b80244cebda07782df324a86bfab8a038081a20eeb57b"
+    },
+    "procps-ng": {
+      "version": "procps-ng-4.0.5_1",
+      "architecture": "x86_64",
+      "sha256": "b1fa028e865e7c7385272f6a8ef7958a1eb38f02f541fc0e22df8fdde7f0e63a"
+    },
+    "public-suffix": {
+      "version": "public-suffix-2026.01.13_1",
+      "architecture": "x86_64",
+      "sha256": "eabe2f3980b6d6f9d1a1ecebc2c87c1100b10b50b7c8499da7feef38ed167e6c"
+    },
+    "pulseaudio": {
+      "version": "pulseaudio-16.1_2",
+      "architecture": "x86_64",
+      "sha256": "c9c08e9c127e6133d98220a142ead6d09aba4f6c1b972067f525cce56aa11413"
+    },
+    "pulseaudio-utils": {
+      "version": "pulseaudio-utils-16.1_2",
+      "architecture": "x86_64",
+      "sha256": "37b7660a3479b7cff27fb94f3a382717b73fda10c13597e3c13edf7d72da9e05"
+    },
+    "python3": {
+      "version": "python3-3.14.8_1",
+      "architecture": "x86_64",
+      "sha256": "d1ea1e31bcfced31b87aee56e1e14c3f877faceeeb8a110a9d8f5786fae62476"
+    },
+    "python3-cairo": {
+      "version": "python3-cairo-1.27.0_3",
+      "architecture": "x86_64",
+      "sha256": "8c73de93de8ed5faf5e0e64c4161787c0ef8e76d458160f650893a16a9153108"
+    },
+    "python3-defusedxml": {
+      "version": "python3-defusedxml-0.7.1_4",
+      "architecture": "x86_64",
+      "sha256": "aa85d9f63d0e285f1849f53f8eef42c2bc5d269301a8453d7d4cc99a310787ba"
+    },
+    "python3-gobject": {
+      "version": "python3-gobject-3.56.2_1",
+      "architecture": "x86_64",
+      "sha256": "8f60b62d108dce9180777285674e5b624efbc8ba9c83cd0cc8ff4ce4e78398ce"
+    },
+    "python3-packaging": {
+      "version": "python3-packaging-26.0_1",
+      "architecture": "x86_64",
+      "sha256": "eab75ad94f6c7c59226dbe327d77a9e1100a21272f7a1d6137e073afed6e022b"
+    },
+    "python3-parsing": {
+      "version": "python3-parsing-3.3.2_1",
+      "architecture": "x86_64",
+      "sha256": "70f44abd25825dd8507aa3861380bb0086084ac9847012e98d928e010af82789"
+    },
+    "python3-psutil": {
+      "version": "python3-psutil-5.9.8_3",
+      "architecture": "x86_64",
+      "sha256": "0d3ae8fb30617f23d16e3e4e080968c0ab4e5b5853559520a579dc8d846145ec"
+    },
+    "python3-shtab": {
+      "version": "python3-shtab-1.7.2_2",
+      "architecture": "x86_64",
+      "sha256": "f0d743977c7e1a8d56857f1ba78378ae880a58345a77986591299c729efd2764"
+    },
+    "qemu": {
+      "version": "qemu-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "f21c14742657fbd5ce17a88b02b03ebc626c1a3141037384f9eaaa8c344511e1"
+    },
+    "qemu-common": {
+      "version": "qemu-common-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "9f82dba97926ca0fcabd0e3a5e20bb04e6f83743228ee879fffe4fe5c1f36ef5"
+    },
+    "qemu-doc": {
+      "version": "qemu-doc-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "dbe7c5575f9bbe76633812739997c1e3647e6f373c2ae21540b5e3f039713ddb"
+    },
+    "qemu-firmware": {
+      "version": "qemu-firmware-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "441dfd3ea72a292e1b889eef47153a318825ae392f23769c7cb7c87f006b894b"
+    },
+    "qemu-img": {
+      "version": "qemu-img-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "ff60de79253cdc506c578e286adcd1ff61a3dcb8d304598565ad1454dfe9b8d9"
+    },
+    "qemu-system-aarch64": {
+      "version": "qemu-system-aarch64-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "84c289fd886815c65be5a914fc6e493d5ced5bb56163888c647bb513b78acce4"
+    },
+    "qemu-system-alpha": {
+      "version": "qemu-system-alpha-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "45f3b4843cbc8f350fab9330cd7fb1cf157b265d15fd7b1f21a636c2d67c3ebe"
+    },
+    "qemu-system-amd64": {
+      "version": "qemu-system-amd64-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "e3d31ce9aa05244103dadd9964070ce0a781d0cbb25f0bb64d1bf062c55af5b0"
+    },
+    "qemu-system-arm": {
+      "version": "qemu-system-arm-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "14df3ea0bc466cb336d187c4f4b2c9952c65e0b20112abc74c3ec3529cdc161c"
+    },
+    "qemu-system-avr": {
+      "version": "qemu-system-avr-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "f51a99fe0b4e5540fcaff28c6c8c9760a248d20225e264b9a5d550d9568a5636"
+    },
+    "qemu-system-hppa": {
+      "version": "qemu-system-hppa-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "34ef625297aba9da3103f2af30c73bc2d9e5ccee0fcd481c51635e8978989fc8"
+    },
+    "qemu-system-i386": {
+      "version": "qemu-system-i386-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "0cfcdd6ea65675c000194f9ba256dcabc6c87500611ed132f6a3c247d46ccf6c"
+    },
+    "qemu-system-loongarch64": {
+      "version": "qemu-system-loongarch64-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "4df70d21b768e4660fb271a6d5f43860eefc2290653ae8b208fa87750fbb5605"
+    },
+    "qemu-system-m68k": {
+      "version": "qemu-system-m68k-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "f22a9f9facb85ee9211709c29730b6152e774f213c5c5147187b2f3238211ba1"
+    },
+    "qemu-system-microblaze": {
+      "version": "qemu-system-microblaze-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "964789f0ab27f7851eec98af1adbb219293c1464f9bbc69994e9ac0f0408c1e1"
+    },
+    "qemu-system-microblazeel": {
+      "version": "qemu-system-microblazeel-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "f0308797c412209126f2c00b12fffc96aed0bf4ecffa8ed798ae6e78eac3092a"
+    },
+    "qemu-system-mips": {
+      "version": "qemu-system-mips-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "ef517bbd8cadc10642b1321da657931a9559f09dc3a00870b8b7ff393ad4753e"
+    },
+    "qemu-system-mips64": {
+      "version": "qemu-system-mips64-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "4cd7d09b3b3b0530304ec630e41b5ab8ebb49ad8e5448f8eda03a51d3ab09496"
+    },
+    "qemu-system-mips64el": {
+      "version": "qemu-system-mips64el-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "99c8ec149516b6b4fe642e1d306663aa99ec7e89e560740a208c76c5bd71d9c1"
+    },
+    "qemu-system-mipsel": {
+      "version": "qemu-system-mipsel-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "98d3e6296dbfab44213a1918a62a6c36e76adbc8923f87d57d4d9ad0103048b6"
+    },
+    "qemu-system-or1k": {
+      "version": "qemu-system-or1k-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "5e3b8e1de6fc4ce5208242bbabfc4e487acb7bfb370638da8268e92857ffda53"
+    },
+    "qemu-system-ppc": {
+      "version": "qemu-system-ppc-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "6d0f37795f6d33db30df32b4dc08af08913bba3207af0b105143b216c06cb09b"
+    },
+    "qemu-system-ppc64": {
+      "version": "qemu-system-ppc64-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "db7d81be48a1da1a916f406abbb78429e19f28d35f6bc300584042b9d4d94e2e"
+    },
+    "qemu-system-riscv32": {
+      "version": "qemu-system-riscv32-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "654b6019ab38c9dc0935f2179c5b367ab3e0e6da4e9c045361f15014fb24a41c"
+    },
+    "qemu-system-riscv64": {
+      "version": "qemu-system-riscv64-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "33b1e44aa5513b8c03aaa4bf174fdd3080b8b06a935ec0caba1795e411a98b3e"
+    },
+    "qemu-system-rx": {
+      "version": "qemu-system-rx-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "758f62e677c8c5927371f1a51c30300adaa4b1eb9346639609a6269c7983a76e"
+    },
+    "qemu-system-s390x": {
+      "version": "qemu-system-s390x-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "e54433fe0b827a2926f8a30e5c0acc722e3323b164cee88c5645702e31c3dd5d"
+    },
+    "qemu-system-sh4": {
+      "version": "qemu-system-sh4-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "8040bfad4e478c5d1379a06cd168e534731e4956d4a9a47a466684c5fec072dc"
+    },
+    "qemu-system-sh4eb": {
+      "version": "qemu-system-sh4eb-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "1263bf85a0d46421ce0a7061d5b564a42f014b05acc030a4a2b58bae9c4828b5"
+    },
+    "qemu-system-sparc": {
+      "version": "qemu-system-sparc-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "b16d6f79f5099dfc8cf09b206f6c674b107aed8666ec9e2096b4a33688953aea"
+    },
+    "qemu-system-sparc64": {
+      "version": "qemu-system-sparc64-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "edc64d6ee9300e88a650178119c4219bb01b72cd3d7dcd751d42d0ed897b4b94"
+    },
+    "qemu-system-tricore": {
+      "version": "qemu-system-tricore-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "52eab2b38e77e26efc24334c629f47f42cadbc4aedd66be2566b8c20d85eb49a"
+    },
+    "qemu-system-xtensa": {
+      "version": "qemu-system-xtensa-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "7a25fea896105f03d8802d19d6a3f5ac0aa2b49cc61bd51f4eb2f03ea0256206"
+    },
+    "qemu-system-xtensaeb": {
+      "version": "qemu-system-xtensaeb-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "7a1cdc6d7f02cf7dd76faf6401656de2cf366356a7b74af40bdf054391999cd5"
+    },
+    "qemu-tools": {
+      "version": "qemu-tools-10.2.0_2",
+      "architecture": "x86_64",
+      "sha256": "ef3d115bdff8ade88e0a39b46ee8da20f56e0151a7e348b73c9885346587b969"
+    },
+    "qemu-user": {
+      "version": "qemu-user-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "f240a8ff74345c447d659792e7bb43e8bb0e022a9bb41a381a5a395520417173"
+    },
+    "qemu-user-aarch64": {
+      "version": "qemu-user-aarch64-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "3ee6282fae389832261ada1d7e26ad29d4d48844d1c033c04091653a126226a3"
+    },
+    "qemu-user-aarch64_be": {
+      "version": "qemu-user-aarch64_be-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "3e0f84cc07df497677752ffb499de150891dc855a462ee661836d13e2f6eccc9"
+    },
+    "qemu-user-alpha": {
+      "version": "qemu-user-alpha-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "e3a31e3211c733940fe05786ab11964be1713e4ec2b0f48bbf758aaea9e89e28"
+    },
+    "qemu-user-amd64": {
+      "version": "qemu-user-amd64-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "daa70d6baadff05c9a9a0461bcd28147fff5ed68ef733ccffcc819a25cc53570"
+    },
+    "qemu-user-arm": {
+      "version": "qemu-user-arm-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "d475c979c3abd105f128fed861d17900d3c95767b20df7cffdd58d753b019504"
+    },
+    "qemu-user-armeb": {
+      "version": "qemu-user-armeb-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "e61ae35827d15c5a969beac222ae7df572bba9ff07cd73494230c2091675d92d"
+    },
+    "qemu-user-hexagon": {
+      "version": "qemu-user-hexagon-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "b46864b9abef1bf534c95f604bc2e214803001b0f9bdd2e670983052ba0d2df6"
+    },
+    "qemu-user-hppa": {
+      "version": "qemu-user-hppa-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "e7e84ce380b35aa44054a29085eae957507912c6fc9aae8d4c597728a0771f15"
+    },
+    "qemu-user-i386": {
+      "version": "qemu-user-i386-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "dc6ce2360556e3bb2602b5bf898571cfc9d2145c39687dfefd69678ae2ffbb42"
+    },
+    "qemu-user-loongarch64": {
+      "version": "qemu-user-loongarch64-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "67d7c58bcd891c6a54dbbc7a15e42316ece335ff55a9587665f346cf3128f734"
+    },
+    "qemu-user-m68k": {
+      "version": "qemu-user-m68k-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "bad0c79c3eebc5e62ef2e24967675b70014eb7dbf7ce78a256c86de100ccac78"
+    },
+    "qemu-user-microblaze": {
+      "version": "qemu-user-microblaze-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "2bd1eb4a5cbd6297a3ab905ef9632f8329948c87d55180d98ffce227b1486d50"
+    },
+    "qemu-user-microblazeel": {
+      "version": "qemu-user-microblazeel-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "8ae251f73cda2b4e3d4483959f6e3fe637d7c3832596d9c5727b606eacdc01ef"
+    },
+    "qemu-user-mips": {
+      "version": "qemu-user-mips-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "a0b7f1c16318a9d0179da598c85a109a41150c8c0314d7da5655e4985b844a54"
+    },
+    "qemu-user-mips64": {
+      "version": "qemu-user-mips64-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "d6fdd5732396627cad2b8dd75904cdf1b1d923e9c5df4a560fa70ffb2e618335"
+    },
+    "qemu-user-mips64el": {
+      "version": "qemu-user-mips64el-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "ae438b0d225034f8a3a45c378d40dcb9ecb303ea568a666525643380f532bf48"
+    },
+    "qemu-user-mipsel": {
+      "version": "qemu-user-mipsel-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "818dbc91bd0b7685432ba771f179661de0e497deb495169094c60448e456836f"
+    },
+    "qemu-user-mipsn32": {
+      "version": "qemu-user-mipsn32-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "7f6195114a6509d969245d7e20c254fe0906b84a30804860b8d53875b58d7835"
+    },
+    "qemu-user-mipsn32el": {
+      "version": "qemu-user-mipsn32el-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "731873a839ad65791c254fbae04fbecb25e6bbf3a0993ebb535e88f0408e9688"
+    },
+    "qemu-user-or1k": {
+      "version": "qemu-user-or1k-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "33d8a46933d38efcbeb1ce613e3a55c6c2c94a1244d1356ed016a36d04e03496"
+    },
+    "qemu-user-ppc": {
+      "version": "qemu-user-ppc-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "6994997a89c2b9d364ac37ee6347c8fe4cca0028ba9f98f45a9fd65c5921f080"
+    },
+    "qemu-user-ppc64": {
+      "version": "qemu-user-ppc64-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "b893734baa76276ea5afe923cc6c83f3149dfc2f399844e3475c90182d14de63"
+    },
+    "qemu-user-ppc64le": {
+      "version": "qemu-user-ppc64le-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "04f44f99b4782a52863ad114f896bb98471b1f3e31fe2439f1d09c2d3a33da3b"
+    },
+    "qemu-user-riscv32": {
+      "version": "qemu-user-riscv32-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "0a1f75ffe573301a45b62279ea4e731223ad594d633d7f4f15c5cfc3aa744de6"
+    },
+    "qemu-user-riscv64": {
+      "version": "qemu-user-riscv64-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "91329ae88157463c05befcafcc4081086d15f7da977d78c9c4ccbfb4d267eb9a"
+    },
+    "qemu-user-s390x": {
+      "version": "qemu-user-s390x-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "beeda57b0df88b34a51f7c0fa086da7493ee737958668f4028de2db8be98d6a7"
+    },
+    "qemu-user-sh4": {
+      "version": "qemu-user-sh4-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "dc1fd413cccae54ec3e83fc6708c4cb785307e449f95ad8ffbf65e3a24441b07"
+    },
+    "qemu-user-sh4eb": {
+      "version": "qemu-user-sh4eb-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "6c619e755cb2c2397bb2e9357b64047569c2213346e885cf02d0800e7a13f303"
+    },
+    "qemu-user-sparc": {
+      "version": "qemu-user-sparc-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "68d7d1d26f04ac10825e5014bb44c8a475f2ca0faa70d95b310f1ba49c55688c"
+    },
+    "qemu-user-sparc32plus": {
+      "version": "qemu-user-sparc32plus-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "9c79383cfcaa53b4e8aedab4cd0fcb81bafcedaa4fe68eb4bac843a480aa706e"
+    },
+    "qemu-user-sparc64": {
+      "version": "qemu-user-sparc64-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "506f6379778fb367edd003b627c3490d963d599e185863269e95f78230df2f0a"
+    },
+    "qemu-user-xtensa": {
+      "version": "qemu-user-xtensa-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "884658221f63ec665b5f219fa43208b88de2404c24d59be80547c16360075f87"
+    },
+    "qemu-user-xtensaeb": {
+      "version": "qemu-user-xtensaeb-10.2.0_1",
+      "architecture": "x86_64",
+      "sha256": "f56c1f30918c11535dc2faca3cea332bfee1b503f33f537fbf8edcb0ff8c2554"
+    },
+    "ranger": {
+      "version": "ranger-1.9.4_5",
+      "architecture": "x86_64",
+      "sha256": "0712859713c05233a9ad940ddfb9be3d7dbc5e685f9b455c61ebe7c357d76d51"
+    },
+    "rclone": {
+      "version": "rclone-1.73.3_1",
+      "architecture": "x86_64",
+      "sha256": "a5695832051d3845fd929bbb45f9581cf1405bd78810c651b8d17dc3f7d6a8bb"
+    },
+    "removed-packages": {
+      "version": "removed-packages-0.1.20260131_1",
+      "architecture": "x86_64",
+      "sha256": "9a734ce13ef8a74575f07c9dd50d0057d97b9e1c2a359f7b0dbfd2f2b23e0df7"
+    },
+    "rhash": {
+      "version": "rhash-1.4.6_1",
+      "architecture": "x86_64",
+      "sha256": "fd814880874768a1270b3b0ea6fae0ed8a98b05f69361f274b83f88c54f2617a"
+    },
+    "rtkit": {
+      "version": "rtkit-0.13_3",
+      "architecture": "x86_64",
+      "sha256": "bb2dc9bc0801057d9e1fb068c11cdc4fc2f03708a474a867dc62f25d8dc77087"
+    },
+    "run-parts": {
+      "version": "run-parts-5.23.2_1",
+      "architecture": "x86_64",
+      "sha256": "b5b7014c88bc02b6a4987726270d3ffdcbf90ee7ff89ac1935df37e4604c5b62"
+    },
+    "runc": {
+      "version": "runc-1.4.0_1",
+      "architecture": "x86_64",
+      "sha256": "6fa5527f1c611dc11a8965ba91cbe664c122803c8145aceb0fa656eef6d6a004"
+    },
+    "runit": {
+      "version": "runit-2.3.1_1",
+      "architecture": "x86_64",
+      "sha256": "cbdbf45254e69efcaa6e8178db8f6d81402bc66ada6581901ae299cbfc5c6e53"
+    },
+    "runit-void": {
+      "version": "runit-void-20250212_3",
+      "architecture": "x86_64",
+      "sha256": "9ca7199c633db5f0470004f3bc03cc8ca8577353b6055154c9c839a06c7e77c6"
+    },
+    "rustdesk-bin": {
+      "architecture": "x86_64",
+      "sha256": "66060b49b8ff4dadcb292dec29ad812a2e15b41c82cae7001512ae74f7b61a30",
+      "version": "rustdesk-bin-1.4.6_1"
+    },
+    "samba": {
+      "version": "samba-4.20.1_4",
+      "architecture": "x86_64",
+      "sha256": "84438e818af12f8afac4e5a4ec840344e649fd1c91ef8b4a028d6a697b20e0d7"
+    },
+    "samba-libs": {
+      "version": "samba-libs-4.20.1_4",
+      "architecture": "x86_64",
+      "sha256": "bf6676e25f51993f3df03cf39a3429d137e04414dcdd49354023123c1cd09632"
+    },
+    "sbc": {
+      "version": "sbc-2.2_1",
+      "architecture": "x86_64",
+      "sha256": "d446e944138a7c7a393784fb64f49144fc9585913fb3befeb59db62512502b1c"
+    },
+    "sed": {
+      "version": "sed-4.9_1",
+      "architecture": "x86_64",
+      "sha256": "9589585be1b897f3a6cdb2ae88a5de88687052939b92c275a13528920bb074e0"
+    },
+    "shadow": {
+      "version": "shadow-4.8.1_3",
+      "architecture": "x86_64",
+      "sha256": "9ac45ea6fd69c7b69d01644e5a366f9c8f45f5d39405cb9b787e93716cd7ce96"
+    },
+    "shared-mime-info": {
+      "version": "shared-mime-info-2.4_2",
+      "architecture": "x86_64",
+      "sha256": "65bbef73efe7bbfcf444625d10a3b722491c9f54130eb75a783c989d8a963b3f"
+    },
+    "slang": {
+      "version": "slang-2.3.2_2",
+      "architecture": "x86_64",
+      "sha256": "3061e8966f0d74a2407e65d3659207793d0b3e493ee68f9fc31d2708bf6633f8"
+    },
+    "smem": {
+      "version": "smem-1.5_3",
+      "architecture": "x86_64",
+      "sha256": "e097c0dc040773a2808cff723ebb43e427cb4ff32409637bcabbb96c94de4636"
+    },
+    "snappy": {
+      "version": "snappy-1.2.2_2",
+      "architecture": "x86_64",
+      "sha256": "caecfeb147d9fdc6901a479ffe35e46e37b424a576adf4592f477478437bc8d7"
+    },
+    "socklog": {
+      "version": "socklog-2.1.2_1",
+      "architecture": "x86_64",
+      "sha256": "b82a1069d665a34dda2a44fd1129c11459b5426caac9539a0b727999d989ed91"
+    },
+    "socklog-void": {
+      "version": "socklog-void-20200115_2",
+      "architecture": "x86_64",
+      "sha256": "77363959bbfbe38787505cbe2aeee0026780770b6b97d11e1b08399d5c614d1b"
+    },
+    "soundtouch": {
+      "version": "soundtouch-2.4.1_1",
+      "architecture": "x86_64",
+      "sha256": "1aaba644c9fe19e084e58b1c1a202c733d3f85a39ce9a07d2f78d440638475b0"
+    },
+    "spandsp": {
+      "version": "spandsp-0.0.6_4",
+      "architecture": "x86_64",
+      "sha256": "f31c66dc8d2108371b36bbbfbdd85e7ddfd0bb29869767c6989f96e2337b7598"
+    },
+    "spdx-licenses-list": {
+      "version": "spdx-licenses-list-3.28.0_1",
+      "architecture": "x86_64",
+      "sha256": "37b98c59296189631dcd796c0829a104b9742234b6e9404534cbd56c8c579336"
+    },
+    "speexdsp": {
+      "version": "speexdsp-1.2.1_1",
+      "architecture": "x86_64",
+      "sha256": "7bb6d9597056245f7b33ca3ced6897c4180ecaa53555f00a1da7235b5ad306a8"
+    },
+    "spice": {
+      "version": "spice-0.16.0_1",
+      "architecture": "x86_64",
+      "sha256": "dc1a76adb4ef6d0b703340eefbf301593ff203304ea7629009493963fdcf5475"
+    },
+    "sqlite": {
+      "version": "sqlite-3.53.4_1",
+      "architecture": "x86_64",
+      "sha256": "e174586374894427fc911db64a86fbe937cdf9927e7bb5e62ebdd075abfc86a4"
+    },
+    "sratom": {
+      "version": "sratom-0.6.22_1",
+      "architecture": "x86_64",
+      "sha256": "23adb05fed80e54470bcdc09b345a480e154a012175b1c6fc8ba4f18ad2987a4"
+    },
+    "sshpass": {
+      "version": "sshpass-1.10_1",
+      "architecture": "x86_64",
+      "sha256": "1f11a2e962cb130e42aa2d2c9f9afefe8fa2d5b6aa1326d9d34a15d9a9722b32"
+    },
+    "strace": {
+      "version": "strace-6.18_1",
+      "architecture": "x86_64",
+      "sha256": "31e7f85ba53282289f8cd9dfdedf2b91f6cf801ae854d225d2931126b8313c71"
+    },
+    "sudo": {
+      "version": "sudo-1.9.17p1_1",
+      "architecture": "x86_64",
+      "sha256": "eaff7755716476ae2bd810a4223c26590fd5c106f1da99c780f83a33552893b5"
+    },
+    "switcheroo-control": {
+      "version": "switcheroo-control-3.0_1",
+      "architecture": "x86_64",
+      "sha256": "9fb8ffa935e4b56058790979301cdd2ba70a8161df1ca1711ebddfbf6dc3b9d5"
+    },
+    "taglib": {
+      "version": "taglib-2.1.1_1",
+      "architecture": "x86_64",
+      "sha256": "381dd349bb889c768824d0b38c47ceca1d140cbbea2843c3865146262cfe6052"
+    },
+    "tailscale": {
+      "version": "tailscale-1.94.2_1",
+      "architecture": "x86_64",
+      "sha256": "9a8abd4a9fc401b897c60f05b1f123eadb47fd9be9d57c67dbcc87402464da3e"
+    },
+    "talloc": {
+      "version": "talloc-2.4.3_3",
+      "architecture": "x86_64",
+      "sha256": "24236fb2cfaedca5b5ecbcb3e825ccb246d4f3f69d0f31366eb390eee6230a8c"
+    },
+    "tar": {
+      "version": "tar-1.35_1",
+      "architecture": "x86_64",
+      "sha256": "0822a81118ade4409964c2af4b47b667ad0df84bcfde0a775a4fac3f67ded2f3"
+    },
+    "tevent": {
+      "version": "tevent-0.16.1_3",
+      "architecture": "x86_64",
+      "sha256": "7e37583b51d2ed7acb642ab0990a0034d17ea448103b04c15bb77fa8126710a0"
+    },
+    "tiff": {
+      "version": "tiff-4.7.1_2",
+      "architecture": "x86_64",
+      "sha256": "2f9ac8dfb47b32c3f189a509a371d0c554a0cd449fc18e21890d73e560b7f928"
+    },
+    "tini": {
+      "version": "tini-0.19.0_2",
+      "architecture": "x86_64",
+      "sha256": "1e77be22ae708de2e68898ed3f6d40b937b1636bef1c093502ac2d72c5ef5448"
+    },
+    "tmux": {
+      "version": "tmux-3.6a_1",
+      "architecture": "x86_64",
+      "sha256": "a16a54f787249849ad58d49c789db8b0f31ce087d737876804eff0e364ced5ac"
+    },
+    "tpm2-tss": {
+      "version": "tpm2-tss-4.2.0_3",
+      "architecture": "x86_64",
+      "sha256": "8dad5a66333e23820418fa186e1177cfef9956cb90fb30595c22bb5182f863c6"
+    },
+    "traceroute": {
+      "version": "traceroute-2.1.6_1",
+      "architecture": "x86_64",
+      "sha256": "298c247ff3b23fe48cd136dea7aaf8c0450aebe8c4088d32415af4a7a71df013"
+    },
+    "ttf-opensans": {
+      "version": "ttf-opensans-3.001_1",
+      "architecture": "x86_64",
+      "sha256": "cc562086b33e7d27a84c54c2f45f02656f3d7e879f28fb1d35b5164905bc7038"
+    },
+    "twolame": {
+      "version": "twolame-0.4.0_2",
+      "architecture": "x86_64",
+      "sha256": "5d3fd85b28e9421fe994a75c2f1e9d938bf176573f7d14edc7c155ce2be29f8e"
+    },
+    "tzdata": {
+      "version": "tzdata-2026a_1",
+      "architecture": "x86_64",
+      "sha256": "79c234aa0d9ca29755814a186304c1b9615f6a1b89f7787645d5dfed70b0487f"
+    },
+    "udisks2": {
+      "version": "udisks2-2.10.1_1",
+      "architecture": "x86_64",
+      "sha256": "3081df63b514ceaf969ed36b477d81fd4d9df03b4a37c5a8fe34ea6b7238c6fa"
+    },
+    "unzip": {
+      "version": "unzip-6.0_15",
+      "architecture": "x86_64",
+      "sha256": "55c50b520aaf2dd25de9a0f6b9e8786ad333fbc7b07ad55e306053e2155b9db7"
+    },
+    "upower": {
+      "version": "upower-1.91.3_2",
+      "architecture": "x86_64",
+      "sha256": "5f8fd8b45d295085a3f9b089d110aff78ff95d72722e2515c7f8dcbeb3b23090"
+    },
+    "usbredir": {
+      "version": "usbredir-0.15.0_1",
+      "architecture": "x86_64",
+      "sha256": "972dc1c9047b382062fc8fa691da4cdde46f90b0f47fcd8f05f58c8b4e9706d6"
+    },
+    "usbutils": {
+      "version": "usbutils-019_1",
+      "architecture": "x86_64",
+      "sha256": "1ad47cdd05e02c7905652a95bfbb162a707e1d5fdfe3abd1d6358a51835c2d91"
+    },
+    "util-linux": {
+      "version": "util-linux-2.41.4_1",
+      "architecture": "x86_64",
+      "sha256": "5847bad53064098e4d87b08d7a06c7e3926092afcccde0be618cee64f2f442a1"
+    },
+    "util-linux-common": {
+      "version": "util-linux-common-2.41.4_1",
+      "architecture": "x86_64",
+      "sha256": "7674a8ddcea935994a0b913ef17c2a7a20411b2a144a0dd23624b29d44d97525"
+    },
+    "v4l-utils": {
+      "version": "v4l-utils-1.32.0_1",
+      "architecture": "x86_64",
+      "sha256": "9607dd5eff541b6e97ca8f11e948e6bf01d3ccbef1a1f87158bef0632fb8ed6f"
+    },
+    "virglrenderer": {
+      "version": "virglrenderer-1.0.1_1",
+      "architecture": "x86_64",
+      "sha256": "babec210c605345936621494199e88a0869cdc22d493349f62b949aa5f4f7c61"
+    },
+    "vmaf": {
+      "version": "vmaf-3.0.0_1",
+      "architecture": "x86_64",
+      "sha256": "96a431e292afb426fccfaba03e4269484adfa1a73186c0ddf6368f2bb2a4c276"
+    },
+    "void-artwork": {
+      "version": "void-artwork-20221013_1",
+      "architecture": "x86_64",
+      "sha256": "047fb7df36bb4123c0610cbcbdccc806de54c02ca80481e6b2a2dda58058eca7"
+    },
+    "void-repo-multilib": {
+      "version": "void-repo-multilib-6_4",
+      "architecture": "x86_64",
+      "sha256": "d05b3e9b19f6b1d5d29f4aa69e39d4db6cf10959b8c4f25e141d58b579e824a5"
+    },
+    "void-repo-nonfree": {
+      "version": "void-repo-nonfree-9_6",
+      "architecture": "x86_64",
+      "sha256": "8654e63dda7df6ae5ed37da66b10da959f7f8b27e44deca6268d02ef513d100b"
+    },
+    "volume_key": {
+      "version": "volume_key-0.3.12_10",
+      "architecture": "x86_64",
+      "sha256": "65564254339bb66815ca9bf03373e6cc57a9ef6169cfae1a74d56c50a2c7a835"
+    },
+    "vte3": {
+      "version": "vte3-0.82.1_1",
+      "architecture": "x86_64",
+      "sha256": "8dd551dc8bb163f7790ac2dbef839f05ea566547f827beb2e018c32881d49408"
+    },
+    "vte3-profile": {
+      "version": "vte3-profile-0.82.1_1",
+      "architecture": "x86_64",
+      "sha256": "f0b5c58f1de29e2d343c3515825c37724969b6fab4e32a60e0bcfd521f728aef"
+    },
+    "vulkan-loader": {
+      "version": "vulkan-loader-1.4.357.0_1",
+      "architecture": "x86_64",
+      "sha256": "b50eb4f181ce1f7d132a4d6d71f19fe116e4f548eef9f8315b533ce3136c3be6"
+    },
+    "wayland": {
+      "version": "wayland-1.26.0_1",
+      "architecture": "x86_64",
+      "sha256": "e75b72ae8be95b483db3a99f92d64eed3ee1b1442b6e39edf7a535f45a683d98"
+    },
+    "webrtc-audio-processing": {
+      "version": "webrtc-audio-processing-1.3_1",
+      "architecture": "x86_64",
+      "sha256": "336954bf5d1a7e13553909ee6355d95ea540a6c183413d27488aa5a45af90f8f"
+    },
+    "which": {
+      "version": "which-2.23_1",
+      "architecture": "x86_64",
+      "sha256": "8438bb870704aa6677bfdee493cf4752e879f25f0f159607c785431c804479f7"
+    },
+    "wifi-firmware": {
+      "version": "wifi-firmware-1.3_4",
+      "architecture": "x86_64",
+      "sha256": "a4755cefaf850ff5f553b3864c1d5b69be5080fcad983b79d8f340b46650d073"
+    },
+    "wireplumber": {
+      "version": "wireplumber-0.5.18_1",
+      "architecture": "x86_64",
+      "sha256": "b8d99b8029d9f34b26a317458302e3d21357dd96bdeb746e12ea24998711c883"
+    },
+    "wpa_supplicant": {
+      "version": "wpa_supplicant-2.12_2",
+      "architecture": "x86_64",
+      "sha256": "365ee88485bf3322b99d2d5c511b6caaa4e00f6b02e9f9bc9ba54d6246987256"
+    },
+    "x264": {
+      "version": "x264-20250402.165_2",
+      "architecture": "x86_64",
+      "sha256": "146da5a62abde8c1e97fecdecd3e2b5bf20a50ed7a01d40090a4e3386627d8b0"
+    },
+    "x265": {
+      "version": "x265-4.2_1",
+      "architecture": "x86_64",
+      "sha256": "1477c4e752e4c8b534e6845d365997c85d2339f185aeab4185ad71d96c7e3063"
+    },
+    "xbps": {
+      "version": "xbps-0.60.7_1",
+      "architecture": "x86_64",
+      "sha256": "d173737208464dd88f6c780e1e37e5fa49c45e93977dc41b193c2ced0eb919ad"
+    },
+    "xbps-triggers": {
+      "version": "xbps-triggers-0.129_1",
+      "architecture": "x86_64",
+      "sha256": "3d311697392b6b953ebed14fe7f07ce28f206a69d03b949d86aa2056623c2b08"
+    },
+    "xdg-dbus-proxy": {
+      "version": "xdg-dbus-proxy-0.1.9_1",
+      "architecture": "x86_64",
+      "sha256": "66ba4f9b60735f12e545cff37d0c6a209c3ae3f1360ccf81b5ca7f4af89e8661"
+    },
+    "xdg-desktop-portal": {
+      "version": "xdg-desktop-portal-1.22.1_1",
+      "architecture": "x86_64",
+      "sha256": "67eb157bc7158df0de79406da8f6fc0081407f92024471ca5df53df8f7ce4b90"
+    },
+    "xdg-desktop-portal-cosmic": {
+      "architecture": "x86_64",
+      "sha256": "344ca5202cea1d30836a6ea3794dba985d3a76998037c40822ecbed306e79d15",
+      "version": "xdg-desktop-portal-cosmic-1.6.0_1"
+    },
+    "xdg-desktop-portal-gtk": {
+      "version": "xdg-desktop-portal-gtk-1.15.3_1",
+      "architecture": "x86_64",
+      "sha256": "10338b5e8fc8343e7ca44b2f2dce767c5c5da51818320e23e62f3c5c3804b54a"
+    },
+    "xdg-user-dirs": {
+      "version": "xdg-user-dirs-0.18_1",
+      "architecture": "x86_64",
+      "sha256": "38f535ce9201470bb68792c4ffecb7f340aefdb91f2d71e1fc61704175d42aeb"
+    },
+    "xdg-utils": {
+      "version": "xdg-utils-1.2.1_1",
+      "architecture": "x86_64",
+      "sha256": "88c360797350a3562641d4700116395c8d55ef3d26bb5bfcb21a5a2222d34b6b"
+    },
+    "xdotool": {
+      "version": "xdotool-4.20260303.1_1",
+      "architecture": "x86_64",
+      "sha256": "20dd205602ecd0242bf0848c71429de40c1f254b11a4ab5cda24fa9e451b5596"
+    },
+    "xfsprogs": {
+      "version": "xfsprogs-6.14.0_1",
+      "architecture": "x86_64",
+      "sha256": "5bb2bc9c7ab51afc331868928084934940504efdeee32aee899c886fea524cc2"
+    },
+    "xkbcomp": {
+      "version": "xkbcomp-1.5.0_1",
+      "architecture": "x86_64",
+      "sha256": "75ec3cc53fb45f4759e361cc0312df2917f2c3cbfc30a864393e33c959ccfe31"
+    },
+    "xkeyboard-config": {
+      "version": "xkeyboard-config-2.48_1",
+      "architecture": "x86_64",
+      "sha256": "ca688e15b0f2a81a31c83c561fc601441984a8387cf424108feb9dad128e9aec"
+    },
+    "xorg-server-common": {
+      "version": "xorg-server-common-21.1.25_2",
+      "architecture": "x86_64",
+      "sha256": "113aeffd74b50116a20a2778a0d474f6c9a02f6b46f4fbbdf69208941985f424"
+    },
+    "xorg-server-xvfb": {
+      "version": "xorg-server-xvfb-21.1.21_1",
+      "architecture": "x86_64",
+      "sha256": "8fda6fa77dfc26bfcbf37fb394ab0e01261edd811a45e2ccc60d48a6e94dd219"
+    },
+    "xorg-server-xwayland": {
+      "version": "xorg-server-xwayland-24.1.13_2",
+      "architecture": "x86_64",
+      "sha256": "bca662ea225832c534af81e0de8b81594605a16f3ae081ba1e46280b8719bc1d"
+    },
+    "xorgproto": {
+      "version": "xorgproto-2025.1_1",
+      "architecture": "x86_64",
+      "sha256": "efffe376168325dfcc0ac3cbd425bfca691fccf3466f563626cd962708aa8e46"
+    },
+    "xset": {
+      "version": "xset-1.2.6_1",
+      "architecture": "x86_64",
+      "sha256": "c0faf83fe3a07f6e53fdc7e691975ca218eecb5d53b220dba431db07a68347a5"
+    },
+    "xtools": {
+      "version": "xtools-0.70_1",
+      "architecture": "x86_64",
+      "sha256": "c54d0b6c04890e7104e577c633f066a67e8be8636736cb87709b588391e476ee"
+    },
+    "xtools-minimal": {
+      "version": "xtools-minimal-0.70_1",
+      "architecture": "x86_64",
+      "sha256": "6117820ab7e90998d05587db1f92cc599f2ed8edf44e16e143c90a6cec01cc2a"
+    },
+    "xtrans": {
+      "version": "xtrans-1.6.0_1",
+      "architecture": "x86_64",
+      "sha256": "3e70ae1194680d759dba15255b38936818cc2aae36a9320698fd087d17093b25"
+    },
+    "xvidcore": {
+      "version": "xvidcore-1.3.7_1",
+      "architecture": "x86_64",
+      "sha256": "6fe8ced7f5042dda81b0d68b25ca48a94abd40ae493ebd330f1c7e17cf384e34"
+    },
+    "xz": {
+      "version": "xz-5.8.2_1",
+      "architecture": "x86_64",
+      "sha256": "b3185c34b44b0a0aced5ecaa7980e24dc74778e11ca61d0808afcdf1917af09c"
+    },
+    "zd1211-firmware": {
+      "version": "zd1211-firmware-1.5_3",
+      "architecture": "x86_64",
+      "sha256": "1c2c8d3fe20683b554988205445884fecfa0e5aaa8567c963cb0cadfd1f90f7e"
+    },
+    "zix": {
+      "version": "zix-0.6.2_1",
+      "architecture": "x86_64",
+      "sha256": "32e68c084a2de99905faaa1a3fc7a0194d55d3eba5b164e2529c69bc6732d0cc"
+    },
+    "zlib": {
+      "version": "zlib-1.3.2_1",
+      "architecture": "x86_64",
+      "sha256": "8489ed14d1a93c9534d78f33180d4cf99df6e937aa50566bf986d5720e835978"
+    },
+    "zlib-devel": {
+      "version": "zlib-devel-1.3.2_1",
+      "architecture": "x86_64",
+      "sha256": "20b80430bf7c2a7492bf83654f4da67ad15b80ad73c7b44977dcea23367c6df0"
+    },
+    "zstd": {
+      "version": "zstd-1.5.7_1",
+      "architecture": "x86_64",
+      "sha256": "e002a2734e36dff8210ea893d4dc29845fd85e41435aa6dcf433ff5cf6e54afd"
+    }
+  }
+}

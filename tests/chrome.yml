@@ -1,0 +1,116 @@
+- name: Verify Chrome without the build environment's libraries
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+    project: "{{ playbook_dir | dirname }}"
+    package_lock_file: "{{ project }}/locks/packages.json"
+    package_input_directory: "{{ project }}/.work/packages"
+    base_lock: "{{ lookup('file', project + '/locks/base.json') | from_json }}"
+    package_build_directory: "{{ project }}/.work/package-builds/google-chrome"
+    candidate: "{{ lookup('file', package_build_directory + '/candidate.json') | from_json }}"
+    work: "{{ package_build_directory }}"
+    image: "wdc-server-config-test:{{ base_lock.sha256[:16] }}"
+  tasks:
+    - name: Verify the prepared rootfs
+      ansible.builtin.stat:
+        path: "{{ project }}/.work/base/rootfs.tar.xz"
+        checksum_algorithm: sha256
+      register: rootfs
+
+    - name: Require the pinned initial image
+      ansible.builtin.assert:
+        that: rootfs.stat.checksum | default('') == base_lock.sha256
+
+    - name: Inspect the rootfs image
+      community.docker.docker_image_info:
+        name: "{{ image }}"
+      register: rootfs_image
+
+    - name: Import the verified rootfs
+      ansible.builtin.command:
+        argv: [docker, image, import, "{{ rootfs.stat.path }}", "{{ image }}"]
+      when: rootfs_image.images | length == 0
+
+    - name: Remove an interrupted browser check
+      community.docker.docker_container:
+        name: wdc-server-chrome-check
+        state: absent
+
+    - name: Exercise the candidate against the deployment snapshot
+      block:
+        - name: Start a fresh target with no networking
+          community.docker.docker_container:
+            name: wdc-server-chrome-check
+            image: "{{ image }}"
+            command: [sleep, infinity]
+            runtime: runc
+            network_mode: none
+            cpus: 2
+            memory: 2G
+            mounts:
+              - type: bind
+                source: "{{ package_input_directory }}"
+                target: /opt/runtime-packages
+                read_only: true
+              - type: bind
+                source: "{{ work }}/hostdir/binpkgs/nonfree"
+                target: /opt/candidate
+                read_only: true
+
+        - name: Bootstrap native XBPS from the deployment snapshot
+          ansible.builtin.command:
+            argv: [docker, exec, wdc-server-chrome-check, xbps-install, --ignore-conf-repos, --repository, /opt/runtime-packages, -uy, xbps]
+
+        - name: Read the archive selected by XBPS
+          ansible.builtin.command:
+            argv: [docker, exec, wdc-server-chrome-check, xbps-query, --ignore-conf-repos, --repository, /opt/candidate, --repository, /opt/runtime-packages, -R, -p, filename-sha256, google-chrome]
+          register: selected_archive
+          changed_when: false
+
+        - name: Install Chrome using the deployment's dependency archives
+          ansible.builtin.command:
+            argv: [docker, exec, wdc-server-chrome-check, xbps-install, --ignore-conf-repos, --repository, /opt/candidate, --repository, /opt/runtime-packages, -y, "{{ candidate.packages['google-chrome'].version }}"]
+
+        - name: Read the browser version in the fresh target
+          ansible.builtin.command:
+            argv: [docker, exec, wdc-server-chrome-check, google-chrome-stable, --version]
+          register: browser_version
+          changed_when: false
+
+        - name: Render a page using the fresh target's libraries
+          ansible.builtin.command:
+            argv: [docker, exec, wdc-server-chrome-check, timeout, '30', google-chrome-stable, --headless, --no-sandbox, --disable-gpu, --disable-dev-shm-usage, --dump-dom, 'data:text/html,<title>wdc-package-check</title><p>Chrome started</p>']
+          register: browser_page
+          changed_when: false
+
+        - name: Require the candidate to launch and render
+          ansible.builtin.assert:
+            that:
+              - selected_archive.stdout | trim == candidate.packages['google-chrome'].sha256
+              - browser_version.stdout | trim == 'Google Chrome ' + (candidate.packages['google-chrome'].version | regex_replace('^google-chrome-', '') | regex_replace('_[0-9]+$', ''))
+              - "'<p>Chrome started</p>' in browser_page.stdout"
+
+        - name: Create the test result directory
+          ansible.builtin.file:
+            path: "{{ project }}/.work/tests"
+            state: directory
+            mode: "0755"
+
+        - name: Record the fresh-target test result
+          ansible.builtin.copy:
+            dest: "{{ project }}/.work/tests/chrome.json"
+            mode: "0644"
+            content: >-
+              {{ {'package': candidate.packages['google-chrome'],
+                  'browser_version': browser_version.stdout | trim,
+                  'rootfs_sha256': base_lock.sha256,
+                  'packages_lock_sha256': lookup('file', package_lock_file, rstrip=false) | hash('sha256'),
+                  'rendered_page': browser_page.stdout} | to_nice_json }}
+
+      always:
+        - name: Remove the disposable browser check
+          community.docker.docker_container:
+            name: wdc-server-chrome-check
+            state: absent

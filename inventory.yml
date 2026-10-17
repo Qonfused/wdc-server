@@ -1,0 +1,10 @@
+all:
+  children:
+    wdc:
+      hosts:
+        deployment:
+          ansible_host: "{{ lookup('env', 'WDC_TARGET') }}"
+          ansible_connection: "{{ lookup('env', 'WDC_CONNECTION') | default('ssh', true) }}"
+          ansible_become: "{{ (lookup('env', 'WDC_CONNECTION') | default('ssh', true)) != 'community.general.chroot' }}"
+          ansible_user: "{{ lookup('env', 'WDC_SSH_USER') | default('root', true) }}"
+          ansible_port: "{{ lookup('env', 'WDC_SSH_PORT') | default('22', true) | int }}"

@@ -1,0 +1,41 @@
+- name: Install Tailscale
+  ansible.builtin.include_tasks:
+    file: ../void/packages.yml
+    apply:
+      tags: packages
+  tags: packages
+  vars:
+    requested_packages: [tailscale]
+
+#
+# Service activation
+#
+
+- name: Enable Tailscale for the next boot
+  ansible.builtin.file:
+    src: /etc/sv/tailscaled
+    dest: /etc/runit/runsvdir/default/tailscaled
+    state: link
+
+- name: Start Tailscale on a running target
+  community.general.runit:
+    name: tailscaled
+    state: started
+  when: target_running
+
+#
+# DNS policy
+#
+
+- name: Read the enrolled Tailscale DNS preference
+  ansible.builtin.command: tailscale debug prefs
+  register: tailscale_preferences
+  when: target_running and tailscale_enrolled | default(false)
+  changed_when: false
+  no_log: true
+
+- name: Disable Tailscale DNS when the enrolled preference differs
+  ansible.builtin.command: tailscale set --accept-dns=false
+  when:
+    - target_running and tailscale_enrolled | default(false)
+    - (tailscale_preferences.stdout | from_json).CorpDNS

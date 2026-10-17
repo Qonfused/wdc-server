@@ -1,0 +1,200 @@
+# COSMIC stores each preference as a RON value under its application ID and version.
+# Keep the native syntax so enums, tuples and shortcut keys retain their types.
+- name: Configure the COSMIC user session
+  vars:
+    #
+    # Application favorites
+    #
+
+    cosmic_application_directories:
+      - /usr/share/applications
+      - "/home/{{ host_user }}/.local/share/applications"
+    cosmic_default_favorites:
+      - google-chrome
+      - com.system76.CosmicFiles
+      - com.system76.CosmicTerm
+
+    #
+    # Theme schema and geometry
+    #
+    # Settings edits the builder, while applications read the resulting theme.
+    # Native structs require every field even when only some values are customized.
+    #
+
+    cosmic_theme_version: 2
+    cosmic_theme_applications:
+      - com.system76.CosmicTheme.Dark
+      - com.system76.CosmicTheme.Dark.Builder
+      - com.system76.CosmicTheme.Light
+      - com.system76.CosmicTheme.Light.Builder
+    cosmic_corner_radii: |
+      (
+          radius_0: (0.0, 0.0, 0.0, 0.0),
+          radius_xs: (2.0, 2.0, 2.0, 2.0),
+          radius_s: (2.0, 2.0, 2.0, 2.0),
+          radius_m: (2.0, 2.0, 2.0, 2.0),
+          radius_l: (2.0, 2.0, 2.0, 2.0),
+          radius_xl: (2.0, 2.0, 2.0, 2.0),
+      )
+
+    cosmic_spacing: |
+      (
+          space_none: 0,
+          space_xxxs: 4,
+          space_xxs: 4,
+          space_xs: 8,
+          space_s: 8,
+          space_m: 16,
+          space_l: 24,
+          space_xl: 32,
+          space_xxl: 48,
+          space_xxxl: 64,
+      )
+
+    cosmic_preferences:
+
+      #
+      # Panel layout
+      #
+
+      com.system76.CosmicPanel/v1/entries: '["Panel"]'
+      com.system76.CosmicPanel.Panel/v1/anchor: 'Bottom'
+      com.system76.CosmicPanel.Panel/v1/background: 'Dark'
+      com.system76.CosmicPanel.Panel/v1/expand_to_edges: 'false'
+      com.system76.CosmicPanel.Panel/v1/opacity: '0.9'
+      com.system76.CosmicPanel.Panel/v1/plugins_center: |
+        Some([
+            "com.system76.CosmicAppList",
+            "com.system76.CosmicAppletMinimize",
+        ])
+      com.system76.CosmicPanel.Panel/v1/plugins_wings: |
+        Some(([
+            "com.system76.CosmicAppletPower",
+            "com.system76.CosmicAppletTime",
+            "com.system76.CosmicAppletTiling",
+            "com.system76.CosmicAppletWorkspaces",
+        ], [
+            "com.system76.CosmicAppletAudio",
+            "com.system76.CosmicAppletBluetooth",
+        ]))
+      com.system76.CosmicPanel.Panel/v1/size: 'S'
+
+      #
+      # Appearance and wallpaper
+      #
+      # The background schema requires output, filtering and rotation fields
+      # even when its source is a solid color.
+      #
+
+      com.system76.CosmicTk/v1/header_size: 'Compact'
+      com.system76.CosmicTk/v1/interface_density: 'Compact'
+      com.system76.CosmicBackground/v1/all: |
+        (
+            output: "all",
+            source: Color(Single((0.107545495, 0.10514803, 0.10514803))),
+            filter_by_theme: false,
+            rotation_frequency: 900,
+        )
+
+      #
+      # Window management
+      #
+
+      com.system76.CosmicComp/v1/autotile: 'true'
+      com.system76.CosmicComp/v1/autotile_behavior: 'PerWorkspace'
+
+      #
+      # Clock and audio
+      #
+
+      com.system76.CosmicAppletTime/v1/show_seconds: 'true'
+      com.system76.CosmicAppletAudio/v1/show_media_controls_in_top_panel: 'true'
+      com.system76.CosmicAudio/v1/amplification_sink: 'false'
+
+      #
+      # Application preferences
+      #
+
+      com.system76.CosmicAppList/v1/favorites: >-
+        {{ cosmic_desktop_entries.results | selectattr('stat.exists')
+           | map(attribute='item') | map('first') | unique | list | to_json }}
+      com.system76.CosmicFiles/v1/tab: '(icon_sizes: (list: 150), show_hidden: true)'
+      com.system76.CosmicFiles/v1/dialog: '(icon_sizes: (list: 75))'
+      com.system76.CosmicTerm/v1/opacity: '90'
+      com.system76.CosmicTerm/v1/show_headerbar: 'false'
+
+      #
+      # Idle behavior
+      #
+
+      com.system76.CosmicIdle/v1/screen_off_time: 'None'
+      com.system76.CosmicIdle/v1/suspend_on_ac_time: 'None'
+
+    #
+    # Combine preferences with per-host overrides
+    #
+
+    cosmic_configuration: >-
+      {{ cosmic_preferences
+         | combine(cosmic_theme_preferences)
+         | combine({'com.system76.CosmicPanel.Panel/v1/output': cosmic_panel_output}
+                   if cosmic_panel_output is defined else {})
+         | combine(cosmic_preference_overrides | default({})) }}
+  block:
+
+    #
+    # Resolve favorites and theme paths
+    #
+
+    - name: Locate the requested application launchers
+      ansible.builtin.stat:
+        path: "{{ item.1 }}/{{ item.0 }}.desktop"
+        follow: true
+        get_checksum: false
+      loop: "{{ (cosmic_favorite_apps | default(cosmic_default_favorites)) | product(cosmic_application_directories) | list }}"
+      loop_control:
+        label: "{{ item.0 }} in {{ item.1 }}"
+      register: cosmic_desktop_entries
+
+    - name: Build the theme preference paths for the selected schema
+      ansible.builtin.set_fact:
+        cosmic_theme_preferences: >-
+          {{ cosmic_theme_preferences | default({})
+             | combine({theme_path + '/corner_radii': cosmic_corner_radii,
+                        theme_path + '/spacing': cosmic_spacing}) }}
+      vars:
+        theme_path: "{{ item }}/v{{ cosmic_theme_version }}"
+      loop: "{{ cosmic_theme_applications }}"
+
+    #
+    # Write the user configuration
+    #
+
+    - name: Create the COSMIC preference directories
+      ansible.builtin.file:
+        path: "/home/{{ host_user }}/.config/cosmic/{{ item }}"
+        state: directory
+        owner: "{{ host_user }}"
+        group: "{{ host_user }}"
+        mode: "0755"
+      loop: "{{ cosmic_configuration.keys() | map('dirname') | unique | sort }}"
+
+    - name: Install the COSMIC preferences
+      ansible.builtin.copy:
+        dest: "/home/{{ host_user }}/.config/cosmic/{{ item.key }}"
+        content: "{{ item.value | trim }}\n"
+        owner: "{{ host_user }}"
+        group: "{{ host_user }}"
+        mode: "0644"
+      loop: "{{ cosmic_configuration | dict2items }}"
+      loop_control:
+        label: "{{ item.key }}"
+
+    # The account and desktop choices are already provisioned by these tasks.
+    - name: Mark COSMIC initial setup complete
+      ansible.builtin.copy:
+        dest: "/home/{{ host_user }}/.config/cosmic-initial-setup-done"
+        content: ""
+        owner: "{{ host_user }}"
+        group: "{{ host_user }}"
+        mode: "0644"

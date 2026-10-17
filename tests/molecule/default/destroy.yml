@@ -1,0 +1,11 @@
+- name: Remove the disposable configuration target
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+  tasks:
+    - name: Remove only this scenario's container
+      community.docker.docker_container:
+        name: wdc-server-config-test
+        state: absent

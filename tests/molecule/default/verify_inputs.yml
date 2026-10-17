@@ -1,0 +1,78 @@
+- name: Verify rejection of damaged and missing package inputs
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+    project: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}"
+    package_lock: "{{ lookup('file', project + '/locks/packages.json') | from_json }}"
+    # Omit a download source so these checks exercise damaged or absent caches
+    # regardless of how the deployment archive was obtained.
+    tmux: "{{ package_lock.packages.tmux | combine({'url': none}) }}"
+    archive: "{{ tmux.version }}.{{ tmux.architecture }}.xbps"
+  tasks:
+    - name: Allocate an isolated artifact test directory
+      ansible.builtin.tempfile:
+        state: directory
+        prefix: wdc-input-check-
+      register: scratch
+
+    - name: Check invalid artifact inputs without touching the prepared repository
+      block:
+        - name: Write the actual tmux artifact lock
+          ansible.builtin.copy:
+            dest: "{{ scratch.path }}/lock.json"
+            content: "{{ {'architecture': package_lock.architecture, 'packages': {'tmux': tmux}} | to_nice_json }}"
+            mode: "0600"
+
+        - name: Copy the real package archive for the damage check
+          ansible.builtin.copy:
+            src: "{{ project }}/.work/packages/{{ archive }}"
+            dest: "{{ scratch.path }}/{{ archive }}"
+            mode: "0600"
+
+        - name: Truncate the copied package archive
+          ansible.builtin.command:
+            argv: [truncate, --size=1, "{{ scratch.path }}/{{ archive }}"]
+
+        - name: Attempt preparation with a damaged archive
+          ansible.builtin.command:
+            argv: ["{{ ansible_playbook_python }}", "{{ project }}/scripts/prepare-packages.py", "{{ scratch.path }}/lock.json", "{{ scratch.path }}/repository", "--cache={{ scratch.path }}"]
+          register: damaged_archive
+          changed_when: false
+          failed_when: false
+
+        - name: Require the damaged archive to be rejected
+          ansible.builtin.assert:
+            that:
+              - damaged_archive.rc != 0
+              - "'No matching artifact' in damaged_archive.stderr"
+
+        - name: Remove the copied archive to test an absent pin
+          ansible.builtin.file:
+            path: "{{ scratch.path }}/{{ archive }}"
+            state: absent
+
+        - name: Attempt preparation without the pinned archive
+          ansible.builtin.command:
+            argv: ["{{ ansible_playbook_python }}", "{{ project }}/scripts/prepare-packages.py", "{{ scratch.path }}/lock.json", "{{ scratch.path }}/repository", "--cache={{ scratch.path }}"]
+          register: absent_archive
+          changed_when: false
+          failed_when: false
+
+        - name: Inspect whether either failed attempt created a repository
+          ansible.builtin.stat:
+            path: "{{ scratch.path }}/repository"
+          register: rejected_repository
+
+        - name: Require missing inputs to fail before repository creation
+          ansible.builtin.assert:
+            that:
+              - absent_archive.rc != 0
+              - "'No matching artifact' in absent_archive.stderr"
+              - not rejected_repository.stat.exists
+      always:
+        - name: Remove the isolated test directory
+          ansible.builtin.file:
+            path: "{{ scratch.path }}"
+            state: absent

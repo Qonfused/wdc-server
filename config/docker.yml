@@ -1,0 +1,68 @@
+- name: Install Docker packages
+  ansible.builtin.include_tasks:
+    file: void/packages.yml
+    apply:
+      tags: packages
+  tags: packages
+  vars:
+    requested_packages:
+      # Engine, Compose and image builds.
+      - docker
+      - docker-buildx
+      - docker-compose
+
+#
+# NVIDIA container runtime
+#
+# Configure this integration only when both Docker and NVIDIA are selected.
+# Docker must be installed before its native validator checks daemon.json.
+#
+
+- name: Configure NVIDIA access for Docker
+  when: "'nvidia' in profiles"
+  block:
+    - name: Install NVIDIA's container toolkit
+      ansible.builtin.include_tasks:
+        file: void/packages.yml
+        apply:
+          tags: packages
+      tags: packages
+      vars:
+        requested_packages: [nvidia-container-toolkit]
+
+    - name: Create Docker's configuration directory
+      ansible.builtin.file:
+        path: /etc/docker
+        state: directory
+        mode: "0755"
+
+    - name: Declare the Docker NVIDIA runtime
+      ansible.builtin.copy:
+        dest: /etc/docker/daemon.json
+        mode: "0644"
+        content: |
+          {
+            "runtimes": {
+              "nvidia": {
+                "args": [],
+                "path": "nvidia-container-runtime"
+              }
+            }
+          }
+        validate: /usr/bin/dockerd --validate --config-file=%s
+
+#
+# Docker service activation
+#
+
+- name: Enable Docker for the next boot
+  ansible.builtin.file:
+    src: /etc/sv/docker
+    dest: /etc/runit/runsvdir/default/docker
+    state: link
+
+- name: Start Docker on a running target
+  community.general.runit:
+    name: docker
+    state: started
+  when: target_running

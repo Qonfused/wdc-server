@@ -1,0 +1,218 @@
+- name: Produce a proposed package snapshot
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_files: [../group_vars/all.yml]
+  vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+    project: "{{ playbook_dir | dirname }}"
+    package_lock_file: "{{ project }}/locks/packages.json"
+    package_lock: "{{ lookup('file', package_lock_file) | from_json }}"
+    build_inputs_file: "{{ project }}/locks/builds.yml"
+    build_inputs: "{{ lookup('file', build_inputs_file) | from_yaml }}"
+    resolver_image: "{{ build_inputs.toolchains['void-glibc-x86_64'].image }}"
+    update_profiles: "{{ (configuration_profiles | list) + (application_profiles | list) + ['development', 'storage-network'] }}"
+    update_repositories:
+      - "{{ build_inputs.toolchains['void-glibc-x86_64'].repository }}"
+      - "{{ build_inputs.toolchains['void-glibc-x86_64'].repository }}/nonfree"
+    update_keep: null
+    update_candidates: []
+    update_builds: "{{ build_inputs.packages.keys() | list }}"
+    update_check_only: false
+    update_tools_only: false
+    update_source_proposal: ''
+    update_extra_packages: []
+    update_cache_paths:
+      - "{{ project }}/.work/packages"
+      - "{{ project }}/.work/package-builds"
+      - "{{ project }}/.work/updates"
+      - /var/cache/xbps
+  tasks:
+    - name: Validate the proposed update inputs
+      ansible.builtin.assert:
+        that:
+          - update_profiles | difference((configuration_profiles | list) + (application_profiles | list) + ['development', 'storage-network']) | length == 0
+          - update_candidates | difference(build_inputs.packages.keys() | list) | length == 0
+          - update_builds | difference(build_inputs.packages.keys() | list) | length == 0
+          - update_repositories | length > 0
+          - resolver_image is search('@sha256:[a-f0-9]{64}$')
+          - package_lock.architecture == build_inputs.toolchains['void-glibc-x86_64'].architecture
+
+    - name: Create the snapshot directory
+      ansible.builtin.file:
+        path: "{{ project }}/.work/updates"
+        state: directory
+        mode: "0755"
+
+    - name: Allocate an independent candidate workspace
+      ansible.builtin.tempfile:
+        path: "{{ project }}/.work/updates"
+        prefix: "{{ now(utc=true, fmt='%Y%m%dT%H%M%SZ') }}-"
+        state: directory
+      register: candidate_work
+
+    - name: Check upstream templates and shared build files
+      ansible.builtin.command:
+        chdir: "{{ project }}"
+        argv: >-
+          {{ [ansible_playbook_python, project + '/scripts/check-sources.py',
+              build_inputs_file, candidate_work.path, '--project', project,
+              '--packages'] + update_builds + ['--candidates'] + update_candidates }}
+      register: source_check
+      changed_when: (source_check.stdout | from_json).advanced | length > 0
+      when: update_source_proposal | length == 0
+
+    - name: Use the source revisions from a completed check
+      ansible.builtin.copy:
+        src: "{{ update_source_proposal }}/{{ item }}"
+        dest: "{{ candidate_work.path }}/{{ item }}"
+        remote_src: true
+        mode: "0644"
+      loop: [source-changes.json, builds.yml]
+      when: update_source_proposal | length > 0
+
+    - name: Read the selected source proposal
+      ansible.builtin.set_fact:
+        source_report: "{{ lookup('file', candidate_work.path + '/source-changes.json') | from_json }}"
+
+    - name: Require a proposal for the current build declarations
+      ansible.builtin.assert:
+        that:
+          - source_report.inputs_sha256 == lookup('file', build_inputs_file, rstrip=false) | hash('sha256')
+          - source_report.rebuild | difference(build_inputs.packages.keys() | list) | length == 0
+        fail_msg: Recheck the templates after changing the build declarations.
+
+    - name: Show the source update proposal
+      ansible.builtin.debug:
+        msg:
+          - "Recipes to rebuild: {{ source_report.rebuild | join(', ') or 'none' }}"
+          - "Source changes: {{ candidate_work.path }}/source-changes.json"
+          - "Proposed build inputs: {{ candidate_work.path }}/builds.yml"
+
+    - name: Stop after checking source revisions
+      ansible.builtin.meta: end_play
+      when: update_check_only | bool
+
+    - name: Resolve build tools from the proposed native templates
+      ansible.builtin.command:
+        chdir: "{{ project }}"
+        argv: >-
+          {{ [ansible_playbook_python, project + '/scripts/refresh-tools.py',
+              candidate_work.path + '/builds.yml', candidate_work.path + '/tools',
+              '--project', project, '--packages'] + (update_builds | union(update_candidates)) }}
+      register: tool_refresh
+      changed_when: (tool_refresh.stdout | from_json).rebuild | length > 0
+
+    - name: Include recipes affected by build environment changes
+      ansible.builtin.set_fact:
+        rebuild_recipes: "{{ source_report.rebuild | union((tool_refresh.stdout | from_json).rebuild) }}"
+
+    - name: Show the build environment update proposal
+      ansible.builtin.debug:
+        msg:
+          - "Recipes to rebuild: {{ rebuild_recipes | join(', ') or 'none' }}"
+          - "Build-tool changes: {{ candidate_work.path }}/tool-changes.json"
+          - "Proposed build inputs: {{ candidate_work.path }}/builds.yml"
+
+    - name: Stop after refreshing build tools
+      ansible.builtin.meta: end_play
+      when: update_tools_only | bool
+
+    - name: Build changed templates with the proposed source pins
+      ansible.builtin.command:
+        chdir: "{{ project }}"
+        argv:
+          - "{{ ansible_playbook_python }}"
+          - -m
+          - ansible.cli.playbook
+          - "{{ project }}/build/package.yml"
+          - -e
+          - "{{ proposed_build | to_json }}"
+      vars:
+        proposed_build:
+          package: "{{ item }}"
+          build_inputs_file: "{{ candidate_work.path }}/builds.yml"
+          package_build_directory: "{{ candidate_work.path }}/builds/{{ item }}"
+          package_tool_cache: "{{ candidate_work.path }}/tools"
+          package_builder_name: "wdc-server-build-{{ item }}-{{ candidate_work.path | basename }}"
+      loop: "{{ rebuild_recipes }}"
+
+    # Reuse each concern's package declarations and provider policy without
+    # installing packages or configuring the controller.
+    - name: Collect package roots from the selected profiles
+      ansible.builtin.command:
+        chdir: "{{ project }}"
+        argv:
+          - "{{ ansible_playbook_python }}"
+          - -m
+          - ansible.cli.playbook
+          - "{{ project }}/bootstrap.yml"
+          - --tags
+          - packages
+          - -e
+          - "{{ selection_inputs | to_json }}"
+      vars:
+        selection_inputs:
+          deployment_hosts: localhost
+          ansible_become: false
+          collect_packages: true
+          profiles: "{{ update_profiles }}"
+          package_lock_file: "{{ package_lock_file }}"
+          package_selection_file: "{{ candidate_work.path }}/selection.json"
+          package_config_directory: "{{ candidate_work.path }}/root/etc/xbps.d"
+
+    - name: Describe the proposed update
+      ansible.builtin.copy:
+        dest: "{{ candidate_work.path }}/input.json"
+        mode: "0644"
+        content: >-
+          {{ {'lock': package_lock_file, 'image': resolver_image,
+              'build_inputs': lookup('file', candidate_work.path + '/builds.yml') | from_yaml,
+              'repositories': update_repositories, 'keep': update_keep,
+              'extra_packages': update_extra_packages | union(build_inputs.packages.keys() | intersect(package_lock.packages.keys() | list)),
+              'candidates': (rebuild_recipes | map('regex_replace', '^', candidate_work.path + '/builds/') | map('regex_replace', '$', '/candidate.json') | list)
+                  + (update_candidates | difference(rebuild_recipes) | map('regex_replace', '^', project + '/.work/package-builds/') | map('regex_replace', '$', '/candidate.json') | list),
+              'caches': update_cache_paths | union([candidate_work.path + '/builds', candidate_work.path + '/tools']),
+              'project': project} | to_nice_json }}
+
+    - name: Pull the pinned XBPS resolver image
+      community.docker.docker_image_pull:
+        name: "{{ resolver_image }}"
+        platform: linux/amd64
+
+    - name: Resolve and verify the candidate in an isolated environment
+      vars:
+        resolver: "wdc-server-update-{{ candidate_work.path | basename }}"
+      block:
+        - name: Start the native dependency resolver
+          community.docker.docker_container:
+            name: "{{ resolver }}"
+            image: "{{ resolver_image }}"
+            command: [sleep, infinity]
+            runtime: runc
+            network_mode: bridge
+            mounts:
+              - type: bind
+                source: "{{ candidate_work.path }}"
+                target: /output
+
+        - name: Generate the verified package lock and change report
+          ansible.builtin.command:
+            chdir: "{{ project }}"
+            argv: ["{{ ansible_playbook_python }}", "{{ project }}/scripts/update-packages.py", "{{ candidate_work.path }}", "{{ resolver }}"]
+          register: update_result
+
+        - name: Show the candidate and its changes
+          ansible.builtin.debug:
+            msg: "{{ update_result.stdout_lines }}"
+
+      always:
+        - name: Set generated file ownership to the build user
+          ansible.builtin.command:
+            argv: [docker, exec, "{{ resolver }}", chown, -R, "{{ lookup('pipe', 'id -u') }}:{{ lookup('pipe', 'id -g') }}", /output]
+          failed_when: false
+
+        - name: Remove the dependency resolver
+          community.docker.docker_container:
+            name: "{{ resolver }}"
+            state: absent

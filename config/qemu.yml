@@ -1,0 +1,43 @@
+- name: Install QEMU and VM image tools
+  ansible.builtin.include_tasks:
+    file: void/packages.yml
+    apply:
+      tags: packages
+  tags: packages
+  vars:
+    requested_packages:
+      #
+      # Virtual machine runtime
+      #
+      # The OSX-QEMU-GVTD launcher uses QEMU and OVMF firmware.
+      #
+      - qemu
+      - edk2-ovmf
+
+      #
+      # Installer-image conversion and FAT image tools
+      #
+      - dmg2img
+      - mtools
+
+#
+# KVM module configuration
+#
+# Vendor-specific options apply when the corresponding module is loaded.
+#
+
+- name: Create the kernel module configuration directory
+  ansible.builtin.file:
+    path: /etc/modprobe.d
+    state: directory
+    mode: "0755"
+
+- name: Configure KVM module behavior
+  ansible.builtin.copy:
+    dest: /etc/modprobe.d/kvm.conf
+    mode: "0644"
+    content: |
+      options kvm ignore_msrs=1 report_ignored_msrs=0
+      options kvm_intel nested=1 emulate_invalid_guest_state=0
+      options kvm_amd nested=1
+  notify: Rebuild initramfs

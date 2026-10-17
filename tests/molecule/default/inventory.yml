@@ -1,0 +1,12 @@
+all:
+  children:
+    wdc:
+      hosts:
+        wdc-server-config-test:
+          ansible_connection: community.docker.docker
+          ansible_user: root
+          ansible_become: false
+          rustdesk_restore_identity: false
+          ansible_python_interpreter: /usr/bin/python3
+          generate_initramfs: true
+          profiles: "{{ (configuration_profiles | list) + (application_profiles | list) + ['development', 'storage-network'] }}"

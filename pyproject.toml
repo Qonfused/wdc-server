@@ -1,0 +1,15 @@
+[project]
+name = "wdc-server"
+version = "0.1.0"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "ansible-core==2.21.5",
+    "docker==7.1.0",
+]
+
+[dependency-groups]
+test = ["molecule==26.9.0"]
+
+[tool.uv]
+required-version = "==0.10.5"
+package = false

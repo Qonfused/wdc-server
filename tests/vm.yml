@@ -1,0 +1,42 @@
+- name: Prepare disposable VM access
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    project: "{{ playbook_dir | dirname }}"
+    vm_directory: "{{ project }}/.work/qemu"
+  tasks:
+    - name: Require a stopped VM before rebuilding
+      ansible.builtin.stat:
+        path: "{{ vm_directory }}/qemu.pid"
+      register: vm_pid
+
+    - name: Require explicit VM shutdown
+      ansible.builtin.assert:
+        that: not vm_pid.stat.exists
+        fail_msg: Stop the VM with tests/qemu.py stop before rebuilding.
+
+    - name: Create the private VM directory
+      ansible.builtin.file:
+        path: "{{ vm_directory }}"
+        state: directory
+        mode: "0700"
+
+    - name: Create a VM-only SSH identity
+      ansible.builtin.command:
+        argv: [ssh-keygen, -q, -t, ed25519, -N, "", -f, "{{ vm_directory }}/id_ed25519"]
+        creates: "{{ vm_directory }}/id_ed25519"
+
+    - name: Remove the previous disposable image and runtime overlays
+      ansible.builtin.file:
+        path: "{{ vm_directory }}/{{ item }}"
+        state: absent
+      loop: [image, root.qcow2, efi.qcow2, OVMF_VARS.fd, known_hosts]
+
+- ansible.builtin.import_playbook: ../build/image.yml
+  vars:
+    image_directory: "{{ playbook_dir | dirname }}/.work/qemu/image"
+    vm_directory: "{{ playbook_dir | dirname }}/.work/qemu"
+    image_kind: test
+    image_customization: tests/guest.yml
+    image_profiles: "{{ vm_profiles | default(default_profiles) }}"

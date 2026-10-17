@@ -1,0 +1,42 @@
+#
+# DNS through openresolv
+#
+
+- name: Let openresolv manage DNS instead of the DHCP resolver hook
+  ansible.builtin.lineinfile:
+    path: /etc/dhcpcd.conf
+    regexp: '^\s*nohook\s+resolv\.conf\s*$'
+    line: nohook resolv.conf
+  notify: Generate resolver configuration
+
+- name: Install the host DNS policy
+  ansible.builtin.copy:
+    dest: /etc/resolvconf.conf
+    mode: "0644"
+    content: |
+      # Keep host DNS independent of DHCP renewals and Tailscale's DNS settings.
+      resolv_conf=/etc/resolv.conf
+      name_servers="1.1.1.1 8.8.8.8"
+  notify: Generate resolver configuration
+
+#
+# DHCP service selection
+#
+
+- name: Check for an interface-specific DHCP service
+  ansible.builtin.stat:
+    path: /etc/runit/runsvdir/default/dhcpcd-eth0
+  register: retired_dhcp_service
+  when: target_running
+
+- name: Stop interface-specific DHCP before using the general daemon
+  community.general.runit:
+    name: dhcpcd-eth0
+    state: stopped
+    enabled: false
+  when: target_running and retired_dhcp_service.stat.islnk | default(false)
+
+- name: Disable interface-specific DHCP to use one general daemon
+  ansible.builtin.file:
+    path: /etc/runit/runsvdir/default/dhcpcd-eth0
+    state: absent

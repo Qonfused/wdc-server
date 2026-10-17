@@ -1,0 +1,192 @@
+# XBPS installs the pinned application and resolves the recipe's dependencies.
+- name: Manage RustDesk
+  vars:
+    rustdesk_identity_requested: >-
+      {{ rustdesk_restore_identity
+         | default(lookup('env', 'WDC_RUSTDESK_RESTORE_IDENTITY')
+                   | default('false', true) | bool) }}
+  block:
+    #
+    # Package installation
+    #
+
+    - name: Install the native RustDesk package
+      ansible.builtin.include_tasks:
+        file: void/packages.yml
+        apply:
+          tags: packages
+      tags: packages
+      vars:
+        requested_packages: [rustdesk-bin]
+
+    - name: Record whether the application package changed
+      ansible.builtin.set_fact:
+        rustdesk_package_changed: "{{ package_installation.changed }}"
+
+    #
+    # Service definition
+    #
+
+    - name: Create the native RustDesk service directory
+      ansible.builtin.file:
+        path: /etc/sv/rustdesk
+        state: directory
+        mode: "0755"
+
+    - name: Install RustDesk's runit service
+      ansible.builtin.copy:
+        dest: /etc/sv/rustdesk/run
+        mode: "0755"
+        content: |
+          #!/bin/sh
+          exec /usr/bin/rustdesk --service
+      register: rustdesk_service
+
+    #
+    # Identity and preferences
+    #
+    # RustDesk synchronizes connection settings from its root service to the user
+    # process. Configure both before the service starts in a newly built image.
+    #
+
+    - name: Configure RustDesk preferences
+      when: "'base' in profiles"
+      vars:
+        rustdesk_connection_options:
+          direct-server: 'Y'
+          allow-numeric-one-time-password: 'Y'
+        rustdesk_configurations:
+          - directory: /root/.config/rustdesk
+            owner: root
+          - directory: "/home/{{ host_user }}/.config/rustdesk"
+            owner: "{{ host_user }}"
+      block:
+        - name: Create private RustDesk configuration directories
+          ansible.builtin.file:
+            path: "{{ item.directory }}"
+            state: directory
+            owner: "{{ item.owner }}"
+            group: "{{ item.owner }}"
+            mode: "0700"
+          loop: "{{ rustdesk_configurations }}"
+
+        #
+        # Device identity and authentication
+        #
+        # RustDesk owns these files after initialization and re-encrypts values
+        # when it loads them. Preserve that native state on repeat applications.
+        #
+
+        - name: Initialize the requested RustDesk identity
+          when: rustdesk_identity_requested
+          no_log: true
+          diff: false
+          block:
+            - name: Require the identity inputs
+              ansible.builtin.assert:
+                that:
+                  - lookup('env', 'WDC_RUSTDESK_ENC_ID') | length > 0
+                  - rustdesk_key_pair | length == 2
+                  - rustdesk_key_pair[0] | length == 64
+                  - rustdesk_key_pair[1] | length == 32
+              vars:
+                rustdesk_key_pair: "{{ lookup('env', 'WDC_RUSTDESK_KEY_PAIR', default='[[], []]') | from_json }}"
+
+            - name: Create the native identity configuration
+              ansible.builtin.copy:
+                dest: "{{ item.directory }}/RustDesk.toml"
+                owner: "{{ item.owner }}"
+                group: "{{ item.owner }}"
+                mode: "0600"
+                force: false
+                content: |
+                  enc_id = {{ lookup('env', 'WDC_RUSTDESK_ENC_ID') | to_json }}
+                  password = {{ lookup('env', 'WDC_RUSTDESK_PASSWORD') | to_json }}
+                  salt = {{ lookup('env', 'WDC_RUSTDESK_SALT') | to_json }}
+                  key_pair = {{ lookup('env', 'WDC_RUSTDESK_KEY_PAIR') | from_json | to_json }}
+                  key_confirmed = {{ lookup('env', 'WDC_RUSTDESK_KEY_CONFIRMED') | default('false', true) | bool | to_json }}
+
+                  [keys_confirmed]
+                  {% for key, value in (lookup('env', 'WDC_RUSTDESK_KEYS_CONFIRMED') | default('{}', true) | from_json).items() %}
+                  {{ key | to_json }} = {{ value | to_json }}
+                  {% endfor %}
+              loop: "{{ rustdesk_configurations }}"
+              loop_control:
+                label: "{{ item.directory }}"
+              register: rustdesk_identity_files
+
+            - name: Create the native connection configuration
+              ansible.builtin.copy:
+                dest: "{{ item.directory }}/RustDesk2.toml"
+                owner: "{{ item.owner }}"
+                group: "{{ item.owner }}"
+                mode: "0600"
+                force: false
+                content: |
+                  rendezvous_server = {{ lookup('env', 'WDC_RUSTDESK_RENDEZVOUS_SERVER') | to_json }}
+                  unlock_pin = {{ lookup('env', 'WDC_RUSTDESK_UNLOCK_PIN') | to_json }}
+                  trusted_devices = {{ lookup('env', 'WDC_RUSTDESK_TRUSTED_DEVICES') | to_json }}
+
+                  [options]
+                  verification-method = "use-permanent-password"
+              loop: "{{ rustdesk_configurations }}"
+              loop_control:
+                label: "{{ item.directory }}"
+              register: rustdesk_connection_files
+
+        #
+        # Connection and interface preferences
+        #
+        # Edit individual TOML options so RustDesk retains its identity and
+        # authentication state.
+        #
+
+        - name: Configure direct connections and numeric temporary passwords
+          community.general.ini_file:
+            path: "{{ item.0.directory }}/RustDesk2.toml"
+            section: options
+            option: "{{ item.1.key }}"
+            value: "{{ item.1.value | to_json }}"
+            owner: "{{ item.0.owner }}"
+            group: "{{ item.0.owner }}"
+            mode: "0600"
+          loop: "{{ rustdesk_configurations | product(rustdesk_connection_options | dict2items) | list }}"
+          loop_control:
+            label: "{{ item.0.directory }}: {{ item.1.key }}"
+          # Existing TOML can contain authentication data outside the edited options.
+          diff: false
+          register: rustdesk_options
+
+        - name: Sort RustDesk peers by remote ID
+          community.general.ini_file:
+            path: "/home/{{ host_user }}/.config/rustdesk/RustDesk_local.toml"
+            section: ui_flutter
+            option: peer-sorting
+            value: '"Remote ID"'
+            owner: "{{ host_user }}"
+            group: "{{ host_user }}"
+            mode: "0600"
+          diff: false
+
+    #
+    # Service activation
+    #
+
+    - name: Enable RustDesk after configuring its inputs
+      ansible.builtin.file:
+        src: /etc/sv/rustdesk
+        dest: /etc/runit/runsvdir/default/rustdesk
+        state: link
+
+    - name: Start RustDesk on a running target
+      community.general.runit:
+        name: rustdesk
+        state: "{{ 'restarted' if rustdesk_requires_restart else 'started' }}"
+      vars:
+        rustdesk_requires_restart: >-
+          {{ rustdesk_package_changed
+             or rustdesk_service.changed
+             or (rustdesk_options.changed | default(false))
+             or (rustdesk_identity_files.changed | default(false))
+             or (rustdesk_connection_files.changed | default(false)) }}
+      when: target_running

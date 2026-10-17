@@ -1,0 +1,304 @@
+- name: Prepare a pinned Void package and its build tools
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars: &build_context
+    project: "{{ playbook_dir | dirname }}"
+    build_inputs_file: "{{ project }}/locks/builds.yml"
+    build_inputs: "{{ lookup('file', build_inputs_file) | from_yaml }}"
+    recipe: "{{ build_inputs.packages[package] }}"
+    source: "{{ build_inputs.sources[recipe.source] }}"
+    toolchain: "{{ build_inputs.toolchains[recipe.toolchain] }}"
+    installed_build_packages: "{{ toolchain.bootstrap_packages | default(toolchain.packages) }}"
+    overlay: "{{ build_inputs.sources[recipe.overlay] if recipe.overlay is defined else {} }}"
+    package_build_directory: "{{ project }}/.work/package-builds/{{ package }}"
+    package_tool_cache: "{{ project }}/.work/package-builds"
+    work: "{{ package_build_directory }}"
+    builder: "{{ package_builder_name | default('wdc-server-build-' + package) }}"
+    output_repository: "{{ '/output/binpkgs' + ('/' + recipe.repository if recipe.repository else '') }}"
+  tasks:
+    - name: Require a declared package build
+      ansible.builtin.assert:
+        that:
+          - build_inputs.schema == 1
+          - package | default('') in build_inputs.packages
+        fail_msg: Select a package from locks/builds.yml with -e package=NAME.
+
+    - name: Require complete source and toolchain pins
+      ansible.builtin.assert:
+        that:
+          - recipe.source in build_inputs.sources
+          - recipe.toolchain in build_inputs.toolchains
+          - package is match('^[a-zA-Z0-9+_.-]+$')
+          - recipe.repository is match('^[a-zA-Z0-9_-]*$')
+          - source.commit is match('^[a-f0-9]{40}$')
+          - source.sha256 is match('^[a-f0-9]{64}$')
+          - toolchain.image is search('@sha256:[a-f0-9]{64}$')
+          - toolchain.packages | length > 0
+
+    - name: Require available bootstrap tools and a pinned overlay
+      ansible.builtin.assert:
+        that:
+          - installed_build_packages.items() | difference(toolchain.packages.items()) | length == 0
+          - recipe.overlay is not defined or overlay.commit is match('^[a-f0-9]{40}$')
+          - recipe.overlay is not defined or overlay.sha256 is match('^[a-f0-9]{64}$')
+
+    - name: Require a pinned pull request
+      ansible.builtin.assert:
+        that:
+          - recipe.pull_request.commit is match('^[a-f0-9]{40}$')
+          - recipe.pull_request.sha256 is match('^[a-f0-9]{64}$')
+      when: recipe.pull_request is defined
+
+    - name: Create artifact directories
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0755"
+      loop: ["{{ work }}/tool-cache", "{{ work }}/hostdir"]
+
+    - name: Obtain Void's pinned source tree
+      ansible.builtin.get_url:
+        url: "{{ source.archive_url }}/{{ source.commit }}"
+        dest: "{{ work }}/void-packages-{{ source.commit }}.tar.gz"
+        checksum: "sha256:{{ source.sha256 }}"
+        mode: "0644"
+
+    - name: Obtain exact build-tool archives
+      ansible.builtin.get_url:
+        url: "{{ toolchain.repository }}/{{ item.key }}.{{ toolchain.architecture }}.xbps"
+        dest: "{{ work }}/tool-cache/{{ item.key }}.{{ toolchain.architecture }}.xbps"
+        checksum: "sha256:{{ item.value }}"
+        mode: "0644"
+      loop: "{{ toolchain.packages | dict2items | rejectattr('key', 'in', cached_build_tools) | list }}"
+      vars:
+        # Materialization below verifies cached archives against their checksums.
+        cached_build_tools: >-
+          {{ (query('fileglob', work + '/tool-cache/*.' + toolchain.architecture + '.xbps')
+              + query('fileglob', project + '/.work/package-builds/*/tool-cache/*.' + toolchain.architecture + '.xbps')
+              + query('fileglob', package_tool_cache + '/*/cache/*.' + toolchain.architecture + '.xbps'))
+             | map('basename')
+             | map('regex_replace', '\.' + toolchain.architecture + '\.xbps$', '') | list }}
+      loop_control:
+        label: "{{ item.key }}"
+
+    - name: Obtain the pull request changes
+      ansible.builtin.get_url:
+        url: "{{ recipe.pull_request.url }}"
+        dest: "{{ work }}/pull-request.diff"
+        checksum: "sha256:{{ recipe.pull_request.sha256 }}"
+        mode: "0644"
+      when: recipe.pull_request is defined
+
+    - name: Obtain the pinned template overlay
+      ansible.builtin.get_url:
+        url: "{{ overlay.archive_url }}/{{ overlay.commit }}"
+        dest: "{{ work }}/overlay.tar.gz"
+        checksum: "sha256:{{ overlay.sha256 }}"
+        mode: "0644"
+      when: recipe.overlay is defined
+
+    - name: Describe the build tools in the native repository format
+      ansible.builtin.set_fact:
+        build_packages: "{{ build_packages | default({}) | combine({item.key | regex_replace('-[^-]+$', ''): {'version': item.key, 'architecture': toolchain.architecture, 'sha256': item.value}}) }}"
+      loop: "{{ toolchain.packages | dict2items }}"
+      loop_control:
+        label: "{{ item.key }}"
+
+    - name: Write the materialized build-tool manifest
+      ansible.builtin.copy:
+        dest: "{{ work }}/tools.json"
+        mode: "0644"
+        content: "{{ {'architecture': toolchain.architecture, 'packages': build_packages} | to_nice_json }}\n"
+
+    - name: Require one version for each build tool
+      ansible.builtin.assert:
+        that: build_packages | length == toolchain.packages | length
+        fail_msg: A toolchain cannot select multiple versions of the same package.
+
+    - name: Remove the previous generated build-tool repository
+      ansible.builtin.file:
+        path: "{{ work }}/tool-repository"
+        state: absent
+
+    - name: Prepare the locked build-tool repository
+      ansible.builtin.command:
+        argv: ["{{ ansible_playbook_python }}", "{{ project }}/scripts/prepare-packages.py", "{{ work }}/tools.json", "{{ work }}/tool-repository", "--cache={{ work }}/tool-cache", "--cache={{ project }}/.work/package-builds", "--cache={{ package_tool_cache }}"]
+      register: tools
+      changed_when: (tools.stdout | from_json).changed
+
+    - name: Obtain Void's buildroot image by digest
+      community.docker.docker_image_pull:
+        name: "{{ toolchain.image }}"
+        platform: "{{ toolchain.platform }}"
+
+    - name: Remove an interrupted package builder
+      community.docker.docker_container:
+        name: "{{ builder }}"
+        state: absent
+
+    # The native template downloads its sources. XBPS uses the locked local repository.
+    - name: Start an isolated builder
+      community.docker.docker_container:
+        name: "{{ builder }}"
+        image: "{{ toolchain.image }}"
+        command: [sleep, infinity]
+        runtime: runc
+        network_mode: bridge
+        cpus: "{{ toolchain.cpus | default(2) }}"
+        memory: "{{ toolchain.memory | default('2G') }}"
+        mounts: >-
+          {{ builder_mounts
+             + ([{'type': 'bind', 'source': work + '/overlay.tar.gz',
+                  'target': '/opt/overlay.tar.gz', 'read_only': true}]
+                if recipe.overlay is defined else [])
+             + ([{'type': 'bind', 'source': work + '/pull-request.diff',
+                  'target': '/opt/pull-request.diff', 'read_only': true}]
+                if recipe.pull_request is defined else []) }}
+      vars:
+        builder_mounts:
+          - type: bind
+            source: "{{ work }}/void-packages-{{ source.commit }}.tar.gz"
+            target: /opt/source.tar.gz
+            read_only: true
+          - type: bind
+            source: "{{ work }}/tool-repository"
+            target: /opt/build-tools
+            read_only: true
+          - type: bind
+            source: "{{ work }}/hostdir"
+            target: /output
+
+    - name: Enroll the builder
+      ansible.builtin.add_host:
+        name: "{{ builder }}"
+        groups: package_builder
+        ansible_connection: community.docker.docker
+        ansible_become: false
+        ansible_python_interpreter: /usr/bin/python3
+
+- name: Build the package using the selected Void template
+  hosts: package_builder
+  gather_facts: false
+  vars: *build_context
+  tasks:
+    - name: Build a candidate without replacing the deployment lock
+      block:
+        # Dependency builds select their own tools from the pinned repository.
+        # Only the base tools are installed together because compiler versions can conflict.
+        - name: Install the pinned bootstrap tools
+          ansible.builtin.raw: >-
+            xbps-install --ignore-conf-repos --repository /opt/build-tools -y
+            {{ installed_build_packages.keys() | map('quote') | join(' ') }}
+
+        - name: Read the installed build-tool versions
+          ansible.builtin.command: xbps-query -l
+          register: installed_tools
+          changed_when: false
+
+        - name: Require the declared build tools
+          ansible.builtin.assert:
+            that: (installed_build_packages.keys() | list) | difference(installed_tools.stdout | regex_findall('(?m)^ii ([^ ]+) ')) | length == 0
+
+        - name: Create the source directory
+          ansible.builtin.file:
+            path: /build
+            state: directory
+            mode: "0755"
+
+        - name: Unpack the pinned source tree with the buildroot's tar reader
+          ansible.builtin.command:
+            argv: [bsdtar, -xf, /opt/source.tar.gz, -C, /build, --strip-components, '1']
+
+        - name: Install the selected template from the pinned overlay
+          ansible.builtin.command:
+            argv: [bsdtar, -xf, /opt/overlay.tar.gz, -C, /build, --strip-components, '1', "*/srcpkgs/{{ package }}/*"]
+          when: recipe.overlay is defined
+
+        - name: Apply the published pull request changes
+          ansible.builtin.command:
+            argv: [patch, --batch, --forward, --fuzz=0, -p1, --input, /opt/pull-request.diff]
+            chdir: /build
+          when: recipe.pull_request is defined
+
+        # The pinned image supplies base-chroot. ethereal uses that container as
+        # its build environment and requires the root symlink and marker below.
+        - name: Configure xbps-src for this container
+          ansible.builtin.copy:
+            dest: /build/etc/conf
+            mode: "0644"
+            content: |
+              XBPS_CHROOT_CMD=ethereal
+              XBPS_ALLOW_CHROOT_BREAKOUT=yes
+              XBPS_ALLOW_RESTRICTED=yes
+              XBPS_SKIP_REMOTEREPOS=1
+              XBPS_USE_BUILD_MTIME=yes
+              XBPS_HOSTDIR=/output
+              XBPS_MAKEJOBS={{ toolchain.cpus | default(2) }}
+
+        - name: Make the locked tools available to xbps-src
+          ansible.builtin.lineinfile:
+            path: /build/etc/xbps.d/repos-local.conf
+            line: repository=/opt/build-tools
+
+        - name: Attach the container root as the native build environment
+          ansible.builtin.file:
+            src: /
+            dest: /build/masterdir
+            state: link
+
+        - name: Declare the native build architecture
+          ansible.builtin.copy:
+            dest: /.xbps_chroot_init
+            content: "{{ toolchain.architecture }}\n"
+            mode: "0644"
+
+        # Metapackages build their missing dependencies from the same source tree.
+        # Single-package recipes use the tools already installed above.
+        - name: Build the selected native template
+          ansible.builtin.command:
+            argv: "{{ ['./xbps-src'] + ([] if recipe.build_dependencies | default(false) else ['-I']) + ['-f', 'pkg', package] }}"
+            chdir: /build
+
+        - name: Read the candidate's native package version
+          ansible.builtin.command:
+            argv: [xbps-query, --ignore-conf-repos, --repository, "{{ output_repository }}", -R, -p, pkgver, "{{ package }}"]
+          register: candidate
+          changed_when: false
+
+        - name: Read the built repository's package versions
+          ansible.builtin.command:
+            argv: [xbps-query, --ignore-conf-repos, --repository, "{{ output_repository }}", -R, -s, '']
+          register: built_repository
+          changed_when: false
+
+        - name: Hash the indexed package archives
+          ansible.builtin.stat:
+            path: "{{ work }}/hostdir/binpkgs{{ '/' + recipe.repository if recipe.repository else '' }}/{{ item }}.{{ toolchain.architecture }}.xbps"
+            checksum_algorithm: sha256
+          register: archives
+          loop: "{{ built_repository.stdout | regex_findall('(?m)^\\[[^]]+\\] ([^ ]+) ') }}"
+          delegate_to: localhost
+
+        - name: Describe the candidate packages
+          ansible.builtin.set_fact:
+            candidate_packages: "{{ candidate_packages | default({}) | combine({candidate_name: {'version': item.item, 'architecture': toolchain.architecture, 'sha256': item.stat.checksum}}) }}"
+          vars:
+            candidate_name: "{{ item.item | regex_replace('-[^-]+$', '') }}"
+          loop: "{{ archives.results }}"
+          loop_control:
+            label: "{{ item.item }}"
+
+        - name: Record the candidate artifact and its source
+          ansible.builtin.copy:
+            dest: "{{ work }}/candidate.json"
+            mode: "0644"
+            content: "{{ {'architecture': toolchain.architecture, 'build': {'package': package, 'recipe': recipe, 'source': source, 'overlay': overlay, 'toolchain': toolchain}, 'packages': candidate_packages} | to_nice_json }}\n"
+          delegate_to: localhost
+
+      always:
+        - name: Remove the disposable package builder
+          community.docker.docker_container:
+            name: "{{ builder }}"
+            state: absent
+          delegate_to: localhost

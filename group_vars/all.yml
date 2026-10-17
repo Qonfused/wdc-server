@@ -1,0 +1,14 @@
+# Bootstrap applies configuration profiles before creating the user account.
+# Application profiles run after the account exists.
+configuration_profiles:
+  base: void/base.yml
+  intel: intel.yml
+  desktop: cosmic/desktop.yml
+  nvidia: nvidia.yml
+  tailscale: networking/tailscale.yml
+  docker: docker.yml
+  qemu: qemu.yml
+application_profiles:
+  rustdesk: rustdesk.yml
+default_profiles: "{{ ['base', 'intel', 'desktop', 'nvidia', 'tailscale', 'docker'] + (application_profiles | list) }}"
+host_user: "{{ lookup('env', 'WDC_HOST_USER') | default('csqua', true) }}"

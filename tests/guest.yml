@@ -1,0 +1,71 @@
+# Access and diagnostics for disposable guests. Production images omit these tasks.
+- name: Record the provisioned preferences before native applications add their own
+  ansible.builtin.command:
+    argv: [python3, -c, "import json; from pathlib import Path; root=Path('/home/{{ host_user }}/.config/cosmic'); print(json.dumps({str(p.relative_to(root)):p.read_text() for p in sorted(root.rglob('*')) if p.is_file()}))"]
+  register: provisioned_preferences
+  changed_when: false
+
+- name: Retain the preference inputs for native-reader validation
+  ansible.builtin.copy:
+    dest: "{{ vm_directory }}/preferences.json"
+    content: "{{ provisioned_preferences.stdout }}\n"
+    mode: "0600"
+  delegate_to: localhost
+
+- name: Make the test account available to key-based SSH and console autologin
+  ansible.builtin.user:
+    name: "{{ host_user }}"
+    password: '*'
+
+- name: Create the guest SSH directory
+  ansible.builtin.file:
+    path: "/home/{{ host_user }}/.ssh"
+    state: directory
+    owner: "{{ host_user }}"
+    group: "{{ host_user }}"
+    mode: "0700"
+
+- name: Install the VM-only public key
+  ansible.builtin.copy:
+    dest: "/home/{{ host_user }}/.ssh/authorized_keys"
+    content: "{{ lookup('file', vm_directory + '/id_ed25519.pub') }}\n"
+    owner: "{{ host_user }}"
+    group: "{{ host_user }}"
+    mode: "0600"
+
+- name: Allow VM administration through the test account
+  ansible.builtin.copy:
+    dest: /etc/sudoers.d/wdc-qemu
+    mode: "0440"
+    validate: /usr/sbin/visudo -cf %s
+    content: "{{ host_user }} ALL=(ALL:ALL) NOPASSWD: ALL\n"
+
+- name: Autologin on the guest's graphical console
+  ansible.builtin.copy:
+    dest: /etc/sv/agetty-tty1/conf
+    mode: "0644"
+    content: |
+      GETTY_ARGS="--noclear"
+      if [ "${tty}" = tty1 ]; then
+          # The test login starts immediately, before a human could wait for services.
+          sv start dbus >/dev/null || exit 1
+          GETTY_ARGS="${GETTY_ARGS} --autologin {{ host_user }}"
+      fi
+      BAUD_RATE=38400
+      TERM_NAME=linux
+
+- name: Start COSMIC from the guest console login
+  ansible.builtin.copy:
+    dest: "/home/{{ host_user }}/.bash_profile"
+    owner: "{{ host_user }}"
+    group: "{{ host_user }}"
+    mode: "0644"
+    content: |
+      [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
+      # start-cosmic also opens a noninteractive login shell for its environment.
+      if [[ $- == *i* ]] && [ "$(tty)" = /dev/tty1 ]; then
+          export XDG_SESSION_TYPE=wayland
+          export RUST_LOG=info
+          exec strace -f -e trace=openat -o "$HOME/cosmic-config-reads.log" \
+              "$HOME/.local/bin/start-desktop" >"$HOME/cosmic-session.log" 2>&1
+      fi

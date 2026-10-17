@@ -1,0 +1,12 @@
+.work/
+artifacts/
+local.conf
+__pycache__/
+*.xbps
+*.img
+*.qcow2
+.env
+.venv/
+.ansible/
+reference/
+*.iso

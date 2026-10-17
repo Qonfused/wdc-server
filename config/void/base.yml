@@ -1,0 +1,107 @@
+#
+# Kernel providers and base packages
+#
+
+- name: Create the package configuration directory
+  tags: packages
+  ansible.builtin.file:
+    path: "{{ package_config_directory | default('/etc/xbps.d') }}"
+    state: directory
+    mode: "0755"
+
+- name: Select the kernel providers for native package dependencies
+  tags: packages
+  ansible.builtin.copy:
+    dest: "{{ package_config_directory | default('/etc/xbps.d') }}/wdc-kernel.conf"
+    mode: "0644"
+    content: |
+      ignorepkg=linux
+      ignorepkg=linux-headers
+      virtualpkg=linux:{{ package_lock.kernel_package }}
+      virtualpkg=linux-headers:{{ package_lock.kernel_package }}-headers
+
+- name: Install base packages
+  ansible.builtin.include_tasks:
+    file: packages.yml
+    apply:
+      tags: packages
+  tags: packages
+  vars:
+    requested_packages:
+      - base-system
+      - "{{ package_lock.kernel_package }}"
+      # Selecting a kernel series directly also requires its initramfs tool.
+      - dracut
+      - grub-x86_64-efi
+      - openresolv
+      - openntpd
+      - git
+      - curl
+      - python3
+      - htop
+      - strace
+      - xtools
+      - unzip
+      - zstd
+      - socklog-void
+
+- name: Remove container-only and automatic kernel metapackages
+  community.general.xbps:
+    name: [base-container-full, linux, linux-headers]
+    state: absent
+    update_cache: false
+    upgrade_xbps: false
+
+#
+# Host identity and locale
+#
+
+- name: Set the hostname
+  ansible.builtin.copy:
+    dest: /etc/hostname
+    content: "wdc-server\n"
+    mode: "0644"
+    unsafe_writes: "{{ ansible_facts.virtualization_type | default('') == 'docker' }}"
+
+- name: Set the timezone
+  ansible.builtin.file:
+    src: /usr/share/zoneinfo/America/Chicago
+    dest: /etc/localtime
+    state: link
+    force: true
+
+- name: Enable the declared locale
+  ansible.builtin.lineinfile:
+    path: /etc/default/libc-locales
+    regexp: '^#?en_US.UTF-8 UTF-8$'
+    line: en_US.UTF-8 UTF-8
+  notify: Generate locales
+
+- name: Install locale defaults
+  ansible.builtin.copy:
+    dest: /etc/locale.conf
+    mode: "0644"
+    content: |
+      LANG=en_US.UTF-8
+      LC_COLLATE=C
+
+#
+# Networking and system services
+#
+
+- name: Configure networking
+  ansible.builtin.import_tasks: ../networking/dhcpcd.yml
+
+- name: Enable logging, DHCP, time synchronization and SSH for the next boot
+  ansible.builtin.file:
+    src: "/etc/sv/{{ item }}"
+    dest: "/etc/runit/runsvdir/default/{{ item }}"
+    state: link
+  loop: [socklog-unix, nanoklogd, dhcpcd, openntpd, sshd]
+
+- name: Start logging, DHCP, time synchronization and SSH on a running target
+  community.general.runit:
+    name: "{{ item }}"
+    state: started
+  loop: [socklog-unix, nanoklogd, dhcpcd, openntpd, sshd]
+  when: target_running

@@ -1,0 +1,76 @@
+#
+# Account and executable directory
+#
+
+- name: Create the declared user account
+  ansible.builtin.user:
+    name: "{{ host_user }}"
+    uid: 1000
+    shell: /bin/bash
+    create_home: true
+    groups: >-
+      {{ ['wheel']
+         + (['docker'] if 'docker' in profiles else [])
+         + (['audio', 'input', 'bluetooth'] if 'desktop' in profiles else [])
+         + (['kvm'] if 'qemu' in profiles else []) }}
+    append: true
+
+- name: Create the user executable directory
+  ansible.builtin.file:
+    path: "/home/{{ host_user }}/.local/bin"
+    state: directory
+    owner: "{{ host_user }}"
+    group: "{{ host_user }}"
+    mode: "0755"
+
+#
+# Desktop launcher
+#
+
+- name: Install the desktop launcher
+  ansible.builtin.file:
+    src: /usr/bin/start-cosmic
+    dest: "/home/{{ host_user }}/.local/bin/start-desktop"
+    owner: "{{ host_user }}"
+    group: "{{ host_user }}"
+    state: link
+    force: true
+  when: "'desktop' in profiles"
+
+#
+# Shell environment
+#
+
+- name: Configure the user tooling environment in Bash
+  ansible.builtin.blockinfile:
+    path: "/home/{{ host_user }}/.bashrc"
+    marker: '# {mark} wdc-server environment'
+    create: true
+    owner: "{{ host_user }}"
+    group: "{{ host_user }}"
+    mode: "0644"
+    validate: /bin/bash -n %s
+    block: |
+      for wdc_bin in "$HOME/.local/bin" "$HOME/.bun/bin" "$HOME/.local/share/pnpm"; do
+          if [ -d "$wdc_bin" ]; then
+              case ":$PATH:" in
+                  *":$wdc_bin:"*) ;;
+                  *) PATH="$wdc_bin:$PATH" ;;
+              esac
+          fi
+      done
+      unset wdc_bin
+      export PATH
+
+      export NVM_DIR="$HOME/.nvm"
+      if [ -s "$NVM_DIR/nvm.sh" ]; then
+          . "$NVM_DIR/nvm.sh"
+      fi
+
+#
+# Desktop preferences
+#
+
+- name: Configure the desktop preferences
+  ansible.builtin.import_tasks: ../cosmic/preferences.yml
+  when: "'desktop' in profiles"

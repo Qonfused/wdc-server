@@ -1,0 +1,312 @@
+- name: Prepare an isolated image builder
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+    project: "{{ playbook_dir | dirname }}"
+    package_lock_file: "{{ project }}/locks/packages.json"
+    package_input_directory: "{{ project }}/.work/packages"
+    base_lock: "{{ lookup('file', project + '/locks/base.json') | from_json }}"
+    builder_image: "wdc-server-image-base:{{ base_lock.sha256[:16] }}"
+  tasks:
+    - name: Require an explicit output directory and declared image kind
+      ansible.builtin.assert:
+        that:
+          - image_directory is defined
+          - image_directory is match('^/')
+          - image_kind | default('release') in ['release', 'test']
+          - image_kind | default('release') == 'test' or image_customization | default('') == ''
+        fail_msg: Select a new absolute image_directory. Customizations are restricted to test images.
+
+    - name: Inspect the proposed output directory
+      ansible.builtin.stat:
+        path: "{{ image_directory }}"
+      register: image_output
+
+    - name: Require an unused image output directory
+      ansible.builtin.assert:
+        that: not image_output.stat.exists
+        fail_msg: Image output directories cannot be reused. Select a new release directory.
+
+    - name: Verify the pinned rootfs
+      ansible.builtin.stat:
+        path: "{{ project }}/.work/base/rootfs.tar.xz"
+        checksum_algorithm: sha256
+      register: rootfs
+
+    - name: Require prepared installation inputs
+      ansible.builtin.assert:
+        that: rootfs.stat.checksum | default('') == base_lock.sha256
+        fail_msg: Run prepare.yml before building an image.
+
+    - name: Create the output directory
+      ansible.builtin.file:
+        path: "{{ image_directory }}"
+        state: directory
+        mode: "0700"
+
+    - name: Capture build inputs before provisioning
+      ansible.builtin.command:
+        argv: ["{{ ansible_playbook_python }}", "{{ project }}/scripts/image.py", snapshot,
+               "{{ image_directory }}", --project, "{{ project }}", --lock, "{{ package_lock_file }}",
+               --customization, "{{ image_customization | default('') }}"]
+
+    - name: Inspect the rootfs builder image
+      community.docker.docker_image_info:
+        name: "{{ builder_image }}"
+      register: builder
+
+    - name: Import the verified rootfs
+      ansible.builtin.command:
+        argv: [docker, image, import, "{{ rootfs.stat.path }}", "{{ builder_image }}"]
+      when: builder.images | length == 0
+
+    - name: Inspect active image assembly
+      community.docker.docker_container_info:
+        name: wdc-server-image-build
+      register: active_builder
+
+    - name: Require no other image assembly in progress
+      ansible.builtin.assert:
+        that: not active_builder.exists
+        fail_msg: Inspect and remove the previous wdc-server-image-build container before retrying.
+
+    - name: Start a fresh builder with the locked repository
+      community.docker.docker_container:
+        name: wdc-server-image-build
+        image: "{{ builder_image }}"
+        command: [sleep, infinity]
+        runtime: runc
+        network_mode: none
+        recreate: false
+        mounts:
+          - type: bind
+            source: "{{ package_input_directory }}"
+            target: /opt/wdc-packages
+            read_only: true
+          - type: bind
+            source: "{{ image_directory }}"
+            target: /opt/wdc-image
+
+    - name: Add the image builder as a bootstrap target
+      ansible.builtin.add_host:
+        name: wdc-server-image-build
+        groups: wdc
+        ansible_connection: community.docker.docker
+        ansible_become: false
+        rustdesk_restore_identity: false
+        tailscale_enrolled: false
+        target_running: false
+        profiles: "{{ image_profiles | default(omit) }}"
+        image_directory: "{{ image_directory }}"
+
+- ansible.builtin.import_playbook: ../bootstrap.yml
+  vars:
+    deployment_hosts: wdc-server-image-build
+
+- name: Seal and assemble the bootable image
+  hosts: wdc-server-image-build
+  gather_facts: false
+  vars:
+    project: "{{ playbook_dir | dirname }}"
+    package_lock_file: "{{ project }}/locks/packages.json"
+    package_lock: "{{ lookup('file', package_lock_file) | from_json }}"
+    image_disk_size: 24G
+  tasks:
+    - name: Lock passwords in the reusable base image
+      ansible.builtin.user:
+        name: "{{ item }}"
+        password: '!'
+      loop: [root, "{{ host_user }}"]
+
+    - name: Remove machine-specific identities from the reusable base
+      ansible.builtin.shell: |
+        set -eu
+        rm -f /etc/machine-id /var/lib/dbus/machine-id /etc/ssh/ssh_host_*
+        rm -rf /var/lib/tailscale
+        rm -f /root/.config/rustdesk/RustDesk.toml /home/{{ host_user }}/.config/rustdesk/RustDesk.toml
+      args:
+        executable: /bin/sh
+
+    - name: Install the first-boot D-Bus identity hook
+      ansible.builtin.copy:
+        dest: /etc/runit/core-services/09-wdc-identity.sh
+        mode: "0644"
+        content: |
+          # A base image contains no machine identity. Keep the generated value on subsequent boots.
+          if command -v dbus-uuidgen >/dev/null 2>&1; then
+              dbus-uuidgen --ensure=/var/lib/dbus/machine-id
+          fi
+
+    - name: Apply test guest configuration
+      ansible.builtin.include_tasks: "{{ project }}/{{ image_customization }}"
+      when: image_customization | default('') | length > 0
+
+    - name: Include disk and display drivers for portable boot images
+      ansible.builtin.copy:
+        dest: /etc/dracut.conf.d/wdc-image.conf
+        mode: "0644"
+        content: |
+          hostonly="no"
+          add_drivers+=" virtio_pci virtio_blk virtio_net virtio_gpu "
+
+    - name: Find the installed kernel release
+      ansible.builtin.find:
+        paths: /lib/modules
+        file_type: directory
+        recurse: false
+      register: kernels
+
+    - name: Require exactly one locked kernel
+      ansible.builtin.assert:
+        that: kernels.matched == 1
+
+    - name: Select its module directory
+      ansible.builtin.set_fact:
+        kernel_release: "{{ kernels.files[0].path | basename }}"
+
+    - name: Generate the image initramfs
+      ansible.builtin.command:
+        argv: [dracut, --force, --no-hostonly, "/boot/initramfs-{{ kernel_release }}.img", "{{ kernel_release }}"]
+
+    - name: Verify NVIDIA build and boot artifacts before exporting the image
+      ansible.builtin.include_tasks: verify-nvidia.yml
+      when: "'nvidia' in profiles"
+
+    - name: Declare the image root filesystem
+      ansible.builtin.copy:
+        dest: /etc/fstab
+        mode: "0644"
+        content: "LABEL=wdc-root / ext4 defaults 0 1\n"
+
+    - name: Create the bootloader configuration directory
+      ansible.builtin.file:
+        path: /boot/grub
+        state: directory
+        mode: "0755"
+
+    - name: Configure GRUB for the image disks
+      ansible.builtin.copy:
+        dest: /boot/grub/grub.cfg
+        mode: "0644"
+        content: |
+          set timeout=0
+          search --label wdc-root --set=root
+          menuentry 'wdc-server' {
+              linux /boot/vmlinuz-{{ kernel_release }} root=LABEL=wdc-root ro console=tty0 console=ttyS0,115200
+              initrd /boot/initramfs-{{ kernel_release }}.img
+          }
+
+    - name: Write the removable UEFI loader configuration
+      ansible.builtin.copy:
+        dest: /opt/wdc-image/grub.cfg
+        mode: "0644"
+        content: |
+          search --label wdc-root --set=root
+          configfile /boot/grub/grub.cfg
+
+    - name: Build the UEFI loader from the locked image GRUB package
+      ansible.builtin.command:
+        argv: [grub-mkstandalone, --format=x86_64-efi, --output=/opt/wdc-image/BOOTX64.EFI, "boot/grub/grub.cfg=/opt/wdc-image/grub.cfg"]
+
+    # Exporting omits Docker's injected hostname, resolver and virtual mounts.
+    - name: Export the configured image filesystem
+      ansible.builtin.command:
+        argv: [docker, export, --output, "{{ image_directory }}/rootfs.tar", wdc-server-image-build]
+      delegate_to: localhost
+
+    - name: Remove the previous filesystem extraction
+      ansible.builtin.file:
+        path: /opt/wdc-image/rootfs
+        state: absent
+
+    # Docker's export preserves file capabilities in extended attributes. Restore
+    # them before mkfs copies the extracted filesystem into the image disk.
+    - name: Extract the image filesystem and extended attributes
+      ansible.builtin.shell: |
+        set -eu
+        mkdir -p /opt/wdc-image/rootfs
+        tar --xattrs --xattrs-include='*' --acls -xf /opt/wdc-image/rootfs.tar -C /opt/wdc-image/rootfs
+        cp /etc/hostname /etc/resolv.conf /opt/wdc-image/rootfs/etc/
+
+    - name: Remove container detection markers from the image filesystem
+      ansible.builtin.file:
+        path: "/opt/wdc-image/rootfs/{{ item }}"
+        state: absent
+      loop: [.dockerenv, run/.containerenv]
+
+    - name: Create the root disk from the complete image filesystem
+      ansible.builtin.command:
+        argv: [mkfs.ext4, -F, -L, wdc-root, -d, /opt/wdc-image/rootfs, /opt/wdc-image/root.img, "{{ image_disk_size }}"]
+
+    - name: Set root disk ownership to the build user
+      ansible.builtin.file:
+        path: /opt/wdc-image/root.img
+        owner: "{{ lookup('pipe', 'id -u') }}"
+        group: "{{ lookup('pipe', 'id -g') }}"
+        mode: "0600"
+
+    - name: Create the UEFI boot disk
+      ansible.builtin.command:
+        argv: [mformat, -C, -i, "{{ image_directory }}/efi.img", -T, '131072', '::']
+      delegate_to: localhost
+
+    - name: Create the standard removable boot directory
+      ansible.builtin.command:
+        argv: [mmd, -i, "{{ image_directory }}/efi.img", '::/EFI', '::/EFI/BOOT']
+      delegate_to: localhost
+
+    - name: Install the image-built bootloader
+      ansible.builtin.command:
+        argv: [mcopy, -i, "{{ image_directory }}/efi.img", "{{ image_directory }}/BOOTX64.EFI", '::/EFI/BOOT/BOOTX64.EFI']
+      delegate_to: localhost
+
+    - name: Archive the complete filesystem after removing container markers
+      ansible.builtin.command:
+        argv: [tar, --xattrs, --acls, --numeric-owner, -C, /opt/wdc-image/rootfs, -cf, /opt/wdc-image/rootfs.tar, .]
+
+    - name: Compress the sealed deployment rootfs
+      ansible.builtin.command:
+        argv: [xz, -T2, -2, /opt/wdc-image/rootfs.tar]
+
+    - name: Remove temporary image assembly files
+      ansible.builtin.file:
+        path: "/opt/wdc-image/{{ item }}"
+        state: absent
+      loop: [rootfs, grub.cfg, BOOTX64.EFI]
+
+    - name: Set image artifact ownership to the build user
+      ansible.builtin.file:
+        path: "/opt/wdc-image/{{ item }}"
+        owner: "{{ lookup('pipe', 'id -u') }}"
+        group: "{{ lookup('pipe', 'id -g') }}"
+        mode: "0600"
+      loop: [root.img, efi.img, rootfs.tar.xz]
+
+    - name: Record image checksums and build inputs
+      ansible.builtin.command:
+        argv:
+          - "{{ ansible_playbook_python }}"
+          - "{{ project }}/scripts/image.py"
+          - record
+          - "{{ image_directory }}"
+          - --project
+          - "{{ project }}"
+          - --lock
+          - "{{ package_lock_file }}"
+          - --kind
+          - "{{ image_kind | default('release') }}"
+          - --user
+          - "{{ host_user }}"
+          - --profiles
+          - "{{ profiles | to_json }}"
+          - --customization
+          - "{{ image_customization | default('') }}"
+      delegate_to: localhost
+
+    - name: Remove the completed image builder
+      community.docker.docker_container:
+        name: wdc-server-image-build
+        state: absent
+      delegate_to: localhost

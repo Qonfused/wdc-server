@@ -1,0 +1,73 @@
+- name: Create a disposable Void configuration target
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+    project: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}"
+    base_lock: "{{ lookup('file', project + '/locks/base.json') | from_json }}"
+    package_lock: "{{ lookup('file', project + '/locks/packages.json') | from_json }}"
+    previous_package: "{{ lookup('file', 'previous-package.json') | from_json }}"
+    image: "wdc-server-config-test:{{ base_lock.sha256[:16] }}"
+  tasks:
+    - name: Verify the rootfs before importing it
+      ansible.builtin.stat:
+        path: "{{ project }}/.work/base/rootfs.tar.xz"
+        checksum_algorithm: sha256
+      register: rootfs
+
+    - name: Require the declared initial image
+      ansible.builtin.assert:
+        that:
+          - rootfs.stat.checksum | default('') == base_lock.sha256
+
+    - name: Inspect the test image
+      community.docker.docker_image_info:
+        name: "{{ image }}"
+      register: test_image
+
+    - name: Import the verified rootfs as a Docker image
+      ansible.builtin.command:
+        argv: [docker, image, import, "{{ project }}/.work/base/rootfs.tar.xz", "{{ image }}"]
+      when: test_image.images | length == 0
+
+    - name: Describe the prior package baseline for the upgrade checks
+      ansible.builtin.copy:
+        dest: "{{ project }}/.work/previous-packages.json"
+        content: "{{ package_lock | combine({'packages': previous_package}, recursive=true) | to_nice_json }}\n"
+        mode: "0644"
+
+    - name: Remove the previous generated test repository
+      ansible.builtin.file:
+        path: "{{ project }}/.work/packages-previous"
+        state: absent
+
+    - name: Prepare the prior package repository
+      ansible.builtin.command:
+        argv:
+          - "{{ ansible_playbook_python }}"
+          - "{{ project }}/scripts/prepare-packages.py"
+          - "{{ project }}/.work/previous-packages.json"
+          - "{{ project }}/.work/packages-previous"
+          - --cache=/var/cache/xbps
+          - "--cache={{ project }}/.work/packages"
+      register: previous_repository
+      changed_when: (previous_repository.stdout | from_json).changed
+
+    - name: Start the configuration target without host devices or networking
+      community.docker.docker_container:
+        name: wdc-server-config-test
+        image: "{{ image }}"
+        command: [sleep, infinity]
+        state: started
+        runtime: runc
+        network_mode: none
+        mounts:
+          - type: bind
+            source: "{{ project }}/.work/packages"
+            target: /opt/wdc-packages
+            read_only: true
+          - type: bind
+            source: "{{ project }}/.work/packages-previous"
+            target: /opt/wdc-packages-previous
+            read_only: true

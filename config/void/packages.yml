@@ -1,0 +1,89 @@
+#
+# Package roots for update proposals
+#
+
+- name: Collect package roots for a proposed update
+  ansible.builtin.set_fact:
+    selected_packages: >-
+      {{ (selected_packages | default([]) + requested_packages) | unique | sort }}
+    selected_package_keeps: >-
+      {{ (selected_package_keeps | default([]) + (package_update_keep | default([])))
+         | unique | sort }}
+  when: collect_packages | default(false)
+
+#
+# Locked installation
+#
+# Callers can use package_installation.changed to react to the XBPS transaction.
+# The result is replaced on each installation request.
+#
+
+- name: Reconcile the locked installation
+  when: not (collect_packages | default(false))
+  block:
+    - name: Require a lock for every requested package
+      ansible.builtin.assert:
+        that:
+          - requested_packages | difference(package_lock.packages.keys() | list) | length == 0
+        fail_msg: Add verified package artifacts to the lock before selecting this concern.
+
+    #
+    # Select packages that need reconciliation
+    #
+
+    - name: Read installed package versions
+      ansible.builtin.command: xbps-query -l
+      register: installed_packages
+      changed_when: false
+      check_mode: false
+
+    - name: Select requested roots and installed packages owned by the lock
+      ansible.builtin.set_fact:
+        managed_packages: >-
+          {{ (requested_packages +
+              (installed_packages.stdout | regex_findall('(?m)^ii ([^ ]+) ')
+               | map('regex_replace', '-[^-]+$', '')
+               | intersect(package_lock.packages.keys() | list))) | unique | sort }}
+
+    - name: Determine required package changes
+      ansible.builtin.set_fact:
+        missing_packages: >-
+          {{ managed_packages | map('extract', package_lock.packages)
+             | map(attribute='version') | list | difference(installed_versions) }}
+      vars:
+        installed_versions: "{{ installed_packages.stdout | regex_findall('(?m)^ii ([^ ]+) ') }}"
+
+    - name: Install exact versions from the declared repository
+      ansible.builtin.command:
+        argv: >-
+          {{ ['xbps-install', '--ignore-conf-repos', '--repository', package_repository, '-fy']
+             + missing_packages }}
+      register: package_installation
+      when: missing_packages | length > 0
+      notify:
+        - Rebuild initramfs
+        - Update GRUB configuration
+
+    #
+    # Verify the installed versions
+    #
+
+    - name: Read package versions after reconciliation
+      ansible.builtin.command: xbps-query -l
+      register: configured_packages
+      changed_when: false
+      check_mode: false
+
+    - name: Require exact installed versions
+      ansible.builtin.assert:
+        that:
+          - >-
+            requested_packages | map('extract', package_lock.packages)
+            | map(attribute='version') | list | difference(configured_versions) | length == 0
+          - >-
+            locked_installed_packages | map('extract', package_lock.packages)
+            | map(attribute='version') | list | difference(configured_versions) | length == 0
+      vars:
+        configured_versions: "{{ configured_packages.stdout | regex_findall('(?m)^ii ([^ ]+) ') }}"
+        locked_installed_packages: "{{ configured_versions | map('regex_replace', '-[^-]+$', '') | intersect(package_lock.packages.keys() | list) }}"
+      when: not ansible_check_mode
